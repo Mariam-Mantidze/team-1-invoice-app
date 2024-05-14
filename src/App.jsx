@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from "react";
 import "./App.css";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import data from "./data.json";
+import { useScreenType } from "./window-width/WindowWidth";
 import Home from "./pages/home-page/Home";
 import SingleInvoice from "./pages/single-invoice/SingleInvoice";
 import NewInvoice from "./pages/forms/NewInvoice";
@@ -21,6 +22,10 @@ function App() {
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(invoiceData));
   }, [invoiceData]);
+
+  // detect screen size for conditional rendering
+
+  const { isMobile, isTablet, isDesktop } = useScreenType();
 
   return (
     <invoiceContext.Provider value={{ invoiceData, setInvoiceData }}>

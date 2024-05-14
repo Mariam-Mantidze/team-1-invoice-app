@@ -3,10 +3,12 @@ import { useContext } from "react";
 import { invoiceContext } from "../../App";
 
 export default function Home() {
+  // get data from useContext
   const { invoiceData, setInvoiceData } = useContext(invoiceContext);
 
   return (
     <>
+      {/* mapping data for example */}
       {invoiceData.map((invoice) => {
         return (
           <ul style={{ border: "1px solid black" }} key={invoice.id}>
@@ -18,7 +20,7 @@ export default function Home() {
           </ul>
         );
       })}
-      <Link to={"/"}>New</Link>
+      <Link to={"/new-invoice"}>New</Link>
     </>
   );
 }
