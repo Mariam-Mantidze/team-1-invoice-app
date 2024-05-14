@@ -38,80 +38,86 @@ export default function NewInvoice() {
         <p>Go Back</p>
       </div>
       <h1>New Invoice</h1>
+
       <h3>Bill From</h3>
 
-      <div className="label-box">
-        <label htmlFor="from-street">
-          Street Address
-          <input type="text" id="from-street" />
-        </label>
-      </div>
-
-      <div className="country-flex-box">
+      <div className="bill-group">
         <div className="label-box">
-          <label htmlFor="city">
-            City
-            <input type="text" id="city" />
+          <label htmlFor="from-street">
+            Street Address
+            <input type="text" id="from-street" />
           </label>
         </div>
 
-        <div className="label-box">
-          <label htmlFor="post-code">
-            Post Code
-            <input type="text" id="post-code" />
-          </label>
-        </div>
+        <div className="country-flex-box">
+          <div className="label-box">
+            <label htmlFor="city">
+              City
+              <input type="text" id="city" />
+            </label>
+          </div>
 
-        <div className="label-box">
-          <label htmlFor="country">
-            Country
-            <input type="text" id="country" />
-          </label>
+          <div className="label-box">
+            <label htmlFor="post-code">
+              Post Code
+              <input type="text" id="post-code" />
+            </label>
+          </div>
+
+          <div className="label-box">
+            <label htmlFor="country">
+              Country
+              <input type="text" id="country" />
+            </label>
+          </div>
         </div>
       </div>
 
       <h3>Bill to</h3>
-      <div className="label-box">
-        <label htmlFor="client-name">
-          Client's Name
-          <input type="text" id="client-name" />
-        </label>
-      </div>
 
-      <div className="label-box">
-        <label htmlFor="client-email">
-          Client's Email
-          <input type="text" id="client-email" />
-        </label>
-      </div>
-
-      <div className="label-box">
-        <label htmlFor="client-st-address">
-          Street Address
-          <input type="text" id="client-st-address" />
-        </label>
-      </div>
-
-      <div className="country-flex-box">
+      <div className="bill-group">
         <div className="label-box">
-          <label htmlFor="client-city">
-            City
-            <input type="text" id="client-city" />
+          <label htmlFor="client-name">
+            Client's Name
+            <input type="text" id="client-name" />
           </label>
         </div>
 
         <div className="label-box">
-          <label htmlFor="client-post-code">
-            Post Code
-            <input type="text" id="client-post-code" />
+          <label htmlFor="client-email">
+            Client's Email
+            <input type="text" id="client-email" />
           </label>
         </div>
 
         <div className="label-box">
-          <label htmlFor="client-country">
-            Country
-            <input type="text" id="client-country" />
+          <label htmlFor="client-st-address">
+            Street Address
+            <input type="text" id="client-st-address" />
           </label>
+        </div>
+
+        <div className="country-flex-box">
+          <div className="label-box">
+            <label htmlFor="client-city">
+              City
+              <input type="text" id="client-city" />
+            </label>
+          </div>
+
+          <div className="label-box">
+            <label htmlFor="client-post-code">
+              Post Code
+              <input type="text" id="client-post-code" />
+            </label>
+          </div>
+
+          <div className="label-box">
+            <label htmlFor="client-country">
+              Country
+              <input type="text" id="client-country" />
+            </label>
+          </div>
         </div>
       </div>
     </Form>
@@ -169,6 +175,30 @@ const Form = styled.form`
       font-weight: 500;
       line-height: 15px;
       letter-spacing: -0.10000000149011612px;
+
+      & > input {
+        border: ${(props) => props.theme.textFieldBorder};
+        border-radius: 5px;
+        padding: 18px 20px 15px;
+        color: ${(props) => props.theme.textColor};
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 15px;
+        letter-spacing: -0.25px;
+        outline: none;
+      }
     }
+  }
+
+  /* & > .bill-group {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  } */
+
+  & > .country-flex-box {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
   }
 `;
