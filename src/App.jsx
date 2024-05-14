@@ -7,6 +7,8 @@ import Home from "./pages/home-page/Home";
 import SingleInvoice from "./pages/single-invoice/SingleInvoice";
 import NewInvoice from "./pages/forms/NewInvoice";
 import EditInvoice from "./pages/forms/EditInvoice";
+import Header from "./Header";
+import { GlobalStyles } from "./styles/GlobalStyles";
 
 // creating context
 export const invoiceContext = createContext({});
@@ -24,11 +26,13 @@ function App() {
   }, [invoiceData]);
 
   // detect screen size for conditional rendering
-
   const { isMobile, isTablet, isDesktop } = useScreenType();
 
   return (
-    <invoiceContext.Provider value={{ invoiceData, setInvoiceData }}>
+    <invoiceContext.Provider
+      value={{ invoiceData, setInvoiceData, isMobile, isTablet, isDesktop }}>
+      <GlobalStyles />
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:id" element={<SingleInvoice />} />
