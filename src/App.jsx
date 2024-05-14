@@ -2,10 +2,10 @@ import { createContext, useState, useEffect } from "react";
 import "./App.css";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import data from "./data.json";
-import Home from "./home-page/Home";
-import SingleInvoice from "./single-invoice/SingleInvoice";
-import NewInvoice from "./forms/NewInvoice";
-import EditInvoice from "./forms/EditInvoice";
+import Home from "./pages/home-page/Home";
+import SingleInvoice from "./pages/single-invoice/SingleInvoice";
+import NewInvoice from "./pages/forms/NewInvoice";
+import EditInvoice from "./pages/forms/EditInvoice";
 
 // creating context
 export const invoiceContext = createContext({});
@@ -26,7 +26,7 @@ function App() {
     <invoiceContext.Provider value={{ invoiceData, setInvoiceData }}>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/invoices/:id" element={<SingleInvoice />} />
+        <Route path="/:id" element={<SingleInvoice />} />
         <Route path="/new-invoice" element={<NewInvoice />} />
         <Route path="/invoices/:id/edit-invoice" element={<EditInvoice />} />
       </Routes>
