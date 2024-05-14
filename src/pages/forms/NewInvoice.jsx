@@ -9,7 +9,7 @@ export default function NewInvoice() {
 
   return (
     <Form>
-      <p>1</p>
+      <p>1=</p>
       <input type="text" />
     </Form>
   );

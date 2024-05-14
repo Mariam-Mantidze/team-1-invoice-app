@@ -9,7 +9,8 @@ import NewInvoice from "./pages/forms/NewInvoice";
 import EditInvoice from "./pages/forms/EditInvoice";
 import Header from "./Header";
 import { GlobalStyles } from "./styles/GlobalStyles";
-
+import { ThemeProvider } from "styled-components";
+import { lightTheme, darkTheme } from "./styles/Themes";
 // creating context
 export const invoiceContext = createContext({});
 
@@ -28,17 +29,22 @@ function App() {
   // detect screen size for conditional rendering
   const { isMobile, isTablet, isDesktop } = useScreenType();
 
+  // useState for setting themes
+  const [mode, setMode] = useState("light");
+
   return (
     <invoiceContext.Provider
       value={{ invoiceData, setInvoiceData, isMobile, isTablet, isDesktop }}>
       <GlobalStyles />
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/:id" element={<SingleInvoice />} />
-        <Route path="/new-invoice" element={<NewInvoice />} />
-        <Route path="/invoices/:id/edit-invoice" element={<EditInvoice />} />
-      </Routes>
+      <ThemeProvider theme={mode === "light" ? lightTheme : darkTheme}>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/:id" element={<SingleInvoice />} />
+          <Route path="/new-invoice" element={<NewInvoice />} />
+          <Route path="/invoices/:id/edit-invoice" element={<EditInvoice />} />
+        </Routes>
+      </ThemeProvider>
     </invoiceContext.Provider>
   );
 }
