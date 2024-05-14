@@ -118,4 +118,57 @@ export default function NewInvoice() {
   );
 }
 
-const Form = styled.form``;
+const Form = styled.form`
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center; */
+  padding: 24px 22px;
+  background-color: ${(props) => props.theme.formsBackground};
+
+  & > .go-back {
+    display: flex;
+    align-items: center;
+    gap: 23px;
+    margin-top: 33px;
+
+    & > p {
+      color: ${(props) => props.theme.textColor};
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 15px;
+      letter-spacing: -0.25px;
+    }
+  }
+
+  & > h1 {
+    color: ${(props) => props.theme.textColor};
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    letter-spacing: -0.5px;
+    margin-top: 25px;
+    margin-bottom: 22px;
+  }
+
+  & > h3 {
+    color: rgba(124, 93, 250, 1);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 15px;
+    letter-spacing: -0.25px;
+    margin-bottom: 24px;
+  }
+
+  & .label-box {
+    & > label {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      color: ${(props) => props.theme.labelColor};
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 15px;
+      letter-spacing: -0.10000000149011612px;
+    }
+  }
+`;
