@@ -23,7 +23,7 @@ const GoBackDiv = styled.div`
   display: flex;
   align-items: center;
   gap: 23px;
-  margin-top: 33px;
+  margin-top: 20px;
 
   & > p {
     color: ${(props) => props.theme.textColor};

@@ -32,7 +32,7 @@ export default function SingleInvoice() {
   }, [invoice.status]);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen lg:w-[60%] lg:ml-[200px]">
       <div className="flex flex-col p-6 bg-gray-50 gap-8">
         <GoBack />
 
