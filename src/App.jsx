@@ -11,6 +11,7 @@ import Header from "./shared-components/Header";
 import { GlobalStyles } from "./styles/GlobalStyles";
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./styles/Themes";
+
 // creating context
 export const invoiceContext = createContext({});
 
