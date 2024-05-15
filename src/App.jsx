@@ -17,24 +17,27 @@ export const invoiceContext = createContext({});
 function App() {
   // get data for storing in local storage
   const storedData = JSON.parse(localStorage.getItem("invoiceData"));
+  const storedMode = localStorage.getItem("mode");
 
   // set stored data in useState
   const [invoiceData, setInvoiceData] = useState(storedData || data);
 
+  // useState for setting themes
+  const [mode, setMode] = useState("light");
+
   // store data in local storage
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(invoiceData));
-  }, [invoiceData]);
+    localStorage.setItem("mode", JSON.stringify(mode));
+  }, [invoiceData, mode]);
 
   // detect screen size for conditional rendering
   const { isMobile, isTablet, isDesktop } = useScreenType();
 
-  // useState for setting themes
-  const [mode, setMode] = useState("light");
-
   return (
     <invoiceContext.Provider
-      value={{ invoiceData, setInvoiceData, isMobile, isTablet, isDesktop }}>
+      value={{ invoiceData, setInvoiceData, isMobile, isTablet, isDesktop }}
+    >
       <GlobalStyles />
       <ThemeProvider theme={mode === "light" ? lightTheme : darkTheme}>
         <Header />
