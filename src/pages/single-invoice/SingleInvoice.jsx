@@ -3,6 +3,7 @@ import { invoiceContext } from "../../App";
 import { useParams } from "react-router-dom";
 import GoBack from "../../components/GoBack";
 import Address from "../../components/SingleInvoice/Address";
+import InvoiceDates from "../../components/SingleInvoice/InvoiceDates";
 
 export default function SingleInvoice() {
   // find id of current invoice
@@ -63,15 +64,8 @@ export default function SingleInvoice() {
           <Address owner={invoice.senderAddress} />
 
           <div>
-            <div>
-              <p>Invoice Date</p>
-              <p>{invoice.createdAt}</p>
-            </div>
-
-            <div>
-              <p>Payment Due</p>
-              <p>{invoice.paymentDue}</p>
-            </div>
+            <InvoiceDates name="Invoice Date" date={invoice.createdAt} />
+            <InvoiceDates name="Payment Due" date={invoice.paymentDue} />
           </div>
 
           <div>
