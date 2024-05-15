@@ -60,13 +60,13 @@ export default function SingleInvoice() {
             </div>
 
             <div className="hidden p-6 justify-between bg-white md:flex md:gap-6">
-              <button className="rounded-full bg-gray-100 py-4 px-6 text-indigo-300 text-sm font-bold leading-tight tracking-tight">
+              <button className="rounded-full bg-gray-100 py-4 px-6 text-indigo-300 text-sm font-bold leading-tight tracking-tight hover:bg-gray-200">
                 Edit
               </button>
-              <button className="rounded-full bg-red-500 py-4 px-6 text-white text-sm font-bold leading-tight tracking-tight">
+              <button className="rounded-full bg-red-500 py-4 px-6 text-white text-sm font-bold leading-tight tracking-tight hover:bg-red-400">
                 Delete
               </button>
-              <button className="rounded-full bg-indigo-500 py-4 px-6 text-white text-sm font-bold leading-tight tracking-tight">
+              <button className="rounded-full bg-indigo-500 py-4 px-6 text-white text-sm font-bold leading-tight tracking-tight hover:bg-indigo-400">
                 Mark As Paid
               </button>
             </div>
@@ -162,13 +162,13 @@ export default function SingleInvoice() {
       </div>
 
       <div className="flex p-6 justify-between bg-white md:hidden">
-        <button className="rounded-full bg-gray-100 py-4 px-6 text-indigo-300 text-sm font-bold leading-tight tracking-tight">
+        <button className="rounded-full bg-gray-100 py-4 px-6 text-indigo-300 text-sm font-bold leading-tight tracking-tight hover:bg-gray-50">
           Edit
         </button>
-        <button className="rounded-full bg-red-500 py-4 px-6 text-white text-sm font-bold leading-tight tracking-tight">
+        <button className="rounded-full bg-red-500 py-4 px-6 text-white text-sm font-bold leading-tight tracking-tight hover:bg-red-400">
           Delete
         </button>
-        <button className="rounded-full bg-indigo-500 py-4 px-6 text-white text-sm font-bold leading-tight tracking-tight">
+        <button className="rounded-full bg-indigo-500 py-4 px-6 text-white text-sm font-bold leading-tight tracking-tight hover:bg-indigo-400">
           Mark As Paid
         </button>
       </div>
