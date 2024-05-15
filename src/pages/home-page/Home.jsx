@@ -11,13 +11,11 @@ export default function Home() {
       {/* mapping data for example */}
       {invoiceData.map((invoice) => {
         return (
-          <ul style={{ border: "1px solid black" }} key={invoice.id}>
-            <li>
-              <Link to={`/${invoice.id}`}>{invoice.id}</Link>
-              <p>{invoice.status}</p>
-              <p>{invoice.clientName}</p>
-            </li>
-          </ul>
+          <li style={{ border: "1px solid black" }} key={invoice.id}>
+            <Link to={`/${invoice.id}`}>{invoice.id}</Link>
+            <p>{invoice.status}</p>
+            <p>{invoice.clientName}</p>
+          </li>
         );
       })}
       <Link to={"/new-invoice"}>New</Link>
