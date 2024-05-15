@@ -51,13 +51,18 @@ function App() {
     >
       <GlobalStyles />
       <ThemeProvider theme={mode === "light" ? lightTheme : darkTheme}>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/:id" element={<SingleInvoice />} />
-          <Route path="/new-invoice" element={<NewInvoice />} />
-          <Route path="/invoices/:id/edit-invoice" element={<EditInvoice />} />
-        </Routes>
+        <div className="min-h-screen bg-[#f8f8fb] lg:flex">
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/:id" element={<SingleInvoice />} />
+            <Route path="/new-invoice" element={<NewInvoice />} />
+            <Route
+              path="/invoices/:id/edit-invoice"
+              element={<EditInvoice />}
+            />
+          </Routes>
+        </div>
       </ThemeProvider>
     </invoiceContext.Provider>
   );
