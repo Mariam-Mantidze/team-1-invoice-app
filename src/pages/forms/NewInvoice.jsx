@@ -28,7 +28,6 @@ export default function NewInvoice() {
     <Form>
       <GoBack />
       <h1>New Invoice</h1>
-
       <h3>Bill From</h3>
 
       <div className="bill-group">
@@ -40,18 +39,20 @@ export default function NewInvoice() {
         </div>
 
         <div className="country-flex-box">
-          <div className="label-box">
-            <label htmlFor="city">
-              City
-              <input type="text" id="city" />
-            </label>
-          </div>
+          <div className="city-post-code-group">
+            <div className="label-box">
+              <label htmlFor="city">
+                City
+                <input type="text" id="city" />
+              </label>
+            </div>
 
-          <div className="label-box">
-            <label htmlFor="post-code">
-              Post Code
-              <input type="text" id="post-code" />
-            </label>
+            <div className="label-box">
+              <label htmlFor="post-code">
+                Post Code
+                <input type="text" id="post-code" />
+              </label>
+            </div>
           </div>
 
           <div className="label-box">
@@ -63,7 +64,7 @@ export default function NewInvoice() {
         </div>
       </div>
 
-      <h3>Bill to</h3>
+      <h3 id="scnd-bill">Bill to</h3>
 
       <div className="bill-group">
         <div className="label-box">
@@ -88,18 +89,20 @@ export default function NewInvoice() {
         </div>
 
         <div className="country-flex-box">
-          <div className="label-box">
-            <label htmlFor="client-city">
-              City
-              <input type="text" id="client-city" />
-            </label>
-          </div>
+          <div className="city-post-code-group">
+            <div className="label-box">
+              <label htmlFor="client-city">
+                City
+                <input type="text" id="client-city" />
+              </label>
+            </div>
 
-          <div className="label-box">
-            <label htmlFor="client-post-code">
-              Post Code
-              <input type="text" id="client-post-code" />
-            </label>
+            <div className="label-box">
+              <label htmlFor="client-post-code">
+                Post Code
+                <input type="text" id="client-post-code" />
+              </label>
+            </div>
           </div>
 
           <div className="label-box">
@@ -109,6 +112,35 @@ export default function NewInvoice() {
             </label>
           </div>
         </div>
+      </div>
+
+      <div className="invoice-date-description">
+        <div className="invoice-payment-grp">
+          <div className="label-box">
+            <label htmlFor="invoice-date">
+              Invoice Date
+              <input id="invoice-date" type="date" />
+            </label>
+          </div>
+
+          <div className="label-box">
+            <label htmlFor="payment-terms">
+              Payment Terms
+              <select id="payment-terms" />
+            </label>
+          </div>
+        </div>
+
+        <div className="label-box">
+          <label htmlFor="project-description">
+            Project Description
+            <input type="text" id="project-description" />
+          </label>
+        </div>
+      </div>
+
+      <div className="item-list">
+        <h2>Item List</h2>
       </div>
     </Form>
   );
@@ -151,7 +183,8 @@ const Form = styled.form`
       line-height: 15px;
       letter-spacing: -0.10000000149011612px;
 
-      & > input {
+      & > input,
+      select {
         border: ${(props) => props.theme.textFieldBorder};
         border-radius: 5px;
         padding: 18px 20px 15px;
@@ -165,15 +198,43 @@ const Form = styled.form`
     }
   }
 
-  /* & > .bill-group {
+  & > .bill-group {
     display: flex;
     flex-direction: column;
     gap: 25px;
-  } */
 
-  & > .country-flex-box {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
+    & .country-flex-box {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    & .city-post-code-group {
+      display: flex;
+      gap: 23px;
+      justify-content: space-between;
+      align-items: center;
+
+      & input {
+        width: 100%;
+      }
+    }
+  }
+
+  & #scnd-bill {
+    margin-top: 41px;
+  }
+
+  & .invoice-date-description {
+    margin-top: 41px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    & > .invoice-payment-grp {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
   }
 `;
