@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export default function GoBack() {
   return (
-    <>
+    <Link to={"/"}>
       <GoBackDiv className="go-back">
         <svg width="7" height="10" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -15,7 +16,7 @@ export default function GoBack() {
         </svg>
         <p>Go Back</p>
       </GoBackDiv>
-    </>
+    </Link>
   );
 }
 
@@ -24,6 +25,7 @@ const GoBackDiv = styled.div`
   align-items: center;
   gap: 23px;
   margin-top: 20px;
+  cursor: pointer;
 
   & > p {
     color: ${(props) => props.theme.textColor};
