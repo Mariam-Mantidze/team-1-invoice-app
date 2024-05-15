@@ -34,9 +34,19 @@ function App() {
   // detect screen size for conditional rendering
   const { isMobile, isTablet, isDesktop } = useScreenType();
 
+  // navigate
+  const navigate = useNavigate();
+
   return (
     <invoiceContext.Provider
-      value={{ invoiceData, setInvoiceData, isMobile, isTablet, isDesktop }}
+      value={{
+        invoiceData,
+        setInvoiceData,
+        navigate,
+        isMobile,
+        isTablet,
+        isDesktop,
+      }}
     >
       <GlobalStyles />
       <ThemeProvider theme={mode === "light" ? lightTheme : darkTheme}>
