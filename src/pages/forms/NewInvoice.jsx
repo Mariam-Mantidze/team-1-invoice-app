@@ -40,18 +40,20 @@ export default function NewInvoice() {
         </div>
 
         <div className="country-flex-box">
-          <div className="label-box">
-            <label htmlFor="city">
-              City
-              <input type="text" id="city" />
-            </label>
-          </div>
+          <div className="city-post-code-group">
+            <div className="label-box">
+              <label htmlFor="city">
+                City
+                <input type="text" id="city" />
+              </label>
+            </div>
 
-          <div className="label-box">
-            <label htmlFor="post-code">
-              Post Code
-              <input type="text" id="post-code" />
-            </label>
+            <div className="label-box">
+              <label htmlFor="post-code">
+                Post Code
+                <input type="text" id="post-code" />
+              </label>
+            </div>
           </div>
 
           <div className="label-box">
@@ -63,7 +65,7 @@ export default function NewInvoice() {
         </div>
       </div>
 
-      <h3>Bill to</h3>
+      <h3 id="scnd-bill">Bill to</h3>
 
       <div className="bill-group">
         <div className="label-box">
@@ -88,18 +90,20 @@ export default function NewInvoice() {
         </div>
 
         <div className="country-flex-box">
-          <div className="label-box">
-            <label htmlFor="client-city">
-              City
-              <input type="text" id="client-city" />
-            </label>
-          </div>
+          <div className="city-post-code-group">
+            <div className="label-box">
+              <label htmlFor="client-city">
+                City
+                <input type="text" id="client-city" />
+              </label>
+            </div>
 
-          <div className="label-box">
-            <label htmlFor="client-post-code">
-              Post Code
-              <input type="text" id="client-post-code" />
-            </label>
+            <div className="label-box">
+              <label htmlFor="client-post-code">
+                Post Code
+                <input type="text" id="client-post-code" />
+              </label>
+            </div>
           </div>
 
           <div className="label-box">
@@ -165,15 +169,30 @@ const Form = styled.form`
     }
   }
 
-  /* & > .bill-group {
+  & > .bill-group {
     display: flex;
     flex-direction: column;
     gap: 25px;
-  } */
 
-  & > .country-flex-box {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr;
+    & .country-flex-box {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    & .city-post-code-group {
+      display: flex;
+      gap: 23px;
+      justify-content: space-between;
+      align-items: center;
+
+      & input {
+        width: 100%;
+      }
+    }
+  }
+
+  & #scnd-bill {
+    margin-top: 41px;
   }
 `;
