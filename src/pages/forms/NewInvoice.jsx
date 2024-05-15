@@ -4,6 +4,7 @@ import { invoiceContext } from "../../App";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import GoBack from "../../shared-components/GoBack";
 
 export default function NewInvoice() {
   const { invoiceData, setInvoiceData } = useContext(invoiceContext);
@@ -25,18 +26,7 @@ export default function NewInvoice() {
 
   return (
     <Form>
-      <div className="go-back">
-        <svg width="7" height="10" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M6.342.886L2.114 5.114l4.228 4.228"
-            stroke="#9277FF"
-            strokeWidth="2"
-            fill="none"
-            fillRule="evenodd"
-          />
-        </svg>
-        <p>Go Back</p>
-      </div>
+      <GoBack />
       <h1>New Invoice</h1>
 
       <h3>Bill From</h3>
@@ -130,21 +120,6 @@ const Form = styled.form`
   justify-content: center; */
   padding: 24px 22px;
   background-color: ${(props) => props.theme.formsBackground};
-
-  & > .go-back {
-    display: flex;
-    align-items: center;
-    gap: 23px;
-    margin-top: 33px;
-
-    & > p {
-      color: ${(props) => props.theme.textColor};
-      font-size: 15px;
-      font-weight: 700;
-      line-height: 15px;
-      letter-spacing: -0.25px;
-    }
-  }
 
   & > h1 {
     color: ${(props) => props.theme.textColor};
