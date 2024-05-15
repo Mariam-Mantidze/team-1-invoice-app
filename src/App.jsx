@@ -34,7 +34,8 @@ function App() {
 
   return (
     <invoiceContext.Provider
-      value={{ invoiceData, setInvoiceData, isMobile, isTablet, isDesktop }}>
+      value={{ invoiceData, setInvoiceData, isMobile, isTablet, isDesktop }}
+    >
       <GlobalStyles />
       <ThemeProvider theme={mode === "light" ? lightTheme : darkTheme}>
         <Header />
