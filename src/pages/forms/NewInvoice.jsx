@@ -28,7 +28,6 @@ export default function NewInvoice() {
     <Form>
       <GoBack />
       <h1>New Invoice</h1>
-
       <h3>Bill From</h3>
 
       <div className="bill-group">
@@ -114,6 +113,31 @@ export default function NewInvoice() {
           </div>
         </div>
       </div>
+
+      <div className="invoice-date-description">
+        <div className="invoice-payment-grp">
+          <div className="label-box">
+            <label htmlFor="invoice-date">
+              Invoice Date
+              <input id="invoice-date" type="date" />
+            </label>
+          </div>
+
+          <div className="label-box">
+            <label htmlFor="payment-terms">
+              Payment Terms
+              <select id="payment-terms" />
+            </label>
+          </div>
+        </div>
+
+        <div className="label-box">
+          <label htmlFor="project-description">
+            Project Description
+            <input type="text" id="project-description" />
+          </label>
+        </div>
+      </div>
     </Form>
   );
 }
@@ -155,7 +179,8 @@ const Form = styled.form`
       line-height: 15px;
       letter-spacing: -0.10000000149011612px;
 
-      & > input {
+      & > input,
+      select {
         border: ${(props) => props.theme.textFieldBorder};
         border-radius: 5px;
         padding: 18px 20px 15px;
@@ -194,5 +219,18 @@ const Form = styled.form`
 
   & #scnd-bill {
     margin-top: 41px;
+  }
+
+  & .invoice-date-description {
+    margin-top: 41px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    & > .invoice-payment-grp {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
   }
 `;
