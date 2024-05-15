@@ -1,7 +1,8 @@
 import { useContext, useState, useEffect } from "react";
 import { invoiceContext } from "../../App";
 import { useParams } from "react-router-dom";
-import GoBack from "../../GoBack";
+import GoBack from "../../components/GoBack";
+import Address from "../../components/SingleInvoice/Address";
 
 export default function SingleInvoice() {
   // find id of current invoice
@@ -50,6 +51,38 @@ export default function SingleInvoice() {
             >
               {invoice.status}
             </p>
+          </div>
+        </div>
+
+        <div>
+          <div>
+            <p>#{invoice.id}</p>
+            <p>{invoice.description}</p>
+          </div>
+
+          <Address owner={invoice.senderAddress} />
+
+          <div>
+            <div>
+              <p>Invoice Date</p>
+              <p>{invoice.createdAt}</p>
+            </div>
+
+            <div>
+              <p>Payment Due</p>
+              <p>{invoice.paymentDue}</p>
+            </div>
+          </div>
+
+          <div>
+            <p>Bill To</p>
+            <p>{invoice.clientsName}</p>
+            <Address owner={invoice.clientAddress} />
+          </div>
+
+          <div>
+            <p>Sent To</p>
+            <p>{invoice.clientEmail}</p>
           </div>
         </div>
       </div>
