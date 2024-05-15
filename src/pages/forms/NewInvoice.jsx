@@ -138,6 +138,10 @@ export default function NewInvoice() {
           </label>
         </div>
       </div>
+
+      <div className="item-list">
+        <h2>Item List</h2>
+      </div>
     </Form>
   );
 }
