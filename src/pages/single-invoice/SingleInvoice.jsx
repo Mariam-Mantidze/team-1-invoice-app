@@ -1,10 +1,10 @@
 import { useContext, useState, useEffect } from "react";
 import { invoiceContext } from "../../App";
 import { useParams } from "react-router-dom";
-import GoBack from "../../GoBack";
 import Address from "./Address";
 import InvoiceDates from "./InvoiceDates";
 import InvoiceItem from "./InvoiceItem";
+import GoBack from "../../shared-components/GoBack";
 
 export default function SingleInvoice() {
   // find id of current invoice
