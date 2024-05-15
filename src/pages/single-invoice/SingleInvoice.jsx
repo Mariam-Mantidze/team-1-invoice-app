@@ -31,9 +31,9 @@ export default function SingleInvoice() {
   }, [invoice.status]);
 
   return (
-    <div className="flex flex-col p-6 bg-gray-50 min-h-screen">
+    <div className="flex flex-col p-6 bg-gray-50 min-h-screen gap-8">
       <GoBack />
-      <div>
+      <div className="flex flex-col gap-4">
         <div className="flex p-6 justify-between items-center rounded-md shadow-sm bg-white">
           <p className="text-gray-400 text-sm font-medium leading-5 tracking-tight">
             Status
@@ -55,28 +55,45 @@ export default function SingleInvoice() {
           </div>
         </div>
 
-        <div>
+        <div className="flex flex-col p-6 bg-white gap-8 rounded-md shadow-sm">
           <div>
-            <p>#{invoice.id}</p>
-            <p>{invoice.description}</p>
+            <p className="text-gray-400 text-sm font-medium leading-5 tracking-tight">
+              #
+              <span className="text-gray-900 text-lg font-bold leading-5 tracking-tight">
+                {invoice.id}
+              </span>
+            </p>
+            <p className="text-gray-400 text-sm font-medium leading-5 tracking-tight">
+              {invoice.description}
+            </p>
           </div>
 
           <Address owner={invoice.senderAddress} />
 
-          <div>
-            <InvoiceDates name="Invoice Date" date={invoice.createdAt} />
-            <InvoiceDates name="Payment Due" date={invoice.paymentDue} />
+          <div className="flex justify-between">
+            <div className="flex flex-col gap-8">
+              <InvoiceDates name="Invoice Date" date={invoice.createdAt} />
+              <InvoiceDates name="Payment Due" date={invoice.paymentDue} />
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <p className="text-gray-400 text-sm font-medium leading-5 tracking-tight">
+                Bill To
+              </p>
+              <p className="text-gray-900 text-lg font-bold leading-5 tracking-tight">
+                {invoice.clientName}
+              </p>
+              <Address owner={invoice.clientAddress} />
+            </div>
           </div>
 
-          <div>
-            <p>Bill To</p>
-            <p>{invoice.clientsName}</p>
-            <Address owner={invoice.clientAddress} />
-          </div>
-
-          <div>
-            <p>Sent To</p>
-            <p>{invoice.clientEmail}</p>
+          <div className="flex flex-col gap-3">
+            <p className="text-gray-400 text-sm font-medium leading-5 tracking-tight">
+              Sent To
+            </p>
+            <p className="text-gray-900 text-lg font-bold leading-5 tracking-tight">
+              {invoice.clientEmail}
+            </p>
           </div>
         </div>
       </div>

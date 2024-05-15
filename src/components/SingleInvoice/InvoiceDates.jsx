@@ -1,6 +1,6 @@
 export default function InvoiceDates({ name, date }) {
   return (
-    <div className="flex flex-col gap-[13px]">
+    <div className="flex flex-col gap-3">
       <p className="text-gray-400 text-sm font-medium leading-5 tracking-tight">
         {name}
       </p>
