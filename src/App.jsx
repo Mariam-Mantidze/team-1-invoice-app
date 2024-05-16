@@ -47,8 +47,7 @@ function App() {
         isMobile,
         isTablet,
         isDesktop,
-      }}
-    >
+      }}>
       <GlobalStyles />
       <ThemeProvider theme={mode === "light" ? lightTheme : darkTheme}>
         <div className="min-h-screen bg-[#f8f8fb] lg:flex">
