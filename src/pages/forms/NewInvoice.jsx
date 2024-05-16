@@ -141,6 +141,17 @@ export default function NewInvoice() {
 
       <div className="item-list">
         <h2>Item List</h2>
+
+        <div className="item-inactive">
+          <p>Item Name</p>
+
+          <div className="item-inactive-flex">
+            <span>Qty.</span>
+            <span>Price</span>
+          </div>
+
+          <p>Total</p>
+        </div>
       </div>
     </Form>
   );
