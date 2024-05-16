@@ -25,6 +25,7 @@ const GoBackDiv = styled.div`
   align-items: center;
   gap: 23px;
   margin-top: 20px;
+  padding: 0 24px 0;
   cursor: pointer;
 
   & > p {
