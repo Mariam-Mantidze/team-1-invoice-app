@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import GoBack from "../../shared-components/GoBack";
+import uuid from "react-uuid";
 
 export default function NewInvoice() {
   const { invoiceData, setInvoiceData } = useContext(invoiceContext);
@@ -26,11 +27,10 @@ export default function NewInvoice() {
 
   const [items, setItems] = useState([]);
 
-  console.log(Object.keys(items).length !== 0);
-
   const handleAddItemClick = (e) => {
     e.preventDefault();
     const newItem = {
+      id: uuid(),
       name: "",
       quantity: "",
       price: "",
@@ -38,6 +38,12 @@ export default function NewInvoice() {
     };
 
     setItems([...items, newItem]);
+  };
+
+  const handleDeleteItemClick = (id) => {
+    const updatedItems = items.filter((item) => item.id !== id);
+
+    setItems(updatedItems);
   };
 
   return (
@@ -158,55 +164,62 @@ export default function NewInvoice() {
       <div className="item-list">
         <h2>Item List</h2>
 
-        {items.length > 0 ? (
-          items.map((item, index) => {
-            return (
-              <div key={index} className="item-active">
-                <div className="label-box">
-                  <label>
-                    Item Name
-                    <input type="text" name="item-name" />
-                  </label>
-                </div>
+        <div className="item-active-container">
+          {items.length > 0 ? (
+            items.map((item, index) => {
+              return (
+                <div key={item.id} className="item-active">
+                  <div className="active-container"></div>
+                  <div className="label-box">
+                    <label>
+                      Item Name
+                      <input type="text" name="item-name" />
+                    </label>
+                  </div>
 
-                <div className="qty-delete-box">
-                  <div className="qty-price-box">
-                    <div className="label-box">
-                      <label htmlFor="qty">
-                        Qty.
-                        <input id="qty" />
-                      </label>
-                    </div>
-                    <div className="label-box">
-                      <label htmlFor="price">
-                        Price
-                        <input id="price" />
-                      </label>
-                    </div>
-                    <div className="label-box total-box">
-                      <div className="total-flex">
-                        <p>Total</p>
-                        <span>200.00</span>
+                  <div className="qty-delete-box">
+                    <div className="qty-price-box">
+                      <div className="label-box">
+                        <label htmlFor={`qty-${item.id}`}>
+                          Qty.
+                          <input className="qty" id={`qty-${item.id}`} />
+                        </label>
+                      </div>
+                      <div className="label-box">
+                        <label htmlFor={`price-${item.id}`}>
+                          Price
+                          <input className="price" id={`price-${item.id}`} />
+                        </label>
+                      </div>
+                      <div className="label-box total-box">
+                        <div className="total-flex">
+                          <p>Total</p>
+                          <span>200.00</span>
+                        </div>
                       </div>
                     </div>
+                    <img
+                      onClick={() => handleDeleteItemClick(item.id)}
+                      src="/assets/icon-delete.svg"
+                      alt="delete icon"
+                    />
                   </div>
-                  <img src="/assets/icon-delete.svg" alt="delete icon" />
                 </div>
+              );
+            })
+          ) : (
+            <div className="item-inactive">
+              <p className="item-name">Item Name</p>
+
+              <div className="item-inactive-flex">
+                <span>Qty.</span>
+                <span>Price</span>
               </div>
-            );
-          })
-        ) : (
-          <div className="item-inactive">
-            <p className="item-name">Item Name</p>
 
-            <div className="item-inactive-flex">
-              <span>Qty.</span>
-              <span>Price</span>
+              <p>Total</p>
             </div>
-
-            <p>Total</p>
-          </div>
-        )}
+          )}
+        </div>
 
         <button onClick={handleAddItemClick}>+ Add New Item</button>
       </div>
@@ -407,6 +420,12 @@ const Form = styled.form`
     }
   }
 
+  & .item-active-container {
+    display: flex;
+    flex-direction: column;
+    gap: 49px;
+  }
+
   & .item-active {
     margin-top: 22px;
   }
@@ -418,6 +437,7 @@ const Form = styled.form`
 
     & > img {
       align-self: flex-end;
+      cursor: pointer;
       margin-bottom: 18px;
     }
   }
@@ -430,11 +450,11 @@ const Form = styled.form`
     gap: 16px;
     margin-top: 25px;
 
-    & #qty {
+    & .qty {
       width: 64px;
     }
 
-    & #price {
+    & .price {
       width: 100px;
     }
 
