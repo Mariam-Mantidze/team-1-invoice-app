@@ -4,7 +4,7 @@ import { invoiceContext } from "../../../App";
 function Heading() {
   const context = useContext(invoiceContext);
   return (
-    <header className="flex justify-between items-center mt-8">
+    <header className=" w-[327px] flex justify-between items-center mt-8">
       <div>
         <h1 className="text-2xl text-[#0c0e16] font-[700] tracking-[-0.75px]">
           Invoices
@@ -25,10 +25,10 @@ function Heading() {
           onClick={() => context.navigate(`/new-invoice`)}
           className="w-[90px] h-[44px] rounded-[24px] bg-[#7c5dfa] flex items-center justify-center gap-2  pr-3"
         >
-          <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full bg-[#fff] flex items-center justify-center">
             <img src="/public/assets/icon-plus.svg" alt="icon_plus" />
           </div>
-          <span className="text-[15px] text-white font-[700] tracking-[-0.25px] leading-[1]">
+          <span className="text-[15px] text-[#fff] font-[700] tracking-[-0.25px] leading-[1]">
             New
           </span>
         </button>
