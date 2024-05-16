@@ -27,6 +27,7 @@ function Main() {
         return (
           <section
             key={e.id}
+            onClick={() => content.navigate(`/${e.id}`)}
             className="w-[327px] flex flex-col gap-6 bg-white rounded-[8px] shadow-invoice pt-[25px] px-6 pb-[22px]"
           >
             <div className="flex justify-between items-center">
