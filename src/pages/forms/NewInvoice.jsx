@@ -24,11 +24,20 @@ export default function NewInvoice() {
 
   // payment terms: net 30 days, 7 days, 1 day, 14 days
 
-  const [itemActive, setItemActive] = useState(false);
+  const [items, setItems] = useState([]);
 
-  const handleItemClick = (e) => {
+  console.log(Object.keys(items).length !== 0);
+
+  const handleAddItemClick = (e) => {
     e.preventDefault();
-    setItemActive(true);
+    const newItem = {
+      name: "",
+      quantity: "",
+      price: "",
+      total: "",
+    };
+
+    setItems([...items, newItem]);
   };
 
   return (
@@ -149,51 +158,57 @@ export default function NewInvoice() {
       <div className="item-list">
         <h2>Item List</h2>
 
-        <div className="item-active">
-          <div className="label-box">
-            <label htmlFor="item-name">
-              Item Name
-              <input type="text" id="item-name" />
-            </label>
-          </div>
+        {items.length > 0 ? (
+          items.map((item, index) => {
+            return (
+              <div key={index} className="item-active">
+                <div className="label-box">
+                  <label>
+                    Item Name
+                    <input type="text" name="item-name" />
+                  </label>
+                </div>
 
-          <div className="qty-delete-box">
-            <div className="qty-price-box">
-              <div className="label-box">
-                <label htmlFor="qty">
-                  Qty.
-                  <input id="qty" />
-                </label>
-              </div>
-              <div className="label-box">
-                <label htmlFor="price">
-                  Price
-                  <input id="price" />
-                </label>
-              </div>
-              <div className="label-box total-box">
-                <div className="total-flex">
-                  <p>Total</p>
-                  <span>200.00</span>
+                <div className="qty-delete-box">
+                  <div className="qty-price-box">
+                    <div className="label-box">
+                      <label htmlFor="qty">
+                        Qty.
+                        <input id="qty" />
+                      </label>
+                    </div>
+                    <div className="label-box">
+                      <label htmlFor="price">
+                        Price
+                        <input id="price" />
+                      </label>
+                    </div>
+                    <div className="label-box total-box">
+                      <div className="total-flex">
+                        <p>Total</p>
+                        <span>200.00</span>
+                      </div>
+                    </div>
+                  </div>
+                  <img src="/assets/icon-delete.svg" alt="delete icon" />
                 </div>
               </div>
+            );
+          })
+        ) : (
+          <div className="item-inactive">
+            <p className="item-name">Item Name</p>
+
+            <div className="item-inactive-flex">
+              <span>Qty.</span>
+              <span>Price</span>
             </div>
-            <img src="/assets/icon-delete.svg" alt="delete icon" />
+
+            <p>Total</p>
           </div>
-        </div>
+        )}
 
-        <div className="item-inactive">
-          <p className="item-name">Item Name</p>
-
-          <div className="item-inactive-flex">
-            <span>Qty.</span>
-            <span>Price</span>
-          </div>
-
-          <p>Total</p>
-        </div>
-
-        <button onClick={handleItemClick}>+ Add New Item</button>
+        <button onClick={handleAddItemClick}>+ Add New Item</button>
       </div>
 
       <div className="submit-group">
