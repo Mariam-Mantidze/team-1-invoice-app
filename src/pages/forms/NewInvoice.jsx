@@ -155,6 +155,12 @@ export default function NewInvoice() {
 
         <button>+ Add New Item</button>
       </div>
+
+      <div className="submit-group">
+        <button>Discard</button>
+        <button>Save as Draft</button>
+        <button>Save & Send</button>
+      </div>
     </Form>
   );
 }
@@ -163,7 +169,7 @@ const Form = styled.form`
   /* display: flex;
   flex-direction: column;
   justify-content: center; */
-  padding: 24px 22px;
+  padding: 24px 22px 0px;
   background-color: ${(props) => props.theme.formsBackground};
 
   & > h1 {
@@ -301,5 +307,21 @@ const Form = styled.form`
       align-items: center;
       gap: 20px;
     }
+  }
+
+  & .submit-group {
+    display: flex;
+    gap: 7px;
+    justify-content: space-around;
+    padding: 21px 24px;
+    margin-top: 88px;
+
+    /* background-color: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.0001) 0%,
+      rgba(0, 0, 0, 0.1) 100%
+    ); */
+
+    box-shadow: ${(props) => props.theme.shadow};
   }
 `;
