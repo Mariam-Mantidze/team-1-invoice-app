@@ -6,9 +6,9 @@ import Main from "./components/Main";
 export default function Home() {
   const [filteredData, setFilteredData] = useState({});
   return (
-    <>
+    <div className="flex flex-col items-center gap-8">
       <Heading />
       <Main />
-    </>
+    </div>
   );
 }
