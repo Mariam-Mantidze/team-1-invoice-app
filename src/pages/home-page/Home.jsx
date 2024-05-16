@@ -1,24 +1,12 @@
-import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { invoiceContext } from "../../App";
+import Heading from "./components/Heading";
 
 export default function Home() {
-  // get data from useContext
-  const { invoiceData, setInvoiceData } = useContext(invoiceContext);
-
+  const [filteredData, setFilteredData] = useState({});
   return (
     <>
-      {/* mapping data for example */}
-      {invoiceData.map((invoice) => {
-        return (
-          <li style={{ border: "1px solid black" }} key={invoice.id}>
-            <Link to={`/${invoice.id}`}>{invoice.id}</Link>
-            <p>{invoice.status}</p>
-            <p>{invoice.clientName}</p>
-          </li>
-        );
-      })}
-      <Link to={"/new-invoice"}>New</Link>
+      <Heading />
     </>
   );
 }
