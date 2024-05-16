@@ -1,5 +1,8 @@
+import { useContext } from "react";
 import { invoiceContext } from "../../../App";
+
 function Heading() {
+  const context = useContext(invoiceContext);
   return (
     <header className="flex justify-between items-center mt-8">
       <div>
@@ -18,7 +21,10 @@ function Heading() {
           </span>
           <img src="/public/assets/icon-arrow-down.svg" alt="arrow_down" />
         </div>
-        <button className="w-[90px] h-[44px] rounded-[24px] bg-[#7c5dfa] flex items-center justify-center gap-2  pr-3">
+        <button
+          onClick={() => context.navigate(`/new-invoice`)}
+          className="w-[90px] h-[44px] rounded-[24px] bg-[#7c5dfa] flex items-center justify-center gap-2  pr-3"
+        >
           <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
             <img src="/public/assets/icon-plus.svg" alt="icon_plus" />
           </div>
