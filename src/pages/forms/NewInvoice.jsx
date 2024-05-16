@@ -157,9 +157,9 @@ export default function NewInvoice() {
       </div>
 
       <div className="submit-group">
-        <button>Discard</button>
-        <button>Save as Draft</button>
-        <button>Save & Send</button>
+        <button className="discard">Discard</button>
+        <button className="save save-draft">Save as Draft</button>
+        <button className="save save-send">Save & Send</button>
       </div>
     </Form>
   );
@@ -169,7 +169,7 @@ const Form = styled.form`
   /* display: flex;
   flex-direction: column;
   justify-content: center; */
-  padding: 24px 22px 0px;
+  padding-top: 24px;
   background-color: ${(props) => props.theme.formsBackground};
 
   & > h1 {
@@ -180,6 +180,7 @@ const Form = styled.form`
     letter-spacing: -0.5px;
     margin-top: 25px;
     margin-bottom: 22px;
+    padding: 0 22px 0;
   }
 
   & > h3 {
@@ -189,6 +190,7 @@ const Form = styled.form`
     line-height: 15px;
     letter-spacing: -0.25px;
     margin-bottom: 24px;
+    padding: 0 22px 0;
   }
 
   & .label-box {
@@ -218,6 +220,7 @@ const Form = styled.form`
   }
 
   & > .bill-group {
+    padding: 0 22px 0;
     display: flex;
     flex-direction: column;
     gap: 25px;
@@ -249,6 +252,7 @@ const Form = styled.form`
     display: flex;
     flex-direction: column;
     gap: 25px;
+    padding: 0 22px 0;
 
     & > .invoice-payment-grp {
       display: flex;
@@ -261,6 +265,7 @@ const Form = styled.form`
     margin-top: 69px;
     display: flex;
     flex-direction: column;
+    padding: 0 22px 0;
 
     h2 {
       font-size: 18px;
@@ -315,13 +320,33 @@ const Form = styled.form`
     justify-content: space-around;
     padding: 21px 24px;
     margin-top: 88px;
-
-    /* background-color: linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.0001) 0%,
-      rgba(0, 0, 0, 0.1) 100%
-    ); */
-
     box-shadow: ${(props) => props.theme.shadow};
+
+    & button {
+      border-radius: 30px;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 15px;
+      letter-spacing: -0.25px;
+    }
+
+    & > .discard {
+      padding: 18px 19px 15px 18px;
+      background-color: ${(props) => props.theme.addButtonAndInputBackground};
+      color: ${(props) => props.theme.labelColor};
+ 
+    }
+
+    & > .save {
+      padding: 18px 16px;
+  }
+  & .save-draft {
+    background-color: ${(props) => props.theme.saveDraftButtonBackground};
+      color: ${(props) => props.theme.labelColor};
+  }
+
+  & .save-send {
+    background: rgba(124, 93, 250, 1);
+    color: rgba(255, 255, 255, 1);
   }
 `;

@@ -5,6 +5,7 @@ export const lightTheme = {
   labelColor: "rgba(126, 136, 195, 1)",
   textFieldBorder: "1px solid rgba(223, 227, 250, 1)",
   addButtonAndInputBackground: "rgba(249, 250, 254, 1)",
+  saveDraftButtonBackground: "rgba(55, 59, 83, 1)",
   textFieldHover: "1px solid rgba(124, 93, 250, 1)",
   shadow: "0px 10px 20px 0px rgba(72, 84, 159, 0.25)",
 };
@@ -16,6 +17,7 @@ export const darkTheme = {
   labelColor: "rgba(136, 142, 176, 1)",
   textFieldBorder: "1px solid rgba(37, 41, 69, 1)",
   addButtonAndInputBackground: "rgba(37, 41, 69, 1)",
+  saveDraftButtonBackground: "rgba(55, 59, 83, 1)",
   textFieldHover: "1px solid rgba(37, 41, 69, 1)",
   shadow: "0px 10px 20px 0px rgba(0, 0, 0, 0.25)",
 };
