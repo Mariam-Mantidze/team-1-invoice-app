@@ -1,6 +1,6 @@
-export default function Address({ owner }) {
+export default function Address({ owner, text }) {
   return (
-    <div>
+    <div className={`md:text-${text}`}>
       <p className="text-gray-400 text-sm font-medium leading-5 tracking-tight">
         {owner.street}
       </p>
