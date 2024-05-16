@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { invoiceContext } from "../../App";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -23,6 +23,13 @@ export default function NewInvoice() {
   });
 
   // payment terms: net 30 days, 7 days, 1 day, 14 days
+
+  const [itemActive, setItemActive] = useState(false);
+
+  const handleItemClick = (e) => {
+    e.preventDefault();
+    setItemActive(true);
+  };
 
   return (
     <Form>
@@ -142,6 +149,39 @@ export default function NewInvoice() {
       <div className="item-list">
         <h2>Item List</h2>
 
+        <div className="item-active">
+          <div className="label-box">
+            <label htmlFor="item-name">
+              Item Name
+              <input type="text" id="item-name" />
+            </label>
+          </div>
+
+          <div className="qty-delete-box">
+            <div className="qty-price-box">
+              <div className="label-box">
+                <label htmlFor="qty">
+                  Qty.
+                  <input id="qty" />
+                </label>
+              </div>
+              <div className="label-box">
+                <label htmlFor="price">
+                  Price
+                  <input id="price" />
+                </label>
+              </div>
+              <div className="label-box total-box">
+                <div className="total-flex">
+                  <p>Total</p>
+                  <span>200.00</span>
+                </div>
+              </div>
+            </div>
+            <img src="/assets/icon-delete.svg" alt="delete icon" />
+          </div>
+        </div>
+
         <div className="item-inactive">
           <p className="item-name">Item Name</p>
 
@@ -153,7 +193,7 @@ export default function NewInvoice() {
           <p>Total</p>
         </div>
 
-        <button>+ Add New Item</button>
+        <button onClick={handleItemClick}>+ Add New Item</button>
       </div>
 
       <div className="submit-group">
@@ -287,6 +327,7 @@ const Form = styled.form`
       letter-spacing: -0.25px;
       text-align: center;
       margin-top: 15px;
+      cursor: pointer;
     }
   }
 
@@ -323,8 +364,9 @@ const Form = styled.form`
     box-shadow: ${(props) => props.theme.shadow};
 
     & button {
+      cursor: pointer;
       border-radius: 30px;
-      font-size: 15px;
+      font-size: 13px;
       font-weight: 700;
       line-height: 15px;
       letter-spacing: -0.25px;
@@ -334,19 +376,79 @@ const Form = styled.form`
       padding: 18px 19px 15px 18px;
       background-color: ${(props) => props.theme.addButtonAndInputBackground};
       color: ${(props) => props.theme.labelColor};
- 
     }
 
     & > .save {
       padding: 18px 16px;
-  }
-  & .save-draft {
-    background-color: ${(props) => props.theme.saveDraftButtonBackground};
+    }
+    & .save-draft {
+      background-color: ${(props) => props.theme.saveDraftButtonBackground};
       color: ${(props) => props.theme.labelColor};
+    }
+
+    & .save-send {
+      background: rgba(124, 93, 250, 1);
+      color: rgba(255, 255, 255, 1);
+    }
   }
 
-  & .save-send {
-    background: rgba(124, 93, 250, 1);
-    color: rgba(255, 255, 255, 1);
+  & .item-active {
+    margin-top: 22px;
+  }
+
+  & .qty-delete-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    & > img {
+      align-self: flex-end;
+      margin-bottom: 18px;
+    }
+  }
+
+  & .qty-price-box {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-around; */
+    /* align-items: center; */
+    gap: 16px;
+    margin-top: 25px;
+
+    & #qty {
+      width: 64px;
+    }
+
+    & #price {
+      width: 100px;
+    }
+
+    & .total-box {
+      display: flex;
+      gap: 64px;
+    }
+
+    & .total-flex {
+      display: flex;
+      flex-direction: column;
+      gap: 27px;
+
+      & > p {
+        color: ${(props) => props.theme.labelColor};
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 15px;
+        letter-spacing: -0.10000000149011612px;
+      }
+
+      & span {
+        font-size: 15px;
+        font-weight: 700;
+        line-height: 15px;
+        letter-spacing: -0.25px;
+        text-align: left;
+        color: rgba(136, 142, 176, 1);
+      }
+    }
   }
 `;
