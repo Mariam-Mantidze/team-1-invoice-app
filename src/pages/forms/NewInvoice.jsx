@@ -143,7 +143,7 @@ export default function NewInvoice() {
         <h2>Item List</h2>
 
         <div className="item-inactive">
-          <p>Item Name</p>
+          <p className="item-name">Item Name</p>
 
           <div className="item-inactive-flex">
             <span>Qty.</span>
@@ -152,6 +152,8 @@ export default function NewInvoice() {
 
           <p>Total</p>
         </div>
+
+        <button>+ Add New Item</button>
       </div>
     </Form>
   );
@@ -246,6 +248,58 @@ const Form = styled.form`
       display: flex;
       flex-direction: column;
       gap: 25px;
+    }
+  }
+
+  & .item-list {
+    margin-top: 69px;
+    display: flex;
+    flex-direction: column;
+
+    h2 {
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 32px;
+      letter-spacing: -0.375px;
+      text-align: left;
+      color: rgba(119, 127, 152, 1);
+    }
+
+    & > button {
+      background-color: ${(props) => props.theme.addButtonAndInputBackground};
+      padding: 18px 107px;
+      border-radius: 30px;
+      color: ${(props) => props.theme.labelColor};
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 15px;
+      letter-spacing: -0.25px;
+      text-align: center;
+      margin-top: 15px;
+    }
+  }
+
+  & .item-inactive {
+    display: flex;
+    align-items: center;
+    /* gap: 60px; */
+    margin-top: 22px;
+    justify-content: space-between;
+
+    & p,
+    span {
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 15px;
+      letter-spacing: -0.10000000149011612px;
+      text-align: left;
+      color: ${(props) => props.theme.labelColor};
+    }
+
+    & > .item-inactive-flex {
+      display: flex;
+      align-items: center;
+      gap: 20px;
     }
   }
 `;
