@@ -1,6 +1,5 @@
 import { useContext, useState, useEffect } from "react";
 import { invoiceContext } from "../../../App";
-import { object } from "yup";
 import { entries } from "lodash";
 
 function Heading(props) {
