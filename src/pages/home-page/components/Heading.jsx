@@ -32,18 +32,45 @@ function Heading(props) {
             alt="arrow_down"
           />
           {props.activeFilter ? (
-            <div className="w-[90px] h-20 rounded-[8px] bg-[#fff] shadow-filter absolute bottom-[-98px] left-[-16px]">
-              <div>
-                <input type="checkbox" />
-                <label htmlFor="">Draft</label>
+            <div className="w-[110px] h-[90px] rounded-[8px] bg-[#fff] shadow-filter flex flex-col justify-center gap-[10px] absolute bottom-[-108px] left-[-26px] p-3">
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="draft"
+                  className="appearance-none w-4 h-4 rounded-[2px] bg-[#dfe3fa] checked:bg-[#7c5dfa] checked:bg-[url('/assets/icon-check.svg')] checked:bg-no-repeat checked:bg-center"
+                />
+                <label
+                  htmlFor="draft"
+                  className="text-[13px] text-[#1e2139] font-[700] tracking-[-0.25px] leading-[1]"
+                >
+                  Draft
+                </label>
               </div>
-              <div>
-                <input type="checkbox" />
-                <label htmlFor="">Pending</label>
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="pending"
+                  className="appearance-none w-4 h-4 rounded-[2px] bg-[#dfe3fa] checked:bg-[#7c5dfa] checked:bg-[url('/assets/icon-check.svg')] checked:bg-no-repeat checked:bg-center"
+                />
+                <label
+                  htmlFor="pending"
+                  className="text-[13px] text-[#1e2139] font-[700] tracking-[-0.25px] leading-[1]"
+                >
+                  Pending
+                </label>
               </div>
-              <div>
-                <input type="checkbox" />
-                <label htmlFor="">Paid</label>
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="paid"
+                  className="appearance-none w-4 h-4 rounded-[2px] bg-[#dfe3fa] checked:bg-[#7c5dfa] checked:bg-[url('/assets/icon-check.svg')] checked:bg-no-repeat checked:bg-center"
+                />
+                <label
+                  htmlFor="paid"
+                  className="text-[13px] text-[#1e2139] font-[700] tracking-[-0.25px] leading-[1]"
+                >
+                  Paid
+                </label>
               </div>
             </div>
           ) : (
