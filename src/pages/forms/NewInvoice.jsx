@@ -10,9 +10,7 @@ import uuid from "react-uuid";
 export default function NewInvoice() {
   const { invoiceData, setInvoiceData } = useContext(invoiceContext);
 
-  const schema = yup.object({
-    address: yup.string().required(),
-  });
+  const schema = yup.object({});
 
   const {
     register,
@@ -46,8 +44,9 @@ export default function NewInvoice() {
     setItems(updatedItems);
   };
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = (data, event) => {
+    console.log("Form data:", data);
+    console.log("Submit event:", event);
   };
 
   return (
@@ -278,7 +277,7 @@ export default function NewInvoice() {
         </div>
 
         <button
-          type="submit"
+          type="button"
           name="action"
           value="addItem"
           style={{ marginTop: items.length > 0 ? "65px" : "22px" }}
