@@ -1,6 +1,5 @@
 import { useContext, useState, useEffect } from "react";
 import { invoiceContext } from "../../../App";
-import { entries } from "lodash";
 
 function Heading(props) {
   const context = useContext(invoiceContext);
@@ -29,7 +28,7 @@ function Heading(props) {
       }
     }
     // these entires helps to find value and give it to updatedBoxes
-    const newValue = entries(checkedBoxes);
+    const newValue = Object.entries(checkedBoxes);
     const updatedBoxes = {
       ...checkedBoxes,
       [exactBox]: !newValue[index][1],
