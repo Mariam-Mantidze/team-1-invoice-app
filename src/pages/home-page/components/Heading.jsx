@@ -1,6 +1,5 @@
 import { useContext, useState, useEffect } from "react";
 import { invoiceContext } from "../../../App";
-import { entries } from "lodash";
 
 function Heading(props) {
   const context = useContext(invoiceContext);
@@ -29,7 +28,7 @@ function Heading(props) {
       }
     }
     // these entires helps to find value and give it to updatedBoxes
-    const newValue = entries(checkedBoxes);
+    const newValue = Object.entries(checkedBoxes);
     const updatedBoxes = {
       ...checkedBoxes,
       [exactBox]: !newValue[index][1],
@@ -72,7 +71,7 @@ function Heading(props) {
           </span>
           <img
             className={props.activeFilter ? "rotate-180" : ""}
-            src="/public/assets/icon-arrow-down.svg"
+            src="/assets/icon-arrow-down.svg"
             alt="arrow_down"
           />
           {props.activeFilter ? (
@@ -132,7 +131,7 @@ function Heading(props) {
           className="w-[90px] h-[44px] rounded-[24px] bg-[#7c5dfa] flex items-center justify-center gap-2  pr-3"
         >
           <div className="w-8 h-8 rounded-full bg-[#fff] flex items-center justify-center">
-            <img src="/public/assets/icon-plus.svg" alt="icon_plus" />
+            <img src="/assets/icon-plus.svg" alt="icon_plus" />
           </div>
           <span className="text-[15px] text-[#fff] font-[700] tracking-[-0.25px] leading-[1]">
             New
