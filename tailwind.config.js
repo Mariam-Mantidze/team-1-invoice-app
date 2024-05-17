@@ -5,6 +5,7 @@ export default {
     extend: {},
     boxShadow: {
       invoice: "0 10px 10px -10px rgba(72, 84, 159, 0.1)",
+      filter: "0 10px 20px 0 rgba(72, 84, 159, 0.25)",
     },
     colors: {
       green: "rgba(51, 214, 159, 0.06)",

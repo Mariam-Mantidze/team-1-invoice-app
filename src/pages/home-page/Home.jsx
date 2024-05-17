@@ -5,10 +5,17 @@ import Main from "./components/Main";
 
 export default function Home() {
   const [filteredData, setFilteredData] = useState({});
+  const [activeFilter, setActiveFilter] = useState(false);
+
   return (
     <div className="flex flex-col items-center gap-8">
-      <Heading />
-      <Main />
+      <Heading
+        filteredData={filteredData}
+        setFilteredData={setFilteredData}
+        activeFilter={activeFilter}
+        setActiveFilter={setActiveFilter}
+      />
+      <Main filteredData={filteredData} />
     </div>
   );
 }
