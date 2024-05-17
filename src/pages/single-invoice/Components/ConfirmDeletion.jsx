@@ -1,6 +1,12 @@
 import DeleteButton from "./DeleteButton";
+import { Link } from "react-router-dom";
 
-export default function ConfirmDeletion({ id, showDelete, setShowDelete }) {
+export default function ConfirmDeletion({
+  id,
+  showDelete,
+  setShowDelete,
+  deleteClick,
+}) {
   return (
     <div
       style={{ zIndex: 3 }}
@@ -26,7 +32,9 @@ export default function ConfirmDeletion({ id, showDelete, setShowDelete }) {
         >
           Cancel
         </button>
-        <DeleteButton />
+        <Link to={"/"}>
+          <DeleteButton onClick={deleteClick} />
+        </Link>
       </div>
     </div>
   );
