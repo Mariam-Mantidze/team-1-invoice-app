@@ -46,41 +46,61 @@ export default function NewInvoice() {
     setItems(updatedItems);
   };
 
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
-    <Form>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <GoBack />
       <h1>New Invoice</h1>
       <h3>Bill From</h3>
 
       <div className="bill-group">
         <div className="label-box">
-          <label htmlFor="from-street">
+          <label htmlFor="sender-street">
             Street Address
-            <input type="text" id="from-street" />
+            <input
+              type="text"
+              id="sender-street"
+              {...register("sender-street")}
+            />
           </label>
         </div>
 
         <div className="country-flex-box">
           <div className="city-post-code-group">
             <div className="label-box">
-              <label htmlFor="city">
+              <label htmlFor="sender-city">
                 City
-                <input type="text" id="city" />
+                <input
+                  type="text"
+                  id="sender-city"
+                  {...register("sender-city")}
+                />
               </label>
             </div>
 
             <div className="label-box">
-              <label htmlFor="post-code">
+              <label htmlFor="sender-post-code">
                 Post Code
-                <input type="text" id="post-code" />
+                <input
+                  type="text"
+                  id="sender-post-code"
+                  {...register("sender-post-code")}
+                />
               </label>
             </div>
           </div>
 
           <div className="label-box">
-            <label htmlFor="country">
+            <label htmlFor="sender-country">
               Country
-              <input type="text" id="country" />
+              <input
+                type="text"
+                id="sender-country"
+                {...register("sender-country")}
+              />
             </label>
           </div>
         </div>
@@ -92,21 +112,29 @@ export default function NewInvoice() {
         <div className="label-box">
           <label htmlFor="client-name">
             Client's Name
-            <input type="text" id="client-name" />
+            <input type="text" id="client-name" {...register("client-name")} />
           </label>
         </div>
 
         <div className="label-box">
           <label htmlFor="client-email">
             Client's Email
-            <input type="text" id="client-email" />
+            <input
+              type="text"
+              id="client-email"
+              {...register("client-email")}
+            />
           </label>
         </div>
 
         <div className="label-box">
-          <label htmlFor="client-st-address">
+          <label htmlFor="client-street">
             Street Address
-            <input type="text" id="client-st-address" />
+            <input
+              type="text"
+              id="client-street"
+              {...register("client-street")}
+            />
           </label>
         </div>
 
@@ -115,14 +143,22 @@ export default function NewInvoice() {
             <div className="label-box">
               <label htmlFor="client-city">
                 City
-                <input type="text" id="client-city" />
+                <input
+                  type="text"
+                  id="client-city"
+                  {...register("client-city")}
+                />
               </label>
             </div>
 
             <div className="label-box">
               <label htmlFor="client-post-code">
                 Post Code
-                <input type="text" id="client-post-code" />
+                <input
+                  type="text"
+                  id="client-post-code"
+                  {...register("client-post-code")}
+                />
               </label>
             </div>
           </div>
@@ -130,7 +166,11 @@ export default function NewInvoice() {
           <div className="label-box">
             <label htmlFor="client-country">
               Country
-              <input type="text" id="client-country" />
+              <input
+                type="text"
+                id="client-country"
+                {...register("client-country")}
+              />
             </label>
           </div>
         </div>
@@ -141,14 +181,14 @@ export default function NewInvoice() {
           <div className="label-box">
             <label htmlFor="invoice-date">
               Invoice Date
-              <input id="invoice-date" type="date" />
+              <input id="invoice-date" type="date" {...register("createdAt")} />
             </label>
           </div>
 
           <div className="label-box">
             <label htmlFor="payment-terms">
               Payment Terms
-              <select id="payment-terms" />
+              <select id="payment-terms" {...register("paymentDue")} />
             </label>
           </div>
         </div>
@@ -156,7 +196,11 @@ export default function NewInvoice() {
         <div className="label-box">
           <label htmlFor="project-description">
             Project Description
-            <input type="text" id="project-description" />
+            <input
+              type="text"
+              id="project-description"
+              {...register("description")}
+            />
           </label>
         </div>
       </div>
@@ -173,7 +217,11 @@ export default function NewInvoice() {
                   <div className="label-box">
                     <label>
                       Item Name
-                      <input type="text" name="item-name" />
+                      <input
+                        type="text"
+                        name="item-name"
+                        {...register(`items-name-${item.id}`)}
+                      />
                     </label>
                   </div>
 
@@ -182,13 +230,21 @@ export default function NewInvoice() {
                       <div className="label-box">
                         <label htmlFor={`qty-${item.id}`}>
                           Qty.
-                          <input className="qty" id={`qty-${item.id}`} />
+                          <input
+                            className="qty"
+                            id={`qty-${item.id}`}
+                            {...register(`quantity-${item.id}`)}
+                          />
                         </label>
                       </div>
                       <div className="label-box">
                         <label htmlFor={`price-${item.id}`}>
                           Price
-                          <input className="price" id={`price-${item.id}`} />
+                          <input
+                            className="price"
+                            id={`price-${item.id}`}
+                            {...register(`price-${item.id}`)}
+                          />
                         </label>
                       </div>
                       <div className="label-box total-box">
@@ -221,13 +277,34 @@ export default function NewInvoice() {
           )}
         </div>
 
-        <button onClick={handleAddItemClick}>+ Add New Item</button>
+        <button
+          type="submit"
+          name="action"
+          value="addItem"
+          style={{ marginTop: items.length > 0 ? "65px" : "22px" }}
+          onClick={handleAddItemClick}>
+          + Add New Item
+        </button>
       </div>
 
       <div className="submit-group">
-        <button className="discard">Discard</button>
-        <button className="save save-draft">Save as Draft</button>
-        <button className="save save-send">Save & Send</button>
+        <button type="submit" name="action" value="discard" className="discard">
+          Discard
+        </button>
+        <button
+          type="submit"
+          name="action"
+          value="saveDraft"
+          className="save save-draft">
+          Save as Draft
+        </button>
+        <button
+          type="submit"
+          name="action"
+          value="submitPending"
+          className="save save-send">
+          Save & Send
+        </button>
       </div>
     </Form>
   );
@@ -354,7 +431,6 @@ const Form = styled.form`
       line-height: 15px;
       letter-spacing: -0.25px;
       text-align: center;
-      margin-top: 15px;
       cursor: pointer;
     }
   }
