@@ -10,6 +10,7 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center gap-8">
       <Heading
+        filteredData={filteredData}
         setFilteredData={setFilteredData}
         activeFilter={activeFilter}
         setActiveFilter={setActiveFilter}

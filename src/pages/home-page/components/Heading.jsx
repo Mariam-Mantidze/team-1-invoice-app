@@ -38,12 +38,13 @@ function Heading(props) {
   };
 
   // data filter
+  let updatedData = [];
   useEffect(() => {
     // firstly it filters only active statuses and next filters the given data acording to that statuses
     const activeStatuses = Object.keys(checkedBoxes).filter(
       (key) => checkedBoxes[key] === true
     );
-    let updatedData = [];
+
     updatedData = context.invoiceData.filter((element) =>
       activeStatuses.includes(element.status)
     );
@@ -57,7 +58,7 @@ function Heading(props) {
           Invoices
         </h1>
         <p className="text-[13px] text-[#888eb0] font-[500] tracking-[-0.1px] leading-[1.15] mt-[3px]">
-          <span>7</span> {""}
+          <span>{props.filteredData.length}</span> {""}
           invoices
         </p>
       </div>
