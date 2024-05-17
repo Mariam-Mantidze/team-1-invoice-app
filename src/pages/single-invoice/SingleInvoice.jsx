@@ -27,6 +27,15 @@ export default function SingleInvoice() {
     }
   };
 
+  const markAsPaid = () => {
+    const updatedInvoice = { ...invoice, status: "paid" };
+    const updatedInvoiceData = invoiceData.map((inv) =>
+      inv.id === id ? updatedInvoice : inv
+    );
+    setInvoiceData(updatedInvoiceData);
+    handleStatusColor();
+  };
+
   useEffect(() => {
     handleStatusColor();
   }, [invoice.status]);
@@ -66,8 +75,11 @@ export default function SingleInvoice() {
               <button className="rounded-full bg-[#EC5757] py-4 px-6 text-[#FFF] text-sm font-bold leading-tight tracking-tight hover:bg-[#FF9797]">
                 Delete
               </button>
-              <button className="rounded-full bg-[#7C5DFA] py-4 px-6 text-[#FFF] text-sm font-bold leading-tight tracking-tight hover:bg-[#9277FF]">
-                Mark As Paid
+              <button
+                onClick={markAsPaid}
+                className="rounded-full bg-[#7C5DFA] py-4 px-6 text-[#FFF] text-sm font-bold leading-tight tracking-tight hover:bg-[#9277FF]"
+              >
+                {invoice.status !== "paid" ? "Mark As Paid" : "Already Paid"}
               </button>
             </div>
           </div>
@@ -168,8 +180,11 @@ export default function SingleInvoice() {
         <button className="rounded-full bg-[#EC5757] py-4 px-6 text-[#FFF] text-sm font-bold leading-tight tracking-tight hover:bg-[#FF9797]">
           Delete
         </button>
-        <button className="rounded-full bg-[#7C5DFA] py-4 px-6 text-[#FFF] text-sm font-bold leading-tight tracking-tight hover:bg-[#9277FF]">
-          Mark As Paid
+        <button
+          onClick={markAsPaid}
+          className="rounded-full bg-[#7C5DFA] py-4 px-6 text-[#FFF] text-sm font-bold leading-tight tracking-tight hover:bg-[#9277FF]"
+        >
+          {invoice.status !== "paid" ? "Mark As Paid" : "Already Paid"}
         </button>
       </div>
     </div>
