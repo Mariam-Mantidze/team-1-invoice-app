@@ -54,6 +54,7 @@ export default function SingleInvoice() {
         id={invoice.id}
         showDelete={showDelete}
         setShowDelete={setShowDelete}
+        deleteClick={deleteInvoice}
       />
       <div
         className={`min-h-screen lg:w-[60%] lg:ml-[200px] ${
