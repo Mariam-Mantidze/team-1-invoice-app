@@ -3,6 +3,7 @@ import DeleteButton from "./DeleteButton";
 export default function ConfirmDeletion({ id, showDelete, setShowDelete }) {
   return (
     <div
+      style={{ zIndex: 3 }}
       className={`${
         showDelete ? "flex" : "hidden"
       } absolute top-[30%] left-[30%] flex-col p-12 bg-[#FFF] shadow-lg rounded-md gap-4`}
