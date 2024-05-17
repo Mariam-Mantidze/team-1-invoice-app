@@ -1,11 +1,55 @@
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { invoiceContext } from "../../../App";
+import { object } from "yup";
+import { entries } from "lodash";
 
 function Heading(props) {
   const context = useContext(invoiceContext);
+
   const activateFilter = () => {
     props.setActiveFilter(!props.activeFilter);
   };
+
+  const [checkedBoxes, setCheckedBoxes] = useState({
+    draft: true,
+    pending: true,
+    paid: true,
+  });
+
+  const checkBoxHandler = (e) => {
+    // trying to reach the value of exactBox and use index for that
+    const exactBox = e.target.id;
+    let index = 0;
+    if (exactBox == "draft") {
+      index = 0;
+    } else {
+      if (exactBox == "pending") {
+        index = 1;
+      } else {
+        index = 2;
+      }
+    }
+    // these entires helps to find value and give it to updatedBoxes
+    const newValue = entries(checkedBoxes);
+    const updatedBoxes = {
+      ...checkedBoxes,
+      [exactBox]: !newValue[index][1],
+    };
+    setCheckedBoxes(updatedBoxes);
+  };
+
+  // data filter
+  useEffect(() => {
+    // firstly it filters only active statuses and next filters the given data acording to that statuses
+    const activeStatuses = Object.keys(checkedBoxes).filter(
+      (key) => checkedBoxes[key] === true
+    );
+    let updatedData = [];
+    updatedData = context.invoiceData.filter((element) =>
+      activeStatuses.includes(element.status)
+    );
+    props.setFilteredData(updatedData);
+  }, [checkedBoxes]);
 
   return (
     <header className=" w-[327px] flex justify-between items-center mt-8">
@@ -37,6 +81,8 @@ function Heading(props) {
                 <input
                   type="checkbox"
                   id="draft"
+                  checked={checkedBoxes.draft}
+                  onChange={checkBoxHandler}
                   className="appearance-none w-4 h-4 rounded-[2px] bg-[#dfe3fa] checked:bg-[#7c5dfa] checked:bg-[url('/assets/icon-check.svg')] checked:bg-no-repeat checked:bg-center"
                 />
                 <label
@@ -50,6 +96,8 @@ function Heading(props) {
                 <input
                   type="checkbox"
                   id="pending"
+                  checked={checkedBoxes.pending}
+                  onChange={checkBoxHandler}
                   className="appearance-none w-4 h-4 rounded-[2px] bg-[#dfe3fa] checked:bg-[#7c5dfa] checked:bg-[url('/assets/icon-check.svg')] checked:bg-no-repeat checked:bg-center"
                 />
                 <label
@@ -63,6 +111,8 @@ function Heading(props) {
                 <input
                   type="checkbox"
                   id="paid"
+                  onChange={checkBoxHandler}
+                  checked={checkedBoxes.paid}
                   className="appearance-none w-4 h-4 rounded-[2px] bg-[#dfe3fa] checked:bg-[#7c5dfa] checked:bg-[url('/assets/icon-check.svg')] checked:bg-no-repeat checked:bg-center"
                 />
                 <label

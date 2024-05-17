@@ -14,7 +14,7 @@ export default function Home() {
         activeFilter={activeFilter}
         setActiveFilter={setActiveFilter}
       />
-      <Main />
+      <Main filteredData={filteredData} />
     </div>
   );
 }
