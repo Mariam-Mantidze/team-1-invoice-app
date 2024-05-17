@@ -51,23 +51,26 @@ function Heading(props) {
   }, [checkedBoxes]);
 
   return (
-    <header className=" w-[327px] flex justify-between items-center mt-8">
+    <header className=" w-[327px] md:w-[672px] flex justify-between items-center mt-8 md:mt-[62px]">
       <div>
-        <h1 className="text-2xl text-[#0c0e16] font-[700] tracking-[-0.75px]">
+        <h1 className="text-2xl md:text-4xl text-[#0c0e16] font-[700] tracking-[-0.75px] md:tracking-[-1.13px]">
           Invoices
         </h1>
-        <p className="text-[13px] text-[#888eb0] font-[500] tracking-[-0.1px] leading-[1.15] mt-[3px]">
-          <span>{props.filteredData.length}</span> {""}
-          invoices
+        <p className="text-[13px] text-[#888eb0] font-[500] tracking-[-0.1px] leading-[1.15] mt-[3px] md:mt-[6px]">
+          {context.isTablet || context.isDesktop
+            ? `There are ${props.filteredData.length} total invoices`
+            : `${props.filteredData.length} invoices`}
         </p>
       </div>
-      <div className="flex items-center gap-[18.5px]">
-        <div className="flex items-center gap-3 relative">
+      <div className="flex items-center gap-[18.5px] md:gap-10">
+        <div className="flex items-center gap-3 md:gap-[14px] relative">
           <span
             onClick={activateFilter}
             className="text-[15px] text-[#0c0e16] font-[700] tracking-[-0.25px] leading-[1]"
           >
-            Filter
+            {context.isTablet || context.isDesktop
+              ? "Filter by status"
+              : "Filter"}
           </span>
           <img
             className={props.activeFilter ? "rotate-180" : ""}
@@ -75,8 +78,8 @@ function Heading(props) {
             alt="arrow_down"
           />
           {props.activeFilter ? (
-            <div className="w-[110px] h-[90px] rounded-[8px] bg-[#fff] shadow-filter flex flex-col justify-center gap-[10px] absolute bottom-[-108px] left-[-26px] p-3">
-              <div className="flex items-center gap-2">
+            <div className="w-[110px] md:w-[192px] h-[90px] md:h-[128px] rounded-[8px] bg-[#fff] shadow-filter flex flex-col justify-center gap-[10px] md:gap-[17px] absolute bottom-[-150px] left-[-26px] md:left-[-37px] p-3 md:p-6">
+              <div className="flex items-center gap-2 md:gap-[13px]">
                 <input
                   type="checkbox"
                   id="draft"
@@ -86,12 +89,12 @@ function Heading(props) {
                 />
                 <label
                   htmlFor="draft"
-                  className="text-[13px] text-[#1e2139] font-[700] tracking-[-0.25px] leading-[1]"
+                  className="text-[13px] md:text-[15px] text-[#1e2139] font-[700] tracking-[-0.25px] leading-[1]"
                 >
                   Draft
                 </label>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 md:gap-[13px]">
                 <input
                   type="checkbox"
                   id="pending"
@@ -101,12 +104,12 @@ function Heading(props) {
                 />
                 <label
                   htmlFor="pending"
-                  className="text-[13px] text-[#1e2139] font-[700] tracking-[-0.25px] leading-[1]"
+                  className="text-[13px] md:text-[15px] text-[#1e2139] font-[700] tracking-[-0.25px] leading-[1]"
                 >
                   Pending
                 </label>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 md:gap-[13px]">
                 <input
                   type="checkbox"
                   id="paid"
@@ -116,7 +119,7 @@ function Heading(props) {
                 />
                 <label
                   htmlFor="paid"
-                  className="text-[13px] text-[#1e2139] font-[700] tracking-[-0.25px] leading-[1]"
+                  className="text-[13px] md:text-[15px] text-[#1e2139] font-[700] tracking-[-0.25px] leading-[1]"
                 >
                   Paid
                 </label>
@@ -128,13 +131,13 @@ function Heading(props) {
         </div>
         <button
           onClick={() => context.navigate(`/new-invoice`)}
-          className="w-[90px] h-[44px] rounded-[24px] bg-[#7c5dfa] flex items-center justify-center gap-2  pr-3"
+          className="w-[90px] md:w-[150px] h-[44px] md:h-[48px] rounded-[24px] bg-[#7c5dfa] flex items-center justify-center gap-2 md:gap-4 pr-3 md:pr-2"
         >
           <div className="w-8 h-8 rounded-full bg-[#fff] flex items-center justify-center">
             <img src="/assets/icon-plus.svg" alt="icon_plus" />
           </div>
           <span className="text-[15px] text-[#fff] font-[700] tracking-[-0.25px] leading-[1]">
-            New
+            {context.isTablet || context.isDesktop ? "New Invoice" : "New"}
           </span>
         </button>
       </div>
