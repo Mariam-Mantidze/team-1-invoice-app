@@ -30,10 +30,10 @@ function Main(props) {
             <section
               key={e.id}
               onClick={() => content.navigate(`/${e.id}`)}
-              className="w-[327px] md:w-[672px] flex flex-col md:flex-row md:justify-between md:items-center gap-6 md:gap-0 bg-white rounded-[8px] shadow-invoice pt-[25px] px-6 pb-[22px] md:py-4"
+              className="w-[327px] md:w-[672px] lg:w-[730px] flex flex-col md:flex-row md:justify-between md:items-center gap-6 md:gap-0 bg-white rounded-[8px] shadow-invoice pt-[25px] px-6 pb-[22px] md:py-4 lg:pl-8"
             >
-              <div className="flex justify-between items-center md:gap-[40px]">
-                <div className="md:w-[180px] flex justify-between">
+              <div className="flex justify-between items-center md:gap-[40px] lg:gap-[48px]">
+                <div className="md:w-[180px] lg:w-[195px] flex justify-between">
                   <h3 className="text-[15px] text-[#0c0e16] font-[700] tracking-[-0.25px] leading-[1]">
                     <span className="text-[#7e88c3]">#</span>
                     {e.id}
