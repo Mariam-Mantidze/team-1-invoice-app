@@ -58,8 +58,8 @@ function App() {
       <ThemeProvider theme={darkMode == false ? lightTheme : darkTheme}>
         <div
           className={`${
-            darkMode ? "dark" : ""
-          } min-h-screen bg-[#f8f8fb] dark:bg-[#141625] lg:flex lg:justify-between`}
+            darkMode ? "dark bg-[#141625] " : "bg-[#f8f8fb]"
+          } min-h-screen lg:flex lg:justify-between`}
         >
           <Header darkMode={darkMode} setDarkMode={setDarkMode} />
           <Routes>
