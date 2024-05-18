@@ -8,7 +8,7 @@ export default function Home() {
   const [activeFilter, setActiveFilter] = useState(false);
 
   return (
-    <div className="flex flex-col items-center gap-8">
+    <div className="flex flex-col items-center gap-8 md:gap-[55px] lg:gap-[64px] lg:mx-auto">
       <Heading
         filteredData={filteredData}
         setFilteredData={setFilteredData}

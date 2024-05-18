@@ -51,7 +51,7 @@ function App() {
     >
       <GlobalStyles />
       <ThemeProvider theme={mode === "light" ? lightTheme : darkTheme}>
-        <div className="min-h-screen bg-[#f8f8fb] lg:flex">
+        <div className="min-h-screen bg-[#f8f8fb] lg:flex lg:justify-between">
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
