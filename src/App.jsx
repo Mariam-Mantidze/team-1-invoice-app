@@ -24,13 +24,17 @@ function App() {
   const [invoiceData, setInvoiceData] = useState(storedData || data);
 
   // useState for setting themes
-  const [mode, setMode] = useState("light");
+  const [darkMode, setDarkMode] = useState(false);
+
+  // const toggleDarkMode = () => {
+  //   document.body.classList.toggle("dark");
+  // };
 
   // store data in local storage
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(invoiceData));
-    localStorage.setItem("mode", JSON.stringify(mode));
-  }, [invoiceData, mode]);
+    localStorage.setItem("mode", JSON.stringify(darkMode));
+  }, [invoiceData, darkMode]);
 
   // detect screen size for conditional rendering
   const { isMobile, isTablet, isDesktop } = useScreenType();
@@ -47,14 +51,15 @@ function App() {
         isMobile,
         isTablet,
         isDesktop,
+        darkMode,
       }}
     >
       <GlobalStyles />
-      <ThemeProvider theme={mode === "light" ? lightTheme : darkTheme}>
+      <ThemeProvider theme={darkMode === "light" ? lightTheme : darkTheme}>
         <div className="min-h-screen bg-[#f8f8fb] lg:flex lg:justify-between">
-          <Header />
+          <Header darkMode={darkMode} setDarkMode={setDarkMode} />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home darkMode={darkMode} />} />
             <Route path="/:id" element={<SingleInvoice />} />
             <Route path="/new-invoice" element={<NewInvoice />} />
             <Route

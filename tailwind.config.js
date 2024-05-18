@@ -13,5 +13,6 @@ export default {
       black: "rgba(55, 59, 83, 0.06)",
     },
   },
+  darkMode: "class",
   plugins: [],
 };

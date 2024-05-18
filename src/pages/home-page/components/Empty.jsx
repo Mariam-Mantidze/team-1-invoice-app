@@ -1,6 +1,10 @@
 function Empty(props) {
   return (
-    <section className="flex flex-col items-center gap-6 mt-[70px] md:mt-[120px]">
+    <section
+      className={`${
+        props.content.darkMode ? "dark" : ""
+      } flex flex-col items-center gap-6 mt-[70px] md:mt-[120px]`}
+    >
       <img
         src="/assets/illustration-empty.svg"
         alt="empty"
