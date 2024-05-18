@@ -18,7 +18,9 @@ export const invoiceContext = createContext({});
 function App() {
   // get data for storing in local storage
   const storedData = JSON.parse(localStorage.getItem("data"));
-  const storedMode = localStorage.getItem("darkMode");
+
+  const storedMode = JSON.parse(localStorage.getItem("darkMode")) || false;
+
 
   // set stored data in useState
   const [invoiceData, setInvoiceData] = useState(storedData || data);
@@ -55,15 +57,13 @@ function App() {
         isTablet,
         isDesktop,
         darkMode,
-      }}
-    >
+      }}>
       <GlobalStyles />
       <ThemeProvider theme={darkMode == false ? lightTheme : darkTheme}>
         <div
           className={`${
             darkMode ? "dark bg-[#141625] " : "bg-[#f8f8fb]"
-          } min-h-screen lg:flex lg:justify-between`}
-        >
+          } min-h-screen lg:flex lg:justify-between`}>
           <Header darkMode={darkMode} setDarkMode={setDarkMode} />
           <Routes>
             <Route path="/" element={<Home />} />
