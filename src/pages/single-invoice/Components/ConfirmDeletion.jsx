@@ -12,7 +12,7 @@ export default function ConfirmDeletion({
       style={{ zIndex: 3, transform: "translate(-50%,-50%) " }}
       className={`${
         showDelete ? "flex" : "hidden"
-      } absolute top-[50%] left-[50%] flex-col p-12 bg-[#FFF] shadow-lg rounded-md gap-4 `}
+      } absolute top-[50%] left-[50%] flex-col p-12 bg-[#FFF] shadow-lg rounded-md gap-4 dark:bg-[#1E2139]`}
     >
       <p className="text-[#0C0E16] text-lg font-bold leading-5 tracking-tight dark:text-[#FFF]">
         Confirm Deletation
@@ -28,7 +28,7 @@ export default function ConfirmDeletion({
             setShowDelete(false);
             console.log("hgj");
           }}
-          className="rounded-full bg-[#F9FAFE] py-4 px-6 text-[#7E88C3] text-sm font-bold leading-tight tracking-tight hover:bg-[#DFE3FA]"
+          className="rounded-full bg-[#F9FAFE] py-4 px-6 text-[#7E88C3] text-sm font-bold leading-tight tracking-tight hover:bg-[#DFE3FA] dark:text-[#FFF] dark:bg-[#252945]"
         >
           Cancel
         </button>
