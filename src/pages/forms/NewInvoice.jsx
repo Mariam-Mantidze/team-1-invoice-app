@@ -6,29 +6,83 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import GoBack from "../../shared-components/GoBack";
 import uuid from "react-uuid";
+import ReactInputMask from "react-input-mask";
 
 export default function NewInvoice() {
   const { invoiceData, setInvoiceData } = useContext(invoiceContext);
 
   const schema = yup.object({
     senderAddress: yup.object({
-      street: yup.string().required("Can't be empty"),
-      city: yup.string().required("Can't be empty"),
-      postCode: yup.string().required("Can't be empty"),
-      country: yup.string().required("Can't be empty"),
+      street: yup
+        .string()
+        .required("Can't be empty")
+        .max(20, "max limit reached")
+        .min(5, "min 5 characters")
+        .test("sender street check", "incorrect address", (value) =>
+          value.includes("")
+        ),
+      city: yup
+        .string()
+        .required("Can't be empty")
+        .max(20, "max limit reached")
+        .min(3, "min 3 characters"),
+      postCode: yup
+        .string()
+        .required("Can't be empty")
+        .max(8, "max limit reached")
+        .min(4, "min 3 characters"),
+      country: yup
+        .string()
+        .required("Can't be empty")
+        .max(15, "max limit reached")
+        .min(3, "min 3 characters"),
     }),
     clientAddress: yup.object({
-      street: yup.string().required("Can't be empty"),
-      city: yup.string().required("Can't be empty"),
-      postCode: yup.string().required("Can't be empty"),
-      country: yup.string().required("Can't be empty"),
+      street: yup
+        .string()
+        .required("Can't be empty")
+        .max(20, "max limit reached")
+        .min(5, "min 5 characters")
+        .test("sender street check", "incorrect address", (value) =>
+          value.includes("")
+        ),
+      city: yup
+        .string()
+        .required("Can't be empty")
+        .max(20, "max limit reached")
+        .min(3, "min 3 characters"),
+      postCode: yup
+        .string()
+        .required("Can't be empty")
+        .max(8, "max limit reached")
+        .min(4, "min 3 characters"),
+      country: yup
+        .string()
+        .required("Can't be empty")
+        .max(15, "max limit reached")
+        .min(3, "min 3 characters"),
     }),
     items: yup.array().of(
       yup.object({
-        name: yup.string().required("Can't be empty"),
-        quantity: yup.number().required("Can't be empty").positive(),
-        price: yup.number().required("Can't be empty").positive(),
-        total: yup.number().required("Can't be empty").positive(),
+        name: yup
+          .string()
+          .required("Can't be empty")
+          .max(15, "max limit reached")
+          .min(3, "min 3 characters"),
+        quantity: yup
+          .number()
+          .required("Can't be empty")
+          .positive("invalid value")
+          .max(2, "max limit reached"),
+        price: yup
+          .number()
+          .required("Can't be empty")
+          .positive("invalid value")
+          .max(5, "max limit reached"),
+        total: yup
+          .number()
+          .required("Can't be empty")
+          .positive("invalid value"),
       })
     ),
     clientEmail: yup.string().required("Can't be empty"),
@@ -331,6 +385,7 @@ export default function NewInvoice() {
                         <label htmlFor={`qty-${item.id}`}>
                           Qty.
                           <input
+                            type="number"
                             className="qty"
                             id={`qty-${item.id}`}
                             {...register(`items.${index}.quantity`)}
@@ -341,6 +396,7 @@ export default function NewInvoice() {
                         <label htmlFor={`price-${item.id}`}>
                           Price
                           <input
+                            type="number"
                             className="price"
                             id={`price-${item.id}`}
                             {...register(`items.${index}.price`)}
