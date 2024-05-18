@@ -8,10 +8,9 @@ function Heading(props) {
     props.setActiveFilter(!props.activeFilter);
   };
 
-  const [checkedBoxes, setCheckedBoxes] = useState({
-    draft: true,
-    pending: true,
-    paid: true,
+  const [checkedBoxes, setCheckedBoxes] = useState(() => {
+    const savedState = JSON.parse(localStorage.getItem("checkedBoxes"));
+    return savedState || { draft: true, pending: true, paid: true };
   });
 
   const checkBoxHandler = (e) => {
@@ -48,6 +47,7 @@ function Heading(props) {
       activeStatuses.includes(element.status)
     );
     props.setFilteredData(updatedData);
+    localStorage.setItem("checkedBoxes", JSON.stringify(checkedBoxes));
   }, [checkedBoxes]);
 
   return (

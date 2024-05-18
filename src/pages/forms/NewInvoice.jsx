@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import GoBack from "../../shared-components/GoBack";
-import uuid from "react-uuid";
+// import uuid from "react-uuid";
 
 export default function NewInvoice() {
   const { invoiceData, setInvoiceData } = useContext(invoiceContext);
@@ -370,7 +370,8 @@ export default function NewInvoice() {
           name="action"
           value="addItem"
           style={{ marginTop: items.length > 0 ? "65px" : "22px" }}
-          onClick={handleAddItemClick}>
+          onClick={handleAddItemClick}
+        >
           + Add New Item
         </button>
       </div>
@@ -389,14 +390,16 @@ export default function NewInvoice() {
           type="submit"
           name="action"
           value="saveDraft"
-          className="save save-draft">
+          className="save save-draft"
+        >
           Save as Draft
         </button>
         <button
           type="submit"
           name="action"
           value="submitPending"
-          className="save save-send">
+          className="save save-send"
+        >
           Save & Send
         </button>
       </div>
