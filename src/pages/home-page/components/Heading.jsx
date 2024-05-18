@@ -70,7 +70,7 @@ function Heading(props) {
         <div className="flex items-center gap-3 md:gap-[14px] relative">
           <span
             onClick={activateFilter}
-            className="text-[15px] text-[#0c0e16] font-[700] tracking-[-0.25px] leading-[1]"
+            className="text-[15px] text-[#0c0e16] font-[700] tracking-[-0.25px] leading-[1] hover:cursor-pointer"
           >
             {context.isTablet || context.isDesktop
               ? "Filter by status"
@@ -89,11 +89,11 @@ function Heading(props) {
                   id="draft"
                   checked={checkedBoxes.draft}
                   onChange={checkBoxHandler}
-                  className="appearance-none w-4 h-4 rounded-[2px] bg-[#dfe3fa] checked:bg-[#7c5dfa] checked:bg-[url('/assets/icon-check.svg')] checked:bg-no-repeat checked:bg-center"
+                  className="appearance-none w-4 h-4 rounded-[2px] bg-[#dfe3fa] checked:bg-[#7c5dfa] checked:bg-[url('/assets/icon-check.svg')] checked:bg-no-repeat checked:bg-center hover:border hover:border-solid hover:border-[#7c5dfa] hover:cursor-pointer"
                 />
                 <label
                   htmlFor="draft"
-                  className="text-[13px] md:text-[15px] text-[#1e2139] font-[700] tracking-[-0.25px] leading-[1]"
+                  className="text-[13px] md:text-[15px] text-[#1e2139] hover:text-[#0c0e16] hover:cursor-pointer font-[700] tracking-[-0.25px] leading-[1]"
                 >
                   Draft
                 </label>
@@ -104,11 +104,11 @@ function Heading(props) {
                   id="pending"
                   checked={checkedBoxes.pending}
                   onChange={checkBoxHandler}
-                  className="appearance-none w-4 h-4 rounded-[2px] bg-[#dfe3fa] checked:bg-[#7c5dfa] checked:bg-[url('/assets/icon-check.svg')] checked:bg-no-repeat checked:bg-center"
+                  className="appearance-none w-4 h-4 rounded-[2px] bg-[#dfe3fa] checked:bg-[#7c5dfa] checked:bg-[url('/assets/icon-check.svg')] checked:bg-no-repeat checked:bg-center hover:border hover:border-solid hover:border-[#7c5dfa] hover:cursor-pointer"
                 />
                 <label
                   htmlFor="pending"
-                  className="text-[13px] md:text-[15px] text-[#1e2139] font-[700] tracking-[-0.25px] leading-[1]"
+                  className="text-[13px] md:text-[15px] text-[#1e2139] hover:text-[#0c0e16] hover:cursor-pointer font-[700] tracking-[-0.25px] leading-[1]"
                 >
                   Pending
                 </label>
@@ -119,11 +119,11 @@ function Heading(props) {
                   id="paid"
                   onChange={checkBoxHandler}
                   checked={checkedBoxes.paid}
-                  className="appearance-none w-4 h-4 rounded-[2px] bg-[#dfe3fa] checked:bg-[#7c5dfa] checked:bg-[url('/assets/icon-check.svg')] checked:bg-no-repeat checked:bg-center"
+                  className="appearance-none w-4 h-4 rounded-[2px] bg-[#dfe3fa] checked:bg-[#7c5dfa] checked:bg-[url('/assets/icon-check.svg')] checked:bg-no-repeat checked:bg-center hover:border hover:border-solid hover:border-[#7c5dfa] hover:cursor-pointer"
                 />
                 <label
                   htmlFor="paid"
-                  className="text-[13px] md:text-[15px] text-[#1e2139] font-[700] tracking-[-0.25px] leading-[1]"
+                  className="text-[13px] md:text-[15px] text-[#1e2139] hover:text-[#0c0e16] hover:cursor-pointer font-[700] tracking-[-0.25px] leading-[1]"
                 >
                   Paid
                 </label>
@@ -135,7 +135,7 @@ function Heading(props) {
         </div>
         <button
           onClick={() => context.navigate(`/new-invoice`)}
-          className="w-[90px] md:w-[150px] h-[44px] md:h-[48px] rounded-[24px] bg-[#7c5dfa] flex items-center justify-center gap-2 md:gap-4 pr-3 md:pr-2"
+          className="w-[90px] md:w-[150px] h-[44px] md:h-[48px] rounded-[24px] bg-[#7c5dfa] hover:bg-[#9277ff] hover:cursor-pointer flex items-center justify-center gap-2 md:gap-4 pr-3 md:pr-2"
         >
           <div className="w-8 h-8 rounded-full bg-[#fff] flex items-center justify-center">
             <img src="/assets/icon-plus.svg" alt="icon_plus" />

@@ -10,7 +10,11 @@ export default function Header() {
         />
       </div>
       <div className="flex lg:flex-col items-center gap-6 md:gap-8">
-        <img src="/assets/icon-moon.svg" alt="moon_icon" />
+        <img
+          className="hover:cursor-pointer"
+          src="/assets/icon-moon.svg"
+          alt="moon_icon"
+        />
         <hr className="h-[74px] md:h-[82px] lg:h-[1px] w-[1px] lg:w-[105px] bg-[#494e6e] lg:border-none" />
         <img
           className="w-8 lg:w-10 h-8 lg:h-10 rounded-full lg:mt-[-8px]"

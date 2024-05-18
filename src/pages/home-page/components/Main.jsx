@@ -30,7 +30,7 @@ function Main(props) {
             <section
               key={e.id}
               onClick={() => content.navigate(`/${e.id}`)}
-              className="w-[327px] md:w-[672px] lg:w-[730px] flex flex-col md:flex-row md:justify-between md:items-center gap-6 md:gap-0 bg-white rounded-[8px] shadow-invoice pt-[25px] px-6 pb-[22px] md:py-4 lg:pl-8"
+              className="w-[327px] md:w-[672px] lg:w-[730px] flex flex-col md:flex-row md:justify-between md:items-center gap-6 md:gap-0 bg-white rounded-[8px] shadow-invoice pt-[25px] px-6 pb-[22px] md:py-4 lg:pl-8 hover:border hover:border-solid hover:border-[#7c5dfa] hover:cursor-pointer"
             >
               <div className="flex justify-between items-center md:gap-[40px] lg:gap-[48px]">
                 <div className="md:w-[180px] lg:w-[195px] flex justify-between">
