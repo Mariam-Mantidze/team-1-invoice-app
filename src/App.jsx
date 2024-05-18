@@ -18,13 +18,16 @@ export const invoiceContext = createContext({});
 function App() {
   // get data for storing in local storage
   const storedData = JSON.parse(localStorage.getItem("invoiceData"));
-  const storedMode = localStorage.getItem("darkMode");
+  const storedMode = JSON.parse(localStorage.getItem("darkMode")) || false;
 
   // set stored data in useState
   const [invoiceData, setInvoiceData] = useState(storedData || data);
 
   // useState for setting themes
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    const storedMode = JSON.parse(localStorage.getItem("darkMode"));
+    return storedMode || false;
+  });
 
   // const toggleDarkMode = () => {
   //   document.body.classList.toggle("dark");
@@ -33,7 +36,7 @@ function App() {
   // store data in local storage
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(invoiceData));
-    // localStorage.setItem("darkMode", JSON.stringify(storedMode));
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
   }, [invoiceData, darkMode]);
 
   // detect screen size for conditional rendering
