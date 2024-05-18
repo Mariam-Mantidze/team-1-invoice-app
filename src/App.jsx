@@ -18,19 +18,23 @@ export const invoiceContext = createContext({});
 function App() {
   // get data for storing in local storage
   const storedData = JSON.parse(localStorage.getItem("invoiceData"));
-  const storedMode = localStorage.getItem("mode");
+  const storedMode = localStorage.getItem("darkMode");
 
   // set stored data in useState
   const [invoiceData, setInvoiceData] = useState(storedData || data);
 
   // useState for setting themes
-  const [mode, setMode] = useState("light");
+  const [darkMode, setDarkMode] = useState(false);
+
+  // const toggleDarkMode = () => {
+  //   document.body.classList.toggle("dark");
+  // };
 
   // store data in local storage
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(invoiceData));
-    localStorage.setItem("mode", JSON.stringify(mode));
-  }, [invoiceData, mode]);
+    // localStorage.setItem("darkMode", JSON.stringify(storedMode));
+  }, [invoiceData, darkMode]);
 
   // detect screen size for conditional rendering
   const { isMobile, isTablet, isDesktop } = useScreenType();
@@ -47,11 +51,17 @@ function App() {
         isMobile,
         isTablet,
         isDesktop,
-      }}>
+        darkMode,
+      }}
+    >
       <GlobalStyles />
-      <ThemeProvider theme={mode === "light" ? lightTheme : darkTheme}>
-        <div className="min-h-screen bg-[#f8f8fb] lg:flex lg:justify-between">
-          <Header />
+      <ThemeProvider theme={darkMode == false ? lightTheme : darkTheme}>
+        <div
+          className={`${
+            darkMode ? "dark bg-[#141625] " : "bg-[#f8f8fb]"
+          } min-h-screen lg:flex lg:justify-between`}
+        >
+          <Header darkMode={darkMode} setDarkMode={setDarkMode} />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/:id" element={<SingleInvoice />} />

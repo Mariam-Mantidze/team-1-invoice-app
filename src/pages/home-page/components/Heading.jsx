@@ -51,12 +51,14 @@ function Heading(props) {
   }, [checkedBoxes]);
 
   return (
-    <header className=" w-[327px] md:w-[672px] lg:w-[730px] flex justify-between items-center mt-8 md:mt-[62px] lg:mt-[68px]">
+    <header
+      className={` w-[327px] md:w-[672px] lg:w-[730px] flex justify-between items-center mt-8 md:mt-[62px] lg:mt-[68px]`}
+    >
       <div>
-        <h1 className="text-2xl md:text-4xl text-[#0c0e16] font-[700] tracking-[-0.75px] md:tracking-[-1.13px]">
+        <h1 className="text-2xl md:text-4xl text-[#0c0e16] dark:text-[#fff] font-[700] tracking-[-0.75px] md:tracking-[-1.13px]">
           Invoices
         </h1>
-        <p className="text-[13px] text-[#888eb0] font-[500] tracking-[-0.1px] leading-[1.15] mt-[3px] md:mt-[6px]">
+        <p className="text-[13px] text-[#888eb0] dark:text-[#dfe3fa] font-[500] tracking-[-0.1px] leading-[1.15] mt-[3px] md:mt-[6px]">
           {context.isTablet || context.isDesktop
             ? props.filteredData.length == 0
               ? "No invoices"
@@ -70,7 +72,7 @@ function Heading(props) {
         <div className="flex items-center gap-3 md:gap-[14px] relative">
           <span
             onClick={activateFilter}
-            className="text-[15px] text-[#0c0e16] font-[700] tracking-[-0.25px] leading-[1] hover:cursor-pointer"
+            className="text-[15px] text-[#0c0e16] dark:text-[#fff] font-[700] tracking-[-0.25px] leading-[1] hover:cursor-pointer"
           >
             {context.isTablet || context.isDesktop
               ? "Filter by status"
@@ -82,18 +84,18 @@ function Heading(props) {
             alt="arrow_down"
           />
           {props.activeFilter ? (
-            <div className="w-[110px] md:w-[192px] h-[90px] md:h-[128px] rounded-[8px] bg-[#fff] shadow-filter flex flex-col justify-center gap-[10px] md:gap-[17px] absolute bottom-[-150px] left-[-26px] md:left-[-37px] p-3 md:p-6">
+            <div className="w-[110px] md:w-[192px] h-[90px] md:h-[128px] rounded-[8px] bg-[#fff] dark:bg-[#252945] shadow-filter dark:shadow-darkFilter flex flex-col justify-center gap-[10px] md:gap-[17px] absolute bottom-[-150px] left-[-26px] md:left-[-37px] p-3 md:p-6">
               <div className="flex items-center gap-2 md:gap-[13px]">
                 <input
                   type="checkbox"
                   id="draft"
                   checked={checkedBoxes.draft}
                   onChange={checkBoxHandler}
-                  className="appearance-none w-4 h-4 rounded-[2px] bg-[#dfe3fa] checked:bg-[#7c5dfa] checked:bg-[url('/assets/icon-check.svg')] checked:bg-no-repeat checked:bg-center hover:border hover:border-solid hover:border-[#7c5dfa] hover:cursor-pointer"
+                  className="appearance-none w-4 h-4 rounded-[2px] bg-[#dfe3fa] dark:bg-[#1e2139] checked:bg-[#7c5dfa] dark:checked:bg-[#7c5dfa] checked:bg-[url('/assets/icon-check.svg')] checked:bg-no-repeat checked:bg-center hover:border hover:border-solid hover:border-[#7c5dfa] hover:cursor-pointer"
                 />
                 <label
                   htmlFor="draft"
-                  className="text-[13px] md:text-[15px] text-[#1e2139] hover:text-[#0c0e16] hover:cursor-pointer font-[700] tracking-[-0.25px] leading-[1]"
+                  className="text-[13px] md:text-[15px] text-[#1e2139] dark:text-[#fff] hover:text-[#0c0e16] hover:cursor-pointer font-[700] tracking-[-0.25px] leading-[1]"
                 >
                   Draft
                 </label>
@@ -104,11 +106,11 @@ function Heading(props) {
                   id="pending"
                   checked={checkedBoxes.pending}
                   onChange={checkBoxHandler}
-                  className="appearance-none w-4 h-4 rounded-[2px] bg-[#dfe3fa] checked:bg-[#7c5dfa] checked:bg-[url('/assets/icon-check.svg')] checked:bg-no-repeat checked:bg-center hover:border hover:border-solid hover:border-[#7c5dfa] hover:cursor-pointer"
+                  className="appearance-none w-4 h-4 rounded-[2px] bg-[#dfe3fa] dark:bg-[#1e2139] checked:bg-[#7c5dfa] dark:checked:bg-[#7c5dfa] checked:bg-[url('/assets/icon-check.svg')] checked:bg-no-repeat checked:bg-center hover:border hover:border-solid hover:border-[#7c5dfa] hover:cursor-pointer"
                 />
                 <label
                   htmlFor="pending"
-                  className="text-[13px] md:text-[15px] text-[#1e2139] hover:text-[#0c0e16] hover:cursor-pointer font-[700] tracking-[-0.25px] leading-[1]"
+                  className="text-[13px] md:text-[15px] text-[#1e2139] dark:text-[#fff] hover:text-[#0c0e16] hover:cursor-pointer font-[700] tracking-[-0.25px] leading-[1]"
                 >
                   Pending
                 </label>
@@ -119,11 +121,11 @@ function Heading(props) {
                   id="paid"
                   onChange={checkBoxHandler}
                   checked={checkedBoxes.paid}
-                  className="appearance-none w-4 h-4 rounded-[2px] bg-[#dfe3fa] checked:bg-[#7c5dfa] checked:bg-[url('/assets/icon-check.svg')] checked:bg-no-repeat checked:bg-center hover:border hover:border-solid hover:border-[#7c5dfa] hover:cursor-pointer"
+                  className="appearance-none w-4 h-4 rounded-[2px] bg-[#dfe3fa] dark:bg-[#1e2139] checked:bg-[#7c5dfa] dark:checked:bg-[#7c5dfa] checked:bg-[url('/assets/icon-check.svg')] checked:bg-no-repeat checked:bg-center hover:border hover:border-solid hover:border-[#7c5dfa] hover:cursor-pointer"
                 />
                 <label
                   htmlFor="paid"
-                  className="text-[13px] md:text-[15px] text-[#1e2139] hover:text-[#0c0e16] hover:cursor-pointer font-[700] tracking-[-0.25px] leading-[1]"
+                  className="text-[13px] md:text-[15px] text-[#1e2139] dark:text-[#fff] hover:text-[#0c0e16] hover:cursor-pointer font-[700] tracking-[-0.25px] leading-[1]"
                 >
                   Paid
                 </label>
