@@ -1,6 +1,11 @@
-export default function Header() {
+export default function Header(props) {
+  const handleDarkMode = () => {
+    props.setDarkMode(!props.darkMode);
+  };
   return (
-    <div className="h-[72px] md:h-20 lg:h-auto lg:w-[103px] bg-[#373b53] flex lg:flex-col items-center justify-between pr-6 md:pr-[32px] lg:pr-0 lg:pb-6 lg:rounded-tr-[20px] lg:rounded-br-[20px]">
+    <div
+      className={`h-[72px] md:h-20 lg:h-auto lg:w-[103px] bg-[#373b53] dark:bg-[#1e2139] flex lg:flex-col items-center justify-between pr-6 md:pr-[32px] lg:pr-0 lg:pb-6 lg:rounded-tr-[20px] lg:rounded-br-[20px]`}
+    >
       <div className="w-[72px] md:w-20 lg:w-[103px] h-[72px] md:h-20 lg:h-[103px] flex items-end relative bg-[#7c5dfa] rounded-tr-[20px] rounded-br-[20px]">
         <div className="h-9 md:h-10 lg:h-[51px] w-[72px] md:w-20 lg:w-[103px] bg-[#9277ff] rounded-br-[20px] rounded-tl-[20px]"></div>
         <img
@@ -10,7 +15,12 @@ export default function Header() {
         />
       </div>
       <div className="flex lg:flex-col items-center gap-6 md:gap-8">
-        <img src="/assets/icon-moon.svg" alt="moon_icon" />
+        <img
+          onClick={handleDarkMode}
+          className="hover:cursor-pointer"
+          src={`/assets/icon-${props.darkMode ? "sun" : "moon"}.svg`}
+          alt="moon_icon"
+        />
         <hr className="h-[74px] md:h-[82px] lg:h-[1px] w-[1px] lg:w-[105px] bg-[#494e6e] lg:border-none" />
         <img
           className="w-8 lg:w-10 h-8 lg:h-10 rounded-full lg:mt-[-8px]"
