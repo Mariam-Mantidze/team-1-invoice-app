@@ -58,7 +58,11 @@ function Heading(props) {
         </h1>
         <p className="text-[13px] text-[#888eb0] font-[500] tracking-[-0.1px] leading-[1.15] mt-[3px] md:mt-[6px]">
           {context.isTablet || context.isDesktop
-            ? `There are ${props.filteredData.length} total invoices`
+            ? props.filteredData.length == 0
+              ? "No invoices"
+              : props.filteredData.length == 1
+              ? `There is ${props.filteredData.length} total invoice`
+              : `There are ${props.filteredData.length} total invoices`
             : `${props.filteredData.length} invoices`}
         </p>
       </div>

@@ -12,7 +12,7 @@ function Main(props) {
       const datestr = e.paymentDue;
       const parts = datestr.split("-");
       const date = new Date(parts[0], parts[1] - 1, parts[2]);
-      const month = date.toLocaleString("en-us", { month: "long" });
+      const month = date.toLocaleString("en-us", { month: "short" });
       const day = date.getDate();
       const year = date.getFullYear();
       const fulldate = `${day} ${month} ${year}`;
@@ -30,26 +30,34 @@ function Main(props) {
             <section
               key={e.id}
               onClick={() => content.navigate(`/${e.id}`)}
-              className="w-[327px] flex flex-col gap-6 bg-white rounded-[8px] shadow-invoice pt-[25px] px-6 pb-[22px]"
+              className="w-[327px] md:w-[672px] flex flex-col md:flex-row md:justify-between md:items-center gap-6 md:gap-0 bg-white rounded-[8px] shadow-invoice pt-[25px] px-6 pb-[22px] md:py-4"
             >
-              <div className="flex justify-between items-center">
-                <h3 className="text-[15px] text-[#0c0e16] font-[700] tracking-[-0.25px] leading-[1]">
-                  <span className="text-[#7e88c3]">#</span>
-                  {e.id}
-                </h3>
-                <span className="text-[13px] text-[#858bb2] font-[500] tracking-[-0.1px] leading-[1.15]">
-                  {e.clientName}
-                </span>
-              </div>
-              <div className="flex justify-between items-center">
-                <div className="flex flex-col gap-[9px]">
-                  <p className="text-[13px] text-[#7e88c3] font-[500] tracking-[-0.1px] leading-[1.15]">
+              <div className="flex justify-between items-center md:gap-[40px]">
+                <div className="md:w-[180px] flex justify-between">
+                  <h3 className="text-[15px] text-[#0c0e16] font-[700] tracking-[-0.25px] leading-[1]">
+                    <span className="text-[#7e88c3]">#</span>
+                    {e.id}
+                  </h3>
+                  <p className="text-[13px] text-[#7e88c3] font-[500] tracking-[-0.1px] leading-[1.15] hidden md:flex">
                     due{" "}
                     {dateRef.current[index]
                       ? dateRef.current[index].payDue
                       : ""}
                   </p>
-                  <span className="text-[15px] text-[#0c0e16] font-[700] tracking-[-0.25px] leading-[1.6]">
+                </div>
+                <span className="text-[13px] text-[#858bb2] font-[500] tracking-[-0.1px] leading-[1.15] md:ml-[23px]">
+                  {e.clientName}
+                </span>
+              </div>
+              <div className="flex justify-between items-center md:gap-5">
+                <div className="flex flex-col md:flex-row gap-[9px]">
+                  <p className="text-[13px] text-[#7e88c3] font-[500] tracking-[-0.1px] leading-[1.15] md:hidden">
+                    due{" "}
+                    {dateRef.current[index]
+                      ? dateRef.current[index].payDue
+                      : ""}
+                  </p>
+                  <span className="text-[15px] text-[#0c0e16] font-[700] tracking-[-0.25px] leading-[1.6] md:mr-5">
                     £ {Number(e.total).toFixed(2)}
                   </span>
                 </div>
@@ -84,7 +92,7 @@ function Main(props) {
                   </span>
                 </div>
                 <img
-                  className="hidden"
+                  className="hidden md:flex"
                   src="/assets/icon-arrow-right.svg"
                   alt="arror_right_icon"
                 />
@@ -93,7 +101,7 @@ function Main(props) {
           );
         })
       ) : (
-        <Empty />
+        <Empty content={content} />
       )}
     </main>
   );
