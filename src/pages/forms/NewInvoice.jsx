@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import GoBack from "../../shared-components/GoBack";
-// import uuid from "react-uuid";
+import uuid from "react-uuid";
 
 export default function NewInvoice() {
   const { invoiceData, setInvoiceData } = useContext(invoiceContext);
@@ -45,20 +45,27 @@ export default function NewInvoice() {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      items: [{ name: "", quantity: "", price: "", total: 0 }],
+    },
   });
 
   // payment terms: net 30 days, 7 days, 1 day, 14 days
 
   const [items, setItems] = useState([]);
 
+  const itemsValues = watch("items");
+
+  console.log(itemsValues);
+
   const handleAddItemClick = (e) => {
     e.preventDefault();
     const newItem = {
       id: uuid(),
       name: "",
-      quantity: "",
-      price: "",
-      total: "",
+      quantity: 0,
+      price: 0,
+      total: 0,
     };
 
     setItems([...items, newItem]);
@@ -299,6 +306,11 @@ export default function NewInvoice() {
         <div className="item-active-container">
           {items.length > 0 ? (
             items.map((item, index) => {
+              const total =
+                (
+                  itemsValues[index]?.quantity * itemsValues[index]?.price
+                ).toFixed(2) || "0.00";
+
               return (
                 <div key={item.id} className="item-active">
                   <div className="active-container"></div>
@@ -338,7 +350,7 @@ export default function NewInvoice() {
                       <div className="label-box total-box">
                         <div className="total-flex">
                           <p>Total</p>
-                          <span>200.00</span>
+                          <TotalSpan total={total}>{total}</TotalSpan>
                         </div>
                       </div>
                     </div>
@@ -370,8 +382,7 @@ export default function NewInvoice() {
           name="action"
           value="addItem"
           style={{ marginTop: items.length > 0 ? "65px" : "22px" }}
-          onClick={handleAddItemClick}
-        >
+          onClick={handleAddItemClick}>
           + Add New Item
         </button>
       </div>
@@ -390,16 +401,14 @@ export default function NewInvoice() {
           type="submit"
           name="action"
           value="saveDraft"
-          className="save save-draft"
-        >
+          className="save save-draft">
           Save as Draft
         </button>
         <button
           type="submit"
           name="action"
           value="submitPending"
-          className="save save-send"
-        >
+          className="save save-send">
           Save & Send
         </button>
       </div>
@@ -470,6 +479,7 @@ const Form = styled.form`
         line-height: 15px;
         letter-spacing: -0.25px;
         outline: none;
+        background-color: ${(props) => props.theme.inputBackground};
       }
     }
   }
@@ -661,15 +671,6 @@ const Form = styled.form`
         line-height: 15px;
         letter-spacing: -0.10000000149011612px;
       }
-
-      & span {
-        font-size: 15px;
-        font-weight: 700;
-        line-height: 15px;
-        letter-spacing: -0.25px;
-        text-align: left;
-        color: rgba(136, 142, 176, 1);
-      }
     }
   }
   & .generic-message {
@@ -682,4 +683,17 @@ const Form = styled.form`
     margin-left: 22px;
     margin-top: 25px;
   }
+`;
+
+const TotalSpan = styled.span`
+  color: ${(props) => {
+    return props.total > 0
+      ? props.theme.totalColor.active
+      : props.theme.totalColor.inactive;
+  }};
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 15px;
+  letter-spacing: -0.25px;
+  text-align: left;
 `;
