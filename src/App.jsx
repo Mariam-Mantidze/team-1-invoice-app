@@ -18,7 +18,7 @@ export const invoiceContext = createContext({});
 function App() {
   // get data for storing in local storage
   const storedData = JSON.parse(localStorage.getItem("invoiceData"));
-  const storedMode = localStorage.getItem("mode");
+  const storedMode = localStorage.getItem("darkMode");
 
   // set stored data in useState
   const [invoiceData, setInvoiceData] = useState(storedData || data);
@@ -33,7 +33,7 @@ function App() {
   // store data in local storage
   useEffect(() => {
     localStorage.setItem("data", JSON.stringify(invoiceData));
-    localStorage.setItem("mode", JSON.stringify(darkMode));
+    // localStorage.setItem("darkMode", JSON.stringify(storedMode));
   }, [invoiceData, darkMode]);
 
   // detect screen size for conditional rendering
@@ -55,11 +55,15 @@ function App() {
       }}
     >
       <GlobalStyles />
-      <ThemeProvider theme={darkMode === "light" ? lightTheme : darkTheme}>
-        <div className="min-h-screen bg-[#f8f8fb] lg:flex lg:justify-between">
+      <ThemeProvider theme={darkMode == false ? lightTheme : darkTheme}>
+        <div
+          className={`${
+            darkMode ? "dark" : ""
+          } min-h-screen bg-[#f8f8fb] dark:bg-[#141625] lg:flex lg:justify-between`}
+        >
           <Header darkMode={darkMode} setDarkMode={setDarkMode} />
           <Routes>
-            <Route path="/" element={<Home darkMode={darkMode} />} />
+            <Route path="/" element={<Home />} />
             <Route path="/:id" element={<SingleInvoice />} />
             <Route path="/new-invoice" element={<NewInvoice />} />
             <Route

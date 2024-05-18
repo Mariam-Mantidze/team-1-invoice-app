@@ -52,9 +52,7 @@ function Heading(props) {
 
   return (
     <header
-      className={`${
-        context.darkMode ? "dark" : ""
-      } w-[327px] md:w-[672px] lg:w-[730px] flex justify-between items-center mt-8 md:mt-[62px] lg:mt-[68px]`}
+      className={` w-[327px] md:w-[672px] lg:w-[730px] flex justify-between items-center mt-8 md:mt-[62px] lg:mt-[68px]`}
     >
       <div>
         <h1 className="text-2xl md:text-4xl text-[#0c0e16] dark:text-[#fff] font-[700] tracking-[-0.75px] md:tracking-[-1.13px]">

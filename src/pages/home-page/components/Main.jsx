@@ -23,11 +23,7 @@ function Main(props) {
 
   //   const fixedAmount = content.invoiceData.
   return (
-    <main
-      className={`${
-        content.darkMode ? "dark" : ""
-      } flex flex-col items-center gap-4 mb-10`}
-    >
+    <main className={` flex flex-col items-center gap-4 mb-10`}>
       {props.filteredData.length > 0 ? (
         props.filteredData.map((e, index) => {
           return (
