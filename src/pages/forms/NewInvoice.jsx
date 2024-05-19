@@ -116,6 +116,7 @@ export default function NewInvoice() {
     register,
     handleSubmit,
     watch,
+    reset,
     setValue,
     formState: { errors },
   } = useForm({
@@ -542,6 +543,7 @@ export default function NewInvoice() {
 
       <div className="submit-group">
         <button
+          // onClick={navigate("/")}
           type="submit"
           name="submissionAction"
           value="discard"
