@@ -6,11 +6,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import GoBack from "../../shared-components/GoBack";
 import uuid from "react-uuid";
-
+import Modal from "react-modal";
 import ReactInputMask from "react-input-mask";
 
+Modal.setAppElement("#root");
+
 export default function NewInvoice() {
-  const { invoiceData, setInvoiceData } = useContext(invoiceContext);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const { invoiceData, setInvoiceData, navigate } = useContext(invoiceContext);
 
   // Function to generate a custom ID using UUID
   function generateCustomID() {
@@ -198,7 +202,16 @@ export default function NewInvoice() {
 
     setInvoiceData([...invoiceData, finalData]);
 
-    console.log(invoiceData);
+    // console.log(invoiceData);
+
+    // Open the modal
+    setModalIsOpen(true);
+
+    // Close the modal and navigate back to the main page after 3 seconds
+    setTimeout(() => {
+      setModalIsOpen(false);
+      navigate("/");
+    }, 3000);
   };
 
   return (
@@ -513,14 +526,19 @@ export default function NewInvoice() {
         </button>
       </div>
 
-      {/* {items?.length === 0 && (
-        <p className="error-message generic-message">- An item must be added</p>
-      )} */}
-      {/* {errors.items?.length > 0 && (
-        <p className="error-message generic-message">
-          - All fields must be added
-        </p>
-      )} */}
+      <StyledModal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        overlayElement={(props, contentElement) => (
+          <ModalOverlay>{contentElement}</ModalOverlay>
+        )}
+        contentElement={(props, children) => (
+          <ModalContent>{children}</ModalContent>
+        )}>
+        <h2>Success!</h2>
+        <p>Your invoice has been sent successfully.</p>
+        <CloseButton onClick={() => setModalIsOpen(false)}>×</CloseButton>
+      </StyledModal>
 
       <div className="submit-group">
         <button
@@ -829,4 +847,60 @@ const TotalSpan = styled.span`
   line-height: 15px;
   letter-spacing: -0.25px;
   text-align: left;
+`;
+
+const StyledModal = styled(Modal)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ModalContent = styled.div`
+  background-color: ${(props) => props.theme.inputBackground};
+  padding: 50px;
+  border-radius: 8px;
+  /* width: 400px; */
+  /* text-align: center; */
+  color: ${(props) => props.theme.textColor};
+  position: relative;
+
+  & > p {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: -0.10000000149011612px;
+    text-align: left;
+    margin-top: 20px;
+  }
+
+  & > h2 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    letter-spacing: -0.5px;
+    text-align: left;
+  }
+`;
+
+const CloseButton = styled.button`
+  background: none;
+  border: none;
+  color: #333;
+  font-size: 20px;
+  position: absolute;
+  top: 10px;
+  right: 17px;
+  cursor: pointer;
 `;
