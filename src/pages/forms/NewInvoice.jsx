@@ -5,60 +5,144 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import GoBack from "../../shared-components/GoBack";
-// import uuid from "react-uuid";
+import uuid from "react-uuid";
+import Modal from "react-modal";
+import ReactInputMask from "react-input-mask";
+
+Modal.setAppElement("#root");
 
 export default function NewInvoice() {
-  const { invoiceData, setInvoiceData } = useContext(invoiceContext);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const { invoiceData, setInvoiceData, navigate } = useContext(invoiceContext);
+
+  // Function to generate a custom ID using UUID
+  function generateCustomID() {
+    const randomId = uuid();
+    // Extract the first two characters as letters
+    const letters = randomId.substring(0, 2).toUpperCase();
+    // Extract the first four numbers from the uuid
+    const digits = randomId.replace(/\D/g, "").substring(0, 4);
+
+    // Combine letters and digits to form the custom ID
+    const customID = `${letters}${digits}`;
+
+    return customID;
+  }
 
   const schema = yup.object({
     senderAddress: yup.object({
-      street: yup.string().required("Can't be empty"),
-      city: yup.string().required("Can't be empty"),
-      postCode: yup.string().required("Can't be empty"),
-      country: yup.string().required("Can't be empty"),
+      street: yup
+        .string()
+        .required("Can't be empty")
+        .max(20, "max limit reached")
+        .min(5, "min 5 characters")
+        .test("sender street check", "incorrect address", (value) =>
+          value.includes("")
+        ),
+      city: yup
+        .string()
+        .required("Can't be empty")
+        .max(20, "max limit reached")
+        .min(3, "min 3 characters"),
+      postCode: yup
+        .string()
+        .required("Can't be empty")
+        .max(8, "max limit reached")
+        .min(4, "min 3 characters"),
+      country: yup
+        .string()
+        .required("Can't be empty")
+        .max(15, "max limit reached")
+        .min(3, "min 3 characters"),
     }),
     clientAddress: yup.object({
-      street: yup.string().required("Can't be empty"),
-      city: yup.string().required("Can't be empty"),
-      postCode: yup.string().required("Can't be empty"),
-      country: yup.string().required("Can't be empty"),
+      street: yup
+        .string()
+        .required("Can't be empty")
+        .max(20, "max limit reached")
+        .min(5, "min 5 characters")
+        .test("sender street check", "incorrect address", (value) =>
+          value.includes("")
+        ),
+      city: yup
+        .string()
+        .required("Can't be empty")
+        .max(20, "max limit reached")
+        .min(3, "min 3 characters"),
+      postCode: yup
+        .string()
+        .required("Can't be empty")
+        .max(8, "max limit reached")
+        .min(4, "min 3 characters"),
+      country: yup
+        .string()
+        .required("Can't be empty")
+        .max(15, "max limit reached")
+        .min(3, "min 3 characters"),
     }),
     items: yup.array().of(
       yup.object({
-        name: yup.string().required("Can't be empty"),
-        quantity: yup.number().required("Can't be empty").positive(),
-        price: yup.number().required("Can't be empty").positive(),
-        total: yup.number().required("Can't be empty").positive(),
+        name: yup
+          .string()
+          .required("Can't be empty")
+          .max(15, "max limit reached")
+          .min(3, "min 3 characters"),
+        quantity: yup
+          .number()
+          .required("Can't be empty")
+          .positive("invalid value"),
+        // .max(5, "max limit reached"),
+        price: yup
+          .number()
+          .required("Can't be empty")
+          .positive("invalid value"),
+        // .max(5, "max limit reached"),
+        // total: yup
+        //   .number()
+        //   .required("Can't be empty")
+        //   .positive("invalid value"),
       })
     ),
     clientEmail: yup.string().required("Can't be empty"),
     clientName: yup.string().required("Can't be empty"),
     description: yup.string().required("Can't be empty"),
-    createdAt: yup.string().required("Can't be empty"),
+    // createdAt: yup.string().required("Can't be empty"),
+    paymentTerms: yup.string().required("Can't be empty"),
+    paymentDue: yup.string().required("Can't be empty"),
   });
 
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      items: [{ name: "", quantity: "", price: "", total: 0 }],
+    },
   });
 
   // payment terms: net 30 days, 7 days, 1 day, 14 days
 
   const [items, setItems] = useState([]);
 
+  const itemsValues = watch("items");
+
+  // console.log(itemsValues);
+  // console.log(errors);
+
   const handleAddItemClick = (e) => {
     e.preventDefault();
     const newItem = {
       id: uuid(),
       name: "",
-      quantity: "",
-      price: "",
-      total: "",
+      quantity: 0,
+      price: 0,
+      total: 0,
     };
 
     setItems([...items, newItem]);
@@ -70,8 +154,65 @@ export default function NewInvoice() {
     setItems(updatedItems);
   };
 
-  const onSubmit = (data) => {
-    console.log(data);
+  // find createdDate
+  const date = new Date();
+  const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
+
+  const onSubmit = (data, event) => {
+    event.preventDefault(); // Prevent default form submission
+
+    // find which button was clicked
+    const submitter = event.nativeEvent.submitter;
+    const submissionAction = submitter ? submitter.value : null;
+
+    // getting status based on which item was clicked
+    const status = submissionAction === "saveAndSend" ? "pending" : "draft";
+
+    //calculating each item totals and setting it
+    const itemsWithTotals = itemsValues.map((item) => ({
+      ...item,
+      total: ((item.quantity || 0) * (item.price || 0)).toFixed(2),
+      price: (+item.price || 0).toFixed(2),
+      quantity: (+item.quantity || 0).toFixed(2),
+    }));
+
+    // get all items sum / total
+    const computedTotal = itemsValues
+      .reduce(
+        (acc, item) => acc + parseFloat(item.quantity) * parseFloat(item.price),
+        0
+      )
+      .toFixed(2);
+
+    const inputString = data.paymentTerms;
+    const regex = /\d+/;
+    const match = inputString.match(regex);
+    const numberOfDays = match ? parseInt(match[0], 10) : null;
+
+    const finalData = {
+      ...data,
+      createdAt: formattedDate,
+      items: itemsWithTotals,
+      id: generateCustomID(),
+      total: computedTotal,
+      status: status,
+      paymentTerms: numberOfDays,
+    };
+
+    setInvoiceData([...invoiceData, finalData]);
+
+    // console.log(invoiceData);
+
+    // Open the modal
+    setModalIsOpen(true);
+
+    // Close the modal and navigate back to the main page after 3 seconds
+    setTimeout(() => {
+      setModalIsOpen(false);
+      navigate("/");
+    }, 3000);
   };
 
   return (
@@ -249,10 +390,14 @@ export default function NewInvoice() {
           <div className="label-box">
             <label htmlFor="invoice-date">
               Invoice Date
-              <input id="invoice-date" type="date" {...register("createdAt")} />
-              {errors.createdAt ? (
+              <input
+                id="invoice-date"
+                type="date"
+                {...register("paymentDue")}
+              />
+              {errors.paymentDue ? (
                 <span className="error-message">
-                  {errors.createdAt.message}
+                  {errors.paymentDue.message}
                 </span>
               ) : null}
             </label>
@@ -261,15 +406,15 @@ export default function NewInvoice() {
           <div className="label-box">
             <label htmlFor="payment-terms">
               Payment Terms
-              <select id="payment-terms" {...register("paymentDue")}>
+              <select id="payment-terms" {...register("paymentTerms")}>
                 <option value="net 30 days">Net 30 Days</option>
                 <option value="net 14 days">Net 14 Days</option>
                 <option value="net 7 days">Net 7 Days</option>
                 <option value="net 1 day">Net 1 Day</option>
               </select>
-              {errors.paymentDue ? (
+              {errors.paymentTerms ? (
                 <span className="error-message">
-                  {errors.paymentDue.message}
+                  {errors.paymentTerms.message}
                 </span>
               ) : null}
             </label>
@@ -299,6 +444,11 @@ export default function NewInvoice() {
         <div className="item-active-container">
           {items.length > 0 ? (
             items.map((item, index) => {
+              const total =
+                (
+                  itemsValues[index]?.quantity * itemsValues[index]?.price
+                ).toFixed(2) || "0.00";
+
               return (
                 <div key={item.id} className="item-active">
                   <div className="active-container"></div>
@@ -319,6 +469,7 @@ export default function NewInvoice() {
                         <label htmlFor={`qty-${item.id}`}>
                           Qty.
                           <input
+                            type="number"
                             className="qty"
                             id={`qty-${item.id}`}
                             {...register(`items.${index}.quantity`)}
@@ -329,6 +480,7 @@ export default function NewInvoice() {
                         <label htmlFor={`price-${item.id}`}>
                           Price
                           <input
+                            type="number"
                             className="price"
                             id={`price-${item.id}`}
                             {...register(`items.${index}.price`)}
@@ -338,7 +490,7 @@ export default function NewInvoice() {
                       <div className="label-box total-box">
                         <div className="total-flex">
                           <p>Total</p>
-                          <span>200.00</span>
+                          <TotalSpan total={total}>{total}</TotalSpan>
                         </div>
                       </div>
                     </div>
@@ -370,36 +522,46 @@ export default function NewInvoice() {
           name="action"
           value="addItem"
           style={{ marginTop: items.length > 0 ? "65px" : "22px" }}
-          onClick={handleAddItemClick}
-        >
+          onClick={handleAddItemClick}>
           + Add New Item
         </button>
       </div>
 
-      {errors.items?.length > 0 && (
-        <p className="error-message generic-message">
-          - All fields must be added
-        </p>
-      )}
+      <StyledModal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        overlayElement={(props, contentElement) => (
+          <ModalOverlay>{contentElement}</ModalOverlay>
+        )}
+        contentElement={(props, children) => (
+          <ModalContent>{children}</ModalContent>
+        )}>
+        <h2>Success!</h2>
+        <p>Your invoice has been sent successfully.</p>
+        <CloseButton onClick={() => setModalIsOpen(false)}>×</CloseButton>
+      </StyledModal>
 
       <div className="submit-group">
-        <button type="submit" name="action" value="discard" className="discard">
+        <button
+          // onClick={navigate("/")}
+          type="submit"
+          name="submissionAction"
+          value="discard"
+          className="discard">
           Discard
         </button>
         <button
           type="submit"
-          name="action"
-          value="saveDraft"
-          className="save save-draft"
-        >
+          name="submissionAction"
+          value="saveAsDraft"
+          className="save save-draft">
           Save as Draft
         </button>
         <button
           type="submit"
-          name="action"
-          value="submitPending"
-          className="save save-send"
-        >
+          name="submissionAction"
+          value="saveAndSend"
+          className="save save-send">
           Save & Send
         </button>
       </div>
@@ -470,6 +632,7 @@ const Form = styled.form`
         line-height: 15px;
         letter-spacing: -0.25px;
         outline: none;
+        background-color: ${(props) => props.theme.inputBackground};
       }
     }
   }
@@ -661,15 +824,6 @@ const Form = styled.form`
         line-height: 15px;
         letter-spacing: -0.10000000149011612px;
       }
-
-      & span {
-        font-size: 15px;
-        font-weight: 700;
-        line-height: 15px;
-        letter-spacing: -0.25px;
-        text-align: left;
-        color: rgba(136, 142, 176, 1);
-      }
     }
   }
   & .generic-message {
@@ -682,4 +836,73 @@ const Form = styled.form`
     margin-left: 22px;
     margin-top: 25px;
   }
+`;
+
+const TotalSpan = styled.span`
+  color: ${(props) => {
+    return props.total > 0
+      ? props.theme.totalColor.active
+      : props.theme.totalColor.inactive;
+  }};
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 15px;
+  letter-spacing: -0.25px;
+  text-align: left;
+`;
+
+const StyledModal = styled(Modal)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ModalContent = styled.div`
+  background-color: ${(props) => props.theme.inputBackground};
+  padding: 50px;
+  border-radius: 8px;
+  /* width: 400px; */
+  /* text-align: center; */
+  color: ${(props) => props.theme.textColor};
+  position: relative;
+
+  & > p {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 22px;
+    letter-spacing: -0.10000000149011612px;
+    text-align: left;
+    margin-top: 20px;
+  }
+
+  & > h2 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    letter-spacing: -0.5px;
+    text-align: left;
+  }
+`;
+
+const CloseButton = styled.button`
+  background: none;
+  border: none;
+  color: #333;
+  font-size: 20px;
+  position: absolute;
+  top: 10px;
+  right: 17px;
+  cursor: pointer;
 `;

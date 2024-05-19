@@ -57,17 +57,17 @@ export default function SingleInvoice() {
         deleteClick={deleteInvoice}
       />
       <div
-        className={`min-h-screen lg:w-[60%] lg:ml-[200px] ${
-          showDelete ? "opacity-[0.03]" : ""
+        className={`min-h-screen dark:bg-[#141625] lg:w-[60%] mx-auto ${
+          showDelete ? "opacity-[0.1]" : ""
         }`}
       >
-        <div className="flex flex-col p-6 bg-[#F8F8FB] gap-8">
+        <div className="flex flex-col p-6 bg-[#F8F8FB] gap-8 dark:bg-[#141625]">
           <GoBack />
 
           <div className="flex flex-col gap-4">
-            <div className="flex w-[100%] justify-between bg-[#FFF] shadow-sm rounded-md">
+            <div className="flex w-[100%] justify-between bg-[#FFF] shadow-sm rounded-md dark:bg-[#1E2139]">
               <div className="flex p-6 justify-between items-center w-[100%] md:gap-6 md:w-auto">
-                <p className="text-[#858BB2] text-sm font-medium leading-5 tracking-tight">
+                <p className="text-[#858BB2] text-sm font-medium leading-5 tracking-tight dark:text-[#DFE3FA]">
                   Status
                 </p>
                 <div
@@ -87,8 +87,8 @@ export default function SingleInvoice() {
                 </div>
               </div>
 
-              <div className="hidden p-6 justify-between bg-[#FFF] md:flex md:gap-6">
-                <button className="rounded-full bg-[#F9FAFE] py-4 px-6 text-[#7E88C3] text-sm font-bold leading-tight tracking-tight hover:bg-[#DFE3FA]">
+              <div className="hidden p-6 justify-between bg-[#FFF] md:flex md:gap-6 dark:bg-[#1E2139] rounded-md">
+                <button className="rounded-full bg-[#F9FAFE] py-4 px-6 text-[#7E88C3] text-sm font-bold leading-tight tracking-tight hover:bg-[#DFE3FA] dark:bg-[#252945] dark:text-[#FFF]">
                   Edit
                 </button>
                 <DeleteButton onClick={() => setShowDelete(true)} />
@@ -101,16 +101,16 @@ export default function SingleInvoice() {
               </div>
             </div>
 
-            <div className="flex flex-col p-6 bg-[#FFF] gap-8 rounded-md shadow-sm">
+            <div className="flex flex-col p-6 bg-[#FFF] gap-8 rounded-md shadow-sm dark:bg-[#1e2139]">
               <div className="flex flex-col gap-8 md:flex-row md:justify-between">
                 <div>
-                  <p className="text-[#858BB2] text-sm font-medium leading-5 tracking-tight">
+                  <p className="text-[#858BB2] text-sm font-medium leading-5 tracking-tight dark:text-[#DFE3FA]">
                     #
-                    <span className="text-[#0C0E16] text-lg font-bold leading-5 tracking-tight">
+                    <span className="text-[#0C0E16] text-lg font-bold leading-5 tracking-tight dark:text-[#FFF]">
                       {invoice.id}
                     </span>
                   </p>
-                  <p className="text-[#858BB2] text-sm font-medium leading-5 tracking-tight">
+                  <p className="text-[#858BB2] text-sm font-medium leading-5 tracking-tight dark:text-[#DFE3FA]">
                     {invoice.description}
                   </p>
                 </div>
@@ -132,10 +132,10 @@ export default function SingleInvoice() {
                   </div>
 
                   <div className="flex flex-col gap-3">
-                    <p className="text-[#858BB2] text-sm font-medium leading-5 tracking-tight">
+                    <p className="text-[#858BB2] text-sm font-medium leading-5 tracking-tight dark:text-[#DFE3FA]">
                       Bill To
                     </p>
-                    <p className="text-[#0C0E16] text-lg font-bold leading-5 tracking-tight">
+                    <p className="text-[#0C0E16] text-lg font-bold leading-5 tracking-tight dark:text-[#FFF]">
                       {invoice.clientName}
                     </p>
                     <Address owner={invoice.clientAddress} text={"left"} />
@@ -143,28 +143,28 @@ export default function SingleInvoice() {
                 </div>
 
                 <div className="flex flex-col gap-3">
-                  <p className="text-[#858BB2] text-sm font-medium leading-5 tracking-tight">
+                  <p className="text-[#858BB2] text-sm font-medium leading-5 tracking-tight dark:text-[#DFE3FA]">
                     Sent To
                   </p>
-                  <p className="text-[#0C0E16] text-lg font-bold leading-5 tracking-tight">
+                  <p className="text-[#0C0E16] text-lg font-bold leading-5 tracking-tight dark:text-[#FFF]">
                     {invoice.clientEmail}
                   </p>
                 </div>
               </div>
 
               <div>
-                <div className="flex flex-col p-6 gap-6 rounded-md bg-[#F9FAFE]">
+                <div className="flex flex-col p-6 gap-6 rounded-md bg-[#F9FAFE] dark:bg-[#252945]">
                   <div className="hidden md:flex justify-between">
-                    <p className="text-[#858BB2] text-sm font-medium leading-5 tracking-tight">
+                    <p className="text-[#858BB2] text-sm font-medium leading-5 tracking-tight dark:text-[#DFE3FA]">
                       Item Name
                     </p>
-                    <p className="text-[#858BB2] text-sm font-medium leading-5 tracking-tight">
+                    <p className="text-[#858BB2] text-sm font-medium leading-5 tracking-tight dark:text-[#DFE3FA]">
                       QTY.
                     </p>
-                    <p className="text-[#858BB2] text-sm font-medium leading-5 tracking-tight">
+                    <p className="text-[#858BB2] text-sm font-medium leading-5 tracking-tight dark:text-[#DFE3FA]">
                       Price
                     </p>
-                    <p className="text-[#858BB2] text-sm font-medium leading-5 tracking-tight">
+                    <p className="text-[#858BB2] text-sm font-medium leading-5 tracking-tight dark:text-[#DFE3FA]">
                       Total
                     </p>
                   </div>
@@ -183,7 +183,7 @@ export default function SingleInvoice() {
                     })}
                   </div>
                 </div>
-                <div className="flex rounded-b-lg bg-[#373B53] justify-between items-center p-6">
+                <div className="flex rounded-b-lg bg-[#373B53] justify-between items-center p-6 dark:bg-[#0C0E16]">
                   <p className="text-[#FFF] text-sm font-medium leading-5 tracking-tight">
                     Grand Total
                   </p>
@@ -196,8 +196,8 @@ export default function SingleInvoice() {
           </div>
         </div>
 
-        <div className="flex p-6 justify-between bg-[#FFF] md:hidden">
-          <button className="rounded-full bg-[#F9FAFE] py-4 px-6 text-indigo-300 text-sm font-bold leading-tight tracking-tight hover:bg-[#DFE3FA]">
+        <div className="flex p-6 justify-between bg-[#FFF] md:hidden dark:bg-[#1e2139]">
+          <button className="rounded-full bg-[#F9FAFE] py-4 px-6 text-indigo-300 text-sm font-bold leading-tight tracking-tight hover:bg-[#DFE3FA] dark:bg-[#252945] dark:text-[#FFF]">
             Edit
           </button>
           <DeleteButton onClick={() => setShowDelete(true)} />
