@@ -17,10 +17,8 @@ export const invoiceContext = createContext({});
 
 function App() {
   // get data for storing in local storage
-  const storedData = JSON.parse(localStorage.getItem("data"));
 
-  const storedMode = JSON.parse(localStorage.getItem("darkMode")) || false;
-
+  const storedData = JSON.parse(localStorage.getItem("invoiceData"));
 
   // set stored data in useState
   const [invoiceData, setInvoiceData] = useState(storedData || data);
@@ -30,10 +28,6 @@ function App() {
     const storedMode = JSON.parse(localStorage.getItem("darkMode"));
     return storedMode || false;
   });
-
-  // const toggleDarkMode = () => {
-  //   document.body.classList.toggle("dark");
-  // };
 
   // store data in local storage
   useEffect(() => {
