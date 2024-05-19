@@ -6,10 +6,25 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import GoBack from "../../shared-components/GoBack";
 import uuid from "react-uuid";
+
 import ReactInputMask from "react-input-mask";
 
 export default function NewInvoice() {
   const { invoiceData, setInvoiceData } = useContext(invoiceContext);
+
+  // Function to generate a custom ID using UUID
+  function generateCustomID() {
+    const randomId = uuid();
+    // Extract the first two characters as letters
+    const letters = randomId.substring(0, 2).toUpperCase();
+    // Extract the first four numbers from the uuid
+    const digits = randomId.replace(/\D/g, "").substring(0, 4);
+
+    // Combine letters and digits to form the custom ID
+    const customID = `${letters}${digits}`;
+
+    return customID;
+  }
 
   const schema = yup.object({
     senderAddress: yup.object({
@@ -72,23 +87,25 @@ export default function NewInvoice() {
         quantity: yup
           .number()
           .required("Can't be empty")
-          .positive("invalid value")
-          .max(2, "max limit reached"),
+          .positive("invalid value"),
+        // .max(5, "max limit reached"),
         price: yup
           .number()
           .required("Can't be empty")
-          .positive("invalid value")
-          .max(5, "max limit reached"),
-        total: yup
-          .number()
-          .required("Can't be empty")
           .positive("invalid value"),
+        // .max(5, "max limit reached"),
+        // total: yup
+        //   .number()
+        //   .required("Can't be empty")
+        //   .positive("invalid value"),
       })
     ),
     clientEmail: yup.string().required("Can't be empty"),
     clientName: yup.string().required("Can't be empty"),
     description: yup.string().required("Can't be empty"),
-    createdAt: yup.string().required("Can't be empty"),
+    // createdAt: yup.string().required("Can't be empty"),
+    paymentTerms: yup.string().required("Can't be empty"),
+    paymentDue: yup.string().required("Can't be empty"),
   });
 
   const {
@@ -110,7 +127,8 @@ export default function NewInvoice() {
 
   const itemsValues = watch("items");
 
-  console.log(itemsValues);
+  // console.log(itemsValues);
+  // console.log(errors);
 
   const handleAddItemClick = (e) => {
     e.preventDefault();
@@ -131,8 +149,56 @@ export default function NewInvoice() {
     setItems(updatedItems);
   };
 
-  const onSubmit = (data) => {
-    console.log(data);
+  // find createdDate
+  const date = new Date();
+  const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
+
+  const onSubmit = (data, event) => {
+    event.preventDefault(); // Prevent default form submission
+
+    // find which button was clicked
+    const submitter = event.nativeEvent.submitter;
+    const submissionAction = submitter ? submitter.value : null;
+
+    // getting status based on which item was clicked
+    const status = submissionAction === "saveAndSend" ? "pending" : "draft";
+
+    //calculating each item totals and setting it
+    const itemsWithTotals = itemsValues.map((item) => ({
+      ...item,
+      total: ((item.quantity || 0) * (item.price || 0)).toFixed(2),
+      price: (+item.price || 0).toFixed(2),
+      quantity: (+item.quantity || 0).toFixed(2),
+    }));
+
+    // get all items sum / total
+    const computedTotal = itemsValues
+      .reduce(
+        (acc, item) => acc + parseFloat(item.quantity) * parseFloat(item.price),
+        0
+      )
+      .toFixed(2);
+
+    const inputString = data.paymentTerms;
+    const regex = /\d+/;
+    const match = inputString.match(regex);
+    const numberOfDays = match ? parseInt(match[0], 10) : null;
+
+    const finalData = {
+      ...data,
+      createdAt: formattedDate,
+      items: itemsWithTotals,
+      id: generateCustomID(),
+      total: computedTotal,
+      status: status,
+      paymentTerms: numberOfDays,
+    };
+
+    setInvoiceData([...invoiceData, finalData]);
+
+    console.log(invoiceData);
   };
 
   return (
@@ -310,10 +376,14 @@ export default function NewInvoice() {
           <div className="label-box">
             <label htmlFor="invoice-date">
               Invoice Date
-              <input id="invoice-date" type="date" {...register("createdAt")} />
-              {errors.createdAt ? (
+              <input
+                id="invoice-date"
+                type="date"
+                {...register("paymentDue")}
+              />
+              {errors.paymentDue ? (
                 <span className="error-message">
-                  {errors.createdAt.message}
+                  {errors.paymentDue.message}
                 </span>
               ) : null}
             </label>
@@ -322,15 +392,15 @@ export default function NewInvoice() {
           <div className="label-box">
             <label htmlFor="payment-terms">
               Payment Terms
-              <select id="payment-terms" {...register("paymentDue")}>
+              <select id="payment-terms" {...register("paymentTerms")}>
                 <option value="net 30 days">Net 30 Days</option>
                 <option value="net 14 days">Net 14 Days</option>
                 <option value="net 7 days">Net 7 Days</option>
                 <option value="net 1 day">Net 1 Day</option>
               </select>
-              {errors.paymentDue ? (
+              {errors.paymentTerms ? (
                 <span className="error-message">
-                  {errors.paymentDue.message}
+                  {errors.paymentTerms.message}
                 </span>
               ) : null}
             </label>
@@ -443,27 +513,34 @@ export default function NewInvoice() {
         </button>
       </div>
 
-      {errors.items?.length > 0 && (
+      {/* {items?.length === 0 && (
+        <p className="error-message generic-message">- An item must be added</p>
+      )} */}
+      {/* {errors.items?.length > 0 && (
         <p className="error-message generic-message">
           - All fields must be added
         </p>
-      )}
+      )} */}
 
       <div className="submit-group">
-        <button type="submit" name="action" value="discard" className="discard">
+        <button
+          type="submit"
+          name="submissionAction"
+          value="discard"
+          className="discard">
           Discard
         </button>
         <button
           type="submit"
-          name="action"
-          value="saveDraft"
+          name="submissionAction"
+          value="saveAsDraft"
           className="save save-draft">
           Save as Draft
         </button>
         <button
           type="submit"
-          name="action"
-          value="submitPending"
+          name="submissionAction"
+          value="saveAndSend"
           className="save save-send">
           Save & Send
         </button>
