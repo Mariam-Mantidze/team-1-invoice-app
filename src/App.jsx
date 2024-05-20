@@ -21,7 +21,6 @@ function App() {
 
   const storedMode = JSON.parse(localStorage.getItem("darkMode")) || false;
 
-
   // set stored data in useState
   const [invoiceData, setInvoiceData] = useState(storedData || data);
 
