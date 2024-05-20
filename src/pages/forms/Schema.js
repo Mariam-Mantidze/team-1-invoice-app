@@ -71,7 +71,13 @@ export const schema = yup.object({
       //   .positive("invalid value"),
     })
   ),
-  clientEmail: yup.string().required("Can't be empty"),
+  clientEmail: yup
+    .string()
+    .required("Can't be empty")
+    .matches(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      "invalid email"
+    ),
   clientName: yup.string().required("Can't be empty"),
   description: yup.string().required("Can't be empty"),
   // createdAt: yup.string().required("Can't be empty"),

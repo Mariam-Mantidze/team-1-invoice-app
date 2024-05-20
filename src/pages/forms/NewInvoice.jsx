@@ -3,29 +3,29 @@ import { useContext, useState } from "react";
 import { invoiceContext } from "../../App";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import GoBack from "../../shared-components/GoBack";
 import uuid from "react-uuid";
-import ReactInputMask from "react-input-mask";
 import SuccessModal from "./components/SuccessModal";
 import DiscardModal from "./components/DiscardModal";
 import { schema } from "./Schema";
+import ReactInputMask from "react-input-mask";
 
 export default function NewInvoice() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [discardDialogue, setDiscardDialogue] = useState(false);
+  const [items, setItems] = useState([]);
 
   const { invoiceData, setInvoiceData, navigate } = useContext(invoiceContext);
 
-  // Function to generate a custom ID using UUID
+  // function to generate a custom ID using UUID
   function generateCustomID() {
     const randomId = uuid();
-    // Extract the first two characters as letters
+    // extract the first two characters as letters
     const letters = randomId.substring(0, 2).toUpperCase();
-    // Extract the first four numbers from the uuid
+    // extract the first four numbers from the uuid
     const digits = randomId.replace(/\D/g, "").substring(0, 4);
 
-    // Combine letters and digits to form the custom ID
+    // combine letters and digits to form the custom ID
     const customID = `${letters}${digits}`;
 
     return customID;
@@ -45,15 +45,13 @@ export default function NewInvoice() {
     },
   });
 
-  // payment terms: net 30 days, 7 days, 1 day, 14 days
-
-  const [items, setItems] = useState([]);
-
+  // watch entire items array
   const itemsValues = watch("items");
 
   // console.log(itemsValues);
   // console.log(errors);
 
+  // function to add items
   const handleAddItemClick = (e) => {
     e.preventDefault();
     const newItem = {
@@ -67,6 +65,7 @@ export default function NewInvoice() {
     setItems([...items, newItem]);
   };
 
+  // function to delete item
   const handleDeleteItemClick = (id) => {
     const updatedItems = items.filter((item) => item.id !== id);
 
@@ -79,8 +78,9 @@ export default function NewInvoice() {
     .toString()
     .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
 
+  // function to submit the entire form
   const onSubmit = (data, event) => {
-    event.preventDefault(); // Prevent default form submission
+    event.preventDefault(); // prevent default form submission
 
     // find which button was clicked
     const submitter = event.nativeEvent.submitter;
@@ -105,6 +105,7 @@ export default function NewInvoice() {
       )
       .toFixed(2);
 
+    // actions to format payment terms
     const inputString = data.paymentTerms;
     const regex = /\d+/;
     const match = inputString.match(regex);
@@ -124,7 +125,7 @@ export default function NewInvoice() {
 
     // console.log(invoiceData);
 
-    // Open the modal
+    // open the success modal
     setModalIsOpen(true);
 
     setTimeout(() => {
@@ -141,9 +142,12 @@ export default function NewInvoice() {
 
       <div className="bill-group">
         <div className="label-box">
-          <label htmlFor="sender-street">
+          <label
+            className={errors.senderAddress?.street ? "error-label" : ""}
+            htmlFor="sender-street">
             Street Address
             <input
+              className={errors.senderAddress?.street ? "error-input" : ""}
               type="text"
               id="sender-street"
               {...register("senderAddress.street")}
@@ -159,9 +163,12 @@ export default function NewInvoice() {
         <div className="country-flex-box">
           <div className="city-post-code-group">
             <div className="label-box">
-              <label htmlFor="sender-city">
+              <label
+                className={errors.senderAddress?.city ? "error-label" : ""}
+                htmlFor="sender-city">
                 City
                 <input
+                  className={errors.senderAddress?.city ? "error-input" : ""}
                   type="text"
                   id="sender-city"
                   {...register("senderAddress.city")}
@@ -175,9 +182,14 @@ export default function NewInvoice() {
             </div>
 
             <div className="label-box">
-              <label htmlFor="sender-post-code">
+              <label
+                className={errors.senderAddress?.postCode ? "error-label" : ""}
+                htmlFor="sender-post-code">
                 Post Code
                 <input
+                  className={
+                    errors.senderAddress?.postCode ? "error-input" : ""
+                  }
                   type="text"
                   id="sender-post-code"
                   {...register("senderAddress.postCode")}
@@ -192,9 +204,12 @@ export default function NewInvoice() {
           </div>
 
           <div className="label-box">
-            <label htmlFor="sender-country">
+            <label
+              className={errors.senderAddress?.country ? "error-label" : ""}
+              htmlFor="sender-country">
               Country
               <input
+                className={errors.senderAddress?.country ? "error-input" : ""}
                 type="text"
                 id="sender-country"
                 {...register("senderAddress.country")}
@@ -213,9 +228,16 @@ export default function NewInvoice() {
 
       <div className="bill-group">
         <div className="label-box">
-          <label htmlFor="client-name">
+          <label
+            className={errors.clientName ? "error-label" : ""}
+            htmlFor="client-name">
             Client's Name
-            <input type="text" id="client-name" {...register("clientName")} />
+            <input
+              className={errors.clientName ? "error-input" : ""}
+              type="text"
+              id="client-name"
+              {...register("clientName")}
+            />
             {errors.clientName ? (
               <span className="error-message">{errors.clientName.message}</span>
             ) : null}
@@ -223,9 +245,16 @@ export default function NewInvoice() {
         </div>
 
         <div className="label-box">
-          <label htmlFor="client-email">
+          <label
+            className={errors.clientEmail ? "error-label" : ""}
+            htmlFor="client-email">
             Client's Email
-            <input type="text" id="client-email" {...register("clientEmail")} />
+            <input
+              className={errors.clientEmail ? "error-input" : ""}
+              type="text"
+              id="client-email"
+              {...register("clientEmail")}
+            />
             {errors.clientEmail ? (
               <span className="error-message">
                 {errors.clientEmail.message}
@@ -235,9 +264,12 @@ export default function NewInvoice() {
         </div>
 
         <div className="label-box">
-          <label htmlFor="client-street">
+          <label
+            className={errors.clientAddress?.street ? "error-label" : ""}
+            htmlFor="client-street">
             Street Address
             <input
+              className={errors.clientAddress?.street ? "error-input" : ""}
               type="text"
               id="client-street"
               {...register("clientAddress.street")}
@@ -253,9 +285,12 @@ export default function NewInvoice() {
         <div className="country-flex-box">
           <div className="city-post-code-group">
             <div className="label-box">
-              <label htmlFor="client-city">
+              <label
+                className={errors.clientAddress?.city ? "error-label" : ""}
+                htmlFor="client-city">
                 City
                 <input
+                  className={errors.clientAddress?.city ? "error-input" : ""}
                   type="text"
                   id="client-city"
                   {...register("clientAddress.city")}
@@ -269,9 +304,14 @@ export default function NewInvoice() {
             </div>
 
             <div className="label-box">
-              <label htmlFor="client-post-code">
+              <label
+                className={errors.clientAddress?.postCode ? "error-label" : ""}
+                htmlFor="client-post-code">
                 Post Code
                 <input
+                  className={
+                    errors.clientAddress?.postCode ? "error-input" : ""
+                  }
                   type="text"
                   id="client-post-code"
                   {...register("clientAddress.postCode")}
@@ -286,9 +326,12 @@ export default function NewInvoice() {
           </div>
 
           <div className="label-box">
-            <label htmlFor="client-country">
+            <label
+              className={errors.clientAddress?.country ? "error-label" : ""}
+              htmlFor="client-country">
               Country
               <input
+                className={errors.clientAddress?.country ? "error-input" : ""}
                 type="text"
                 id="client-country"
                 {...register("clientAddress.country")}
@@ -306,9 +349,12 @@ export default function NewInvoice() {
       <div className="invoice-date-description">
         <div className="invoice-payment-grp">
           <div className="label-box">
-            <label htmlFor="invoice-date">
+            <label
+              className={errors.paymentDue ? "error-label" : ""}
+              htmlFor="invoice-date">
               Invoice Date
               <input
+                className={errors.paymentDue ? "error-input" : ""}
                 id="invoice-date"
                 type="date"
                 {...register("paymentDue")}
@@ -322,7 +368,9 @@ export default function NewInvoice() {
           </div>
 
           <div className="label-box">
-            <label htmlFor="payment-terms">
+            <label
+              className={errors.paymentTerms ? "error-label" : ""}
+              htmlFor="payment-terms">
               Payment Terms
               <select id="payment-terms" {...register("paymentTerms")}>
                 <option value="net 30 days">Net 30 Days</option>
@@ -340,9 +388,12 @@ export default function NewInvoice() {
         </div>
 
         <div className="label-box">
-          <label htmlFor="project-description">
+          <label
+            className={errors.description ? "error-label" : ""}
+            htmlFor="project-description">
             Project Description
             <input
+              className={errors.description ? "error-input" : ""}
               type="text"
               id="project-description"
               {...register("description")}
@@ -371,9 +422,17 @@ export default function NewInvoice() {
                 <div key={item.id} className="item-active">
                   <div className="active-container"></div>
                   <div className="label-box">
-                    <label>
+                    <label
+                      htmlFor={`name-${item.id}`}
+                      className={
+                        errors.items?.[index].name ? "error-label" : ""
+                      }>
                       Item Name
                       <input
+                        className={
+                          errors.items?.[index].name ? "error-input" : ""
+                        }
+                        id={`name-${item.id}`}
                         type="text"
                         name="item-name"
                         {...register(`items.${index}.name`)}
@@ -384,22 +443,38 @@ export default function NewInvoice() {
                   <div className="qty-delete-box">
                     <div className="qty-price-box">
                       <div className="label-box">
-                        <label htmlFor={`qty-${item.id}`}>
+                        <label
+                          className={
+                            errors.items?.[index].quantity ? "error-label" : ""
+                          }
+                          htmlFor={`qty-${item.id}`}>
                           Qty.
                           <input
+                            className={
+                              errors.items?.[index].quantity
+                                ? "error-input qty"
+                                : "qty"
+                            }
                             type="number"
-                            className="qty"
                             id={`qty-${item.id}`}
                             {...register(`items.${index}.quantity`)}
                           />
                         </label>
                       </div>
                       <div className="label-box">
-                        <label htmlFor={`price-${item.id}`}>
+                        <label
+                          className={
+                            errors.items?.[index].price ? "error-label" : ""
+                          }
+                          htmlFor={`price-${item.id}`}>
                           Price
                           <input
+                            className={
+                              errors.items?.[index].price
+                                ? "error-input price"
+                                : "price"
+                            }
                             type="number"
-                            className="price"
                             id={`price-${item.id}`}
                             {...register(`items.${index}.price`)}
                           />
@@ -547,6 +622,14 @@ const Form = styled.form`
         outline: none;
         background-color: ${(props) => props.theme.inputBackground};
       }
+    }
+
+    & .error-input {
+      border: 1px solid rgba(236, 87, 87, 1);
+    }
+
+    & > .error-label {
+      color: rgba(236, 87, 87, 1);
     }
   }
 
