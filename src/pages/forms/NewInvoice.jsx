@@ -691,7 +691,8 @@ const Form = styled.form`
     }
 
     & > button {
-      background-color: ${(props) => props.theme.addButtonAndInputBackground};
+      background-color: ${(props) =>
+        props.theme.addButtonAndInputBackground.inactive};
       padding: 18px 107px;
       border-radius: 30px;
       color: ${(props) => props.theme.labelColor};
@@ -701,6 +702,11 @@ const Form = styled.form`
       letter-spacing: -0.25px;
       text-align: center;
       cursor: pointer;
+
+      &:hover {
+        background-color: ${(props) =>
+          props.theme.addButtonAndInputBackground.active};
+      }
     }
   }
 
@@ -748,21 +754,36 @@ const Form = styled.form`
 
     & > .discard {
       padding: 18px 19px 15px 18px;
-      background-color: ${(props) => props.theme.addButtonAndInputBackground};
+      background-color: ${(props) => props.theme.discardButton.inactive};
       color: ${(props) => props.theme.labelColor};
+
+      &:hover {
+        background-color: ${(props) => props.theme.discardButton.active};
+      }
     }
 
     & > .save {
       padding: 18px 16px;
     }
     & .save-draft {
-      background-color: ${(props) => props.theme.saveDraftButtonBackground};
-      color: ${(props) => props.theme.labelColor};
+      background-color: ${(props) =>
+        props.theme.saveDraftButtonBackground.inactive};
+      color: ${(props) => props.theme.saveDraftColor.inactive};
+
+      &:hover {
+        color: ${(props) => props.theme.saveDraftColor.active};
+        background-color: ${(props) =>
+          props.theme.saveDraftButtonBackground.active};
+      }
     }
 
     & .save-send {
       background: rgba(124, 93, 250, 1);
       color: rgba(255, 255, 255, 1);
+
+      &:hover {
+        background: rgba(146, 119, 255, 1);
+      }
     }
   }
 
