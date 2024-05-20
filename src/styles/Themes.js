@@ -13,7 +13,10 @@ export const lightTheme = {
     active: "rgba(136, 142, 176, 1)",
     inactive: "rgba(136, 142, 176, 1)",
   },
-  cancelButton: "rgba(249, 250, 254, 1)",
+  cancelButtonBacgkround: "rgba(249, 250, 254, 1)",
+  cancelButtonColor: "rgba(126, 136, 195, 1)",
+
+  discardButton: "rgba(255, 255, 255, 1)",
 };
 
 export const darkTheme = {
@@ -31,5 +34,7 @@ export const darkTheme = {
     active: "rgba(255, 255, 255, 1)",
     inactive: "rgba(136, 142, 176, 1)",
   },
-  cancelButton: "rgba(37, 41, 69, 1)",
+  cancelButtonBackground: "rgba(37, 41, 69, 1)",
+  cancelButtonColor: "rgba(223, 227, 250, 1)",
+  discardButton: "rgba(223, 227, 250, 1)",
 };

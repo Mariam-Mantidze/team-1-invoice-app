@@ -6,11 +6,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import GoBack from "../../shared-components/GoBack";
 import uuid from "react-uuid";
-import Modal from "react-modal";
-
 import ReactInputMask from "react-input-mask";
-
-Modal.setAppElement("#root");
+import SuccessModal from "./components/SuccessModal";
+import DiscardModal from "./components/DiscardModal";
+import { schema } from "./Schema";
 
 export default function NewInvoice() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -31,88 +30,6 @@ export default function NewInvoice() {
 
     return customID;
   }
-
-  const schema = yup.object({
-    senderAddress: yup.object({
-      street: yup
-        .string()
-        .required("Can't be empty")
-        .max(20, "max limit reached")
-        .min(5, "min 5 characters")
-        .test("sender street check", "incorrect address", (value) =>
-          value.includes("")
-        ),
-      city: yup
-        .string()
-        .required("Can't be empty")
-        .max(20, "max limit reached")
-        .min(3, "min 3 characters"),
-      postCode: yup
-        .string()
-        .required("Can't be empty")
-        .max(8, "max limit reached")
-        .min(4, "min 3 characters"),
-      country: yup
-        .string()
-        .required("Can't be empty")
-        .max(15, "max limit reached")
-        .min(3, "min 3 characters"),
-    }),
-    clientAddress: yup.object({
-      street: yup
-        .string()
-        .required("Can't be empty")
-        .max(20, "max limit reached")
-        .min(5, "min 5 characters")
-        .test("sender street check", "incorrect address", (value) =>
-          value.includes("")
-        ),
-      city: yup
-        .string()
-        .required("Can't be empty")
-        .max(20, "max limit reached")
-        .min(3, "min 3 characters"),
-      postCode: yup
-        .string()
-        .required("Can't be empty")
-        .max(8, "max limit reached")
-        .min(4, "min 3 characters"),
-      country: yup
-        .string()
-        .required("Can't be empty")
-        .max(15, "max limit reached")
-        .min(3, "min 3 characters"),
-    }),
-    items: yup.array().of(
-      yup.object({
-        name: yup
-          .string()
-          .required("Can't be empty")
-          .max(15, "max limit reached")
-          .min(3, "min 3 characters"),
-        quantity: yup
-          .number()
-          .required("Can't be empty")
-          .positive("invalid value"),
-        // .max(5, "max limit reached"),
-        price: yup
-          .number()
-          .required("Can't be empty")
-          .positive("invalid value"),
-        // .max(5, "max limit reached"),
-        // total: yup
-        //   .number()
-        //   .required("Can't be empty")
-        //   .positive("invalid value"),
-      })
-    ),
-    clientEmail: yup.string().required("Can't be empty"),
-    clientName: yup.string().required("Can't be empty"),
-    description: yup.string().required("Can't be empty"),
-    // createdAt: yup.string().required("Can't be empty"),
-    paymentTerms: yup.string().required("Can't be empty"),
-    paymentDue: yup.string().required("Can't be empty"),
-  });
 
   const {
     register,
@@ -210,15 +127,10 @@ export default function NewInvoice() {
     // Open the modal
     setModalIsOpen(true);
 
-    // Close the modal and navigate back to the main page after 3 seconds
     setTimeout(() => {
       setModalIsOpen(false);
       navigate("/");
     }, 3000);
-  };
-
-  const handleDiscard = () => {
-    navigate(-1);
   };
 
   return (
@@ -534,37 +446,13 @@ export default function NewInvoice() {
       </div>
 
       {discardDialogue && (
-        <DiscardDialogue>
-          <h2>Confirm Discarding</h2>
-          <p>Are you sure you want to discard the form?</p>
-          <div className="button-flex">
-            <button
-              onClick={() => setDiscardDialogue(false)}
-              className="cancel">
-              Cancel
-            </button>
-            <button onClick={handleDiscard} className="discard">
-              Discard
-            </button>
-          </div>
-        </DiscardDialogue>
+        <DiscardModal setDiscardDialogue={setDiscardDialogue} />
       )}
 
-      {discardDialogue && <DiscardOverlay />}
+      {modalIsOpen && <SuccessModal setModalIsOpen={setModalIsOpen} />}
 
-      <StyledModal
-        isOpen={modalIsOpen}
-        onRequestClose={() => setModalIsOpen(false)}
-        overlayElement={(props, contentElement) => (
-          <ModalOverlay>{contentElement}</ModalOverlay>
-        )}
-        contentElement={(props, children) => (
-          <ModalContent>{children}</ModalContent>
-        )}>
-        <h2>Success!</h2>
-        <p>Your invoice has been sent successfully.</p>
-        <CloseButton onClick={() => setModalIsOpen(false)}>×</CloseButton>
-      </StyledModal>
+      {modalIsOpen && <ModalOverlay />}
+      {discardDialogue && <ModalOverlay />}
 
       <div className="submit-group">
         <button
@@ -877,12 +765,6 @@ const TotalSpan = styled.span`
   text-align: left;
 `;
 
-const StyledModal = styled(Modal)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -893,112 +775,4 @@ const ModalOverlay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-const ModalContent = styled.div`
-  background-color: ${(props) => props.theme.inputBackground};
-  padding: 50px;
-  border-radius: 8px;
-  /* width: 400px; */
-  /* text-align: center; */
-  color: ${(props) => props.theme.textColor};
-  position: relative;
-
-  & > p {
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 22px;
-    letter-spacing: -0.10000000149011612px;
-    text-align: left;
-    margin-top: 20px;
-  }
-
-  & > h2 {
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 32px;
-    letter-spacing: -0.5px;
-    text-align: left;
-  }
-`;
-
-const CloseButton = styled.button`
-  background: none;
-  border: none;
-  color: #333;
-  font-size: 20px;
-  position: absolute;
-  top: 10px;
-  right: 17px;
-  cursor: pointer;
-`;
-
-const DiscardDialogue = styled.div`
-  background-color: ${(props) => props.theme.inputBackground};
-  padding: 34px 32px;
-  border-radius: 8px;
-  /* width: 400px; */
-  /* text-align: center; */
-  color: ${(props) => props.theme.textColor};
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 327px;
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  z-index: 1;
-
-  & h2 {
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 32px;
-    letter-spacing: -0.5px;
-    text-align: left;
-  }
-
-  & p {
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 22px;
-    letter-spacing: -0.10000000149011612px;
-    text-align: left;
-    color: ${(props) => props.theme.labelColor};
-    margin-top: 8px;
-  }
-
-  & .button-flex {
-    display: flex;
-    gap: 8px;
-    margin-top: 22px;
-    align-self: flex-end;
-  }
-
-  & button {
-    padding: 16px 24px;
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 15px;
-    letter-spacing: -0.25px;
-    text-align: left;
-    border-radius: 30px;
-  }
-
-  & .cancel {
-    background: ${(props) => props.theme.cancelButton};
-  }
-
-  & .discard {
-    background: rgba(236, 87, 87, 1);
-  }
-`;
-
-const DiscardOverlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
 `;
