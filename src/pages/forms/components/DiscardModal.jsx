@@ -3,11 +3,14 @@ import { useContext } from "react";
 import { invoiceContext } from "../../../App";
 
 export default function DiscardModal({ setDiscardDialogue }) {
-  const { navigate } = useContext(invoiceContext);
+  const { navigate, isMobile, handleCloseOverlay } = useContext(invoiceContext);
 
   const handleDiscard = () => {
-    navigate(-1);
+    {
+      isMobile ? navigate("/") : handleCloseOverlay();
+    }
   };
+
   return (
     <DiscardDialogue>
       <h2>Confirm Discarding</h2>
@@ -16,7 +19,7 @@ export default function DiscardModal({ setDiscardDialogue }) {
         <button onClick={() => setDiscardDialogue(false)} className="cancel">
           Cancel
         </button>
-        <button onClick={handleDiscard} className="discard">
+        <button type="button" onClick={handleDiscard} className="discard">
           Discard
         </button>
       </div>
