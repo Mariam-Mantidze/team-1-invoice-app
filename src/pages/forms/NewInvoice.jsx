@@ -15,7 +15,8 @@ export default function NewInvoice() {
   const [discardDialogue, setDiscardDialogue] = useState(false);
   const [items, setItems] = useState([]);
 
-  const { invoiceData, setInvoiceData, navigate } = useContext(invoiceContext);
+  const { invoiceData, setInvoiceData, navigate, isMobile } =
+    useContext(invoiceContext);
 
   // function to generate a custom ID using UUID
   function generateCustomID() {
@@ -136,7 +137,8 @@ export default function NewInvoice() {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <GoBack />
+      {isMobile ? <GoBack /> : ""}
+
       <h1>New Invoice</h1>
       <h3>Bill From</h3>
 

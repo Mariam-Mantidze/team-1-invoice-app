@@ -23,6 +23,9 @@ function App() {
   // set stored data in useState
   const [invoiceData, setInvoiceData] = useState(storedData || data);
 
+  // state for managing form overlay
+  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
+
   // useState for setting themes
   const [darkMode, setDarkMode] = useState(() => {
     const storedMode = JSON.parse(localStorage.getItem("darkMode"));
@@ -41,6 +44,30 @@ function App() {
   // navigate
   const navigate = useNavigate();
 
+  const handleOpenOverlay = () => {
+    setIsOverlayOpen(true);
+    if (isMobile) {
+      navigate("/new-invoice");
+    }
+  };
+
+  // const handleCloseOverlay = () => {
+  //   setIsOverlayOpen(false);
+  //   if (isMobile) {
+  //     navigate("/");
+  //   }
+  // };
+
+  useEffect(() => {
+    if (isOverlayOpen) {
+      if (isMobile) {
+        navigate("/new-invoice");
+      } else {
+        navigate("/");
+      }
+    }
+  }, [isMobile, isOverlayOpen, navigate]);
+
   return (
     <invoiceContext.Provider
       value={{
@@ -51,6 +78,8 @@ function App() {
         isTablet,
         isDesktop,
         darkMode,
+        setIsOverlayOpen,
+        isOverlayOpen,
       }}>
       <GlobalStyles />
       <ThemeProvider theme={darkMode == false ? lightTheme : darkTheme}>
@@ -60,7 +89,10 @@ function App() {
           } min-h-screen lg:flex lg:justify-between`}>
           <Header darkMode={darkMode} setDarkMode={setDarkMode} />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route
+              path="/"
+              element={<Home onOpenOverlay={handleOpenOverlay} />}
+            />
             <Route path="/:id" element={<SingleInvoice />} />
             {isMobile ? (
               <Route path="/new-invoice" element={<NewInvoice />} />

@@ -6,16 +6,12 @@ import styled from "styled-components";
 function Heading(props) {
   const context = useContext(invoiceContext);
 
-  const { isMobile } = useContext(invoiceContext);
+  const { isMobile, setIsOverlayOpen, isOverlayOpen } =
+    useContext(invoiceContext);
 
   const activateFilter = () => {
     props.setActiveFilter(!props.activeFilter);
   };
-
-  // state for managing form overlay
-  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
-
-  console.log(isOverlayOpen);
 
   // function for opening overlay
   const handleOpenOverlay = () => {
