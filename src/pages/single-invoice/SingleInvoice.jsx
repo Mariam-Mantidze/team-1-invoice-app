@@ -88,9 +88,11 @@ export default function SingleInvoice() {
               </div>
 
               <div className="hidden p-6 justify-between bg-[#FFF] md:flex md:gap-6 dark:bg-[#1E2139] rounded-md">
-                <button className="rounded-full bg-[#F9FAFE] py-4 px-6 text-[#7E88C3] text-sm font-bold leading-tight tracking-tight hover:bg-[#DFE3FA] dark:bg-[#252945] dark:text-[#FFF]">
-                  Edit
-                </button>
+                <Link to={`/invoices/${invoice.id}/edit-invoice`}>
+                  <button className="rounded-full bg-[#F9FAFE] py-4 px-6 text-[#7E88C3] text-sm font-bold leading-tight tracking-tight hover:bg-[#DFE3FA] dark:bg-[#252945] dark:text-[#FFF]">
+                    Edit
+                  </button>
+                </Link>
                 <DeleteButton onClick={() => setShowDelete(true)} />
                 <button
                   onClick={markAsPaid}
@@ -197,9 +199,11 @@ export default function SingleInvoice() {
         </div>
 
         <div className="flex p-6 justify-between bg-[#FFF] md:hidden dark:bg-[#1e2139]">
-          <button className="rounded-full bg-[#F9FAFE] py-4 px-6 text-indigo-300 text-sm font-bold leading-tight tracking-tight hover:bg-[#DFE3FA] dark:bg-[#252945] dark:text-[#FFF]">
-            Edit
-          </button>
+          <Link to={"/invoices/:id/edit-invoice"}>
+            <button className="rounded-full bg-[#F9FAFE] py-4 px-6 text-indigo-300 text-sm font-bold leading-tight tracking-tight hover:bg-[#DFE3FA] dark:bg-[#252945] dark:text-[#FFF]">
+              Edit
+            </button>
+          </Link>
           <DeleteButton onClick={() => setShowDelete(true)} />
           <button
             onClick={markAsPaid}
