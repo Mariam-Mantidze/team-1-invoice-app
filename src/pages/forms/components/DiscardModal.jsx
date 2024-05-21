@@ -7,9 +7,10 @@ export default function DiscardModal({ setDiscardDialogue }) {
 
   const handleDiscard = () => {
     {
-      isMobile ? navigate(-1) : handleCloseOverlay();
+      isMobile ? navigate("/") : handleCloseOverlay();
     }
   };
+
   return (
     <DiscardDialogue>
       <h2>Confirm Discarding</h2>
@@ -18,7 +19,7 @@ export default function DiscardModal({ setDiscardDialogue }) {
         <button onClick={() => setDiscardDialogue(false)} className="cancel">
           Cancel
         </button>
-        <button onClick={handleDiscard} className="discard">
+        <button type="button" onClick={handleDiscard} className="discard">
           Discard
         </button>
       </div>
