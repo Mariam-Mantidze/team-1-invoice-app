@@ -18,7 +18,6 @@ export const invoiceContext = createContext({});
 function App() {
   // get data for storing in local storage
 
-
   const storedData = JSON.parse(localStorage.getItem("data"));
 
   // set stored data in useState
@@ -63,11 +62,17 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/:id" element={<SingleInvoice />} />
-            <Route path="/new-invoice" element={<NewInvoice />} />
+            {isMobile ? (
+              <Route path="/new-invoice" element={<NewInvoice />} />
+            ) : (
+              <Route path="/new-invoice" element={<Navigate to="/" />} />
+            )}
             <Route
               path="/invoices/:id/edit-invoice"
               element={<EditInvoice />}
             />
+            <Route path="/" element={<Navigate to="/" />} />{" "}
+            {/* fallback route */}
           </Routes>
         </div>
       </ThemeProvider>

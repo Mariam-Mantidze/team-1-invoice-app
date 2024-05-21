@@ -59,8 +59,7 @@ export default function SingleInvoice() {
       <div
         className={`min-h-screen dark:bg-[#141625] lg:w-[60%] mx-auto ${
           showDelete ? "opacity-[0.1]" : ""
-        }`}
-      >
+        }`}>
         <div className="flex flex-col p-6 bg-[#F8F8FB] gap-8 dark:bg-[#141625]">
           <GoBack />
 
@@ -72,16 +71,13 @@ export default function SingleInvoice() {
                 </p>
                 <div
                   className="flex items-center gap-2 py-[12px] px-[18px] rounded-lg "
-                  style={{ backgroundColor: `${statusColor}57` }}
-                >
+                  style={{ backgroundColor: `${statusColor}57` }}>
                   <div
                     className="w-2 h-2 rounded-full"
-                    style={{ backgroundColor: statusColor }}
-                  ></div>
+                    style={{ backgroundColor: statusColor }}></div>
                   <p
                     className="text-base font-semibold leading-4 tracking-tight"
-                    style={{ color: statusColor }}
-                  >
+                    style={{ color: statusColor }}>
                     {invoice.status}
                   </p>
                 </div>
@@ -94,8 +90,7 @@ export default function SingleInvoice() {
                 <DeleteButton onClick={() => setShowDelete(true)} />
                 <button
                   onClick={markAsPaid}
-                  className="rounded-full bg-[#7C5DFA] py-4 px-6 text-[#FFF] text-sm font-bold leading-tight tracking-tight hover:bg-[#9277FF]"
-                >
+                  className="rounded-full bg-[#7C5DFA] py-4 px-6 text-[#FFF] text-sm font-bold leading-tight tracking-tight hover:bg-[#9277FF]">
                   {invoice.status !== "paid" ? "Mark As Paid" : "Already Paid"}
                 </button>
               </div>
@@ -203,8 +198,7 @@ export default function SingleInvoice() {
           <DeleteButton onClick={() => setShowDelete(true)} />
           <button
             onClick={markAsPaid}
-            className="rounded-full bg-[#7C5DFA] py-4 px-6 text-[#FFF] text-sm font-bold leading-tight tracking-tight hover:bg-[#9277FF]"
-          >
+            className="rounded-full bg-[#7C5DFA] py-4 px-6 text-[#FFF] text-sm font-bold leading-tight tracking-tight hover:bg-[#9277FF]">
             {invoice.status !== "paid" ? "Mark As Paid" : "Already Paid"}
           </button>
         </div>
