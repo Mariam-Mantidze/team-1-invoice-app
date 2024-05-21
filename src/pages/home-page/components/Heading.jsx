@@ -6,21 +6,11 @@ import styled from "styled-components";
 function Heading(props) {
   const context = useContext(invoiceContext);
 
-  const { isMobile, setIsOverlayOpen, isOverlayOpen } =
+  const { isMobile, setIsOverlayOpen, isOverlayOpen, handleOpenOverlay } =
     useContext(invoiceContext);
 
   const activateFilter = () => {
     props.setActiveFilter(!props.activeFilter);
-  };
-
-  // function for opening overlay
-  const handleOpenOverlay = () => {
-    setIsOverlayOpen(true);
-  };
-
-  // function for closing overlay
-  const handleCloseOverlay = () => {
-    setIsOverlayOpen(false);
   };
 
   const [checkedBoxes, setCheckedBoxes] = useState(() => {

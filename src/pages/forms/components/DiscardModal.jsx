@@ -3,10 +3,12 @@ import { useContext } from "react";
 import { invoiceContext } from "../../../App";
 
 export default function DiscardModal({ setDiscardDialogue }) {
-  const { navigate } = useContext(invoiceContext);
+  const { navigate, isMobile, handleCloseOverlay } = useContext(invoiceContext);
 
   const handleDiscard = () => {
-    navigate(-1);
+    {
+      isMobile ? navigate(-1) : handleCloseOverlay();
+    }
   };
   return (
     <DiscardDialogue>

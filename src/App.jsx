@@ -51,13 +51,14 @@ function App() {
     }
   };
 
-  // const handleCloseOverlay = () => {
-  //   setIsOverlayOpen(false);
-  //   if (isMobile) {
-  //     navigate("/");
-  //   }
-  // };
+  const handleCloseOverlay = () => {
+    setIsOverlayOpen(false);
+    if (isMobile) {
+      navigate("/");
+    }
+  };
 
+  // monitoring changes in isMobile and isOverlay states
   useEffect(() => {
     if (isOverlayOpen) {
       if (isMobile) {
@@ -80,6 +81,8 @@ function App() {
         darkMode,
         setIsOverlayOpen,
         isOverlayOpen,
+        handleCloseOverlay,
+        handleOpenOverlay,
       }}>
       <GlobalStyles />
       <ThemeProvider theme={darkMode == false ? lightTheme : darkTheme}>
