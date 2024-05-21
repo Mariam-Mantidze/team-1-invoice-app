@@ -531,7 +531,7 @@ export default function NewInvoice() {
 
       <div className="submit-group">
         <button
-          type="submit"
+          type="button"
           name="submissionAction"
           value="discard"
           className="discard"
