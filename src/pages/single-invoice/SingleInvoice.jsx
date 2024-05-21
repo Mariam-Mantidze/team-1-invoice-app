@@ -21,9 +21,9 @@ export default function SingleInvoice() {
   const [showDelete, setShowDelete] = useState(false);
 
   const handleStatusColor = () => {
-    if (invoice.status === "pending") {
+    if (invoice.status.name === "pending") {
       setStatusColor("#FF8F00");
-    } else if (invoice.status === "paid") {
+    } else if (invoice.status.name === "paid") {
       setStatusColor("#33D69F");
     } else {
       return;
@@ -46,7 +46,7 @@ export default function SingleInvoice() {
 
   useEffect(() => {
     handleStatusColor();
-  }, [invoice.status]);
+  }, [invoice.status.name]);
 
   return (
     <>
@@ -82,7 +82,7 @@ export default function SingleInvoice() {
                     className="text-base font-semibold leading-4 tracking-tight"
                     style={{ color: statusColor }}
                   >
-                    {invoice.status}
+                    {invoice.status.name}
                   </p>
                 </div>
               </div>
@@ -98,7 +98,9 @@ export default function SingleInvoice() {
                   onClick={markAsPaid}
                   className="rounded-full bg-[#7C5DFA] py-4 px-6 text-[#FFF] text-sm font-bold leading-tight tracking-tight hover:bg-[#9277FF]"
                 >
-                  {invoice.status !== "paid" ? "Mark As Paid" : "Already Paid"}
+                  {invoice.status.name !== "paid"
+                    ? "Mark As Paid"
+                    : "Already Paid"}
                 </button>
               </div>
             </div>
@@ -209,7 +211,7 @@ export default function SingleInvoice() {
             onClick={markAsPaid}
             className="rounded-full bg-[#7C5DFA] py-4 px-6 text-[#FFF] text-sm font-bold leading-tight tracking-tight hover:bg-[#9277FF]"
           >
-            {invoice.status !== "paid" ? "Mark As Paid" : "Already Paid"}
+            {invoice.status.name !== "paid" ? "Mark As Paid" : "Already Paid"}
           </button>
         </div>
       </div>
