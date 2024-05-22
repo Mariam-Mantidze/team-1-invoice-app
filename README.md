@@ -191,4 +191,4 @@ npm start
 
 - [React Hook-Forms Documendation](https://react-hook-form.com/get-started)
 
-Thank you for using the Invoice Management Application! If you have any questions or feedback, feel free to open an issue or reach out.
+Thank you! If you have any questions or feedback, feel free to open an issue or reach out.
