@@ -35,6 +35,7 @@ function App() {
 
   // set stored data in useState
   const [invoiceData, setInvoiceData] = useState(storedData || []);
+
   // state for managing form overlay
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
 
@@ -117,9 +118,13 @@ function App() {
             {isMobile ? (
               <Route path="/new-invoice" element={<NewInvoice />} />
             ) : (
-              <Route path="/new-invoice" element={<Navigate to="/" />} />
+              <Route path="/" element={<Navigate to="/" />} />
             )}
-            <Route path="/:id/edit-invoice" element={<EditInvoice />} />
+            {isMobile ? (
+              <Route path="/:id/edit-invoice" element={<EditInvoice />} />
+            ) : (
+              <Route path="/" element={<Navigate to="/" />} />
+            )}
             <Route path="/" element={<Navigate to="/" />} />{" "}
             {/* fallback route */}
           </Routes>

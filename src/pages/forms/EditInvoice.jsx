@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { invoiceContext } from "../../App";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,8 +16,13 @@ export default function editInvoice() {
   const [discardDialogue, setDiscardDialogue] = useState(false);
   const [items, setItems] = useState([]);
 
-  const { invoiceData, setInvoiceData, navigate, isMobile } =
-    useContext(invoiceContext);
+  const {
+    invoiceData,
+    setInvoiceData,
+    navigate,
+    isMobile,
+    handleCloseOverlay,
+  } = useContext(invoiceContext);
 
   const { id } = useParams();
 
@@ -29,7 +34,15 @@ export default function editInvoice() {
     (invoice) => invoice.id === currInvoiceId
   );
 
-  console.log(currentInvoice);
+  useEffect(() => {
+    if (currentInvoice.items) {
+      const itemsWithIds = currentInvoice.items.map((item) => ({
+        ...item,
+        id: item.id || uuid(), // Generate ID if not present
+      }));
+      setItems(itemsWithIds);
+    }
+  }, [currentInvoice]);
 
   const {
     register,
@@ -53,7 +66,11 @@ export default function editInvoice() {
       description: currentInvoice.description,
       id: currentInvoice.id,
 
-      items: [...currentInvoice.items],
+      items:
+        currentInvoice.items.map((item) => ({
+          ...item,
+          id: item.id || uuid(),
+        })) || [],
       paymentDue: currentInvoice.paymentDue,
       senderAddress: {
         city: currentInvoice.senderAddress.city,
@@ -75,9 +92,9 @@ export default function editInvoice() {
     const newItem = {
       id: uuid(),
       name: "",
-      quantity: 0,
-      price: 0,
-      total: 0,
+      quantity: "",
+      price: "",
+      total: "",
     };
 
     setItems([...items, newItem]);
@@ -86,6 +103,11 @@ export default function editInvoice() {
   // function to delete item
   const handleDeleteItemClick = (id) => {
     const updatedItems = items.filter((item) => item.id !== id);
+    const updatedValues = itemsValues.filter((item) => item.id === id);
+
+    reset({
+      items: updatedValues,
+    });
 
     setItems(updatedItems);
   };
@@ -148,6 +170,7 @@ export default function editInvoice() {
 
     setTimeout(() => {
       setModalIsOpen(false);
+      handleCloseOverlay();
       navigate("/");
     }, 3000);
   };
