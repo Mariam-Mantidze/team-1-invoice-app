@@ -122,12 +122,12 @@ export default function editInvoice() {
   const onSubmit = (data, event) => {
     event.preventDefault(); // prevent default form submission
 
-    // find which button was clicked
-    const submitter = event.nativeEvent.submitter;
-    const submissionAction = submitter ? submitter.value : null;
+    // // find which button was clicked
+    // const submitter = event.nativeEvent.submitter;
+    // const submissionAction = submitter ? submitter.value : null;
 
-    // getting status based on which item was clicked
-    const status = submissionAction === "saveAndSend" ? "pending" : "draft";
+    // // getting status based on which item was clicked
+    // const status = submissionAction === "saveAndSend" ? "pending" : "draft";
 
     //calculating each item totals and setting it
     const itemsWithTotals = itemsValues.map((item) => ({
@@ -155,13 +155,17 @@ export default function editInvoice() {
       ...data,
       createdAt: formattedDate,
       items: itemsWithTotals,
-      id: generateCustomID(), // change
+      // id: generateCustomID(), // change
       total: computedTotal,
-      status: status,
+      // status: status,
       paymentTerms: numberOfDays,
     };
 
-    setInvoiceData([...invoiceData, finalData]);
+    const updatedInvoiceData = invoiceData.map((invoice) =>
+      invoice.id === currentInvoice.id ? finalData : invoice
+    );
+
+    setInvoiceData(updatedInvoiceData);
 
     // console.log(invoiceData);
 
@@ -179,7 +183,7 @@ export default function editInvoice() {
     <Form onSubmit={handleSubmit(onSubmit)}>
       {isMobile ? <GoBack /> : ""}
 
-      <h1>New Invoice</h1>
+      <h1>Edit #{currentInvoice.id}</h1>
       <h3>Bill From</h3>
 
       <div className="bill-group">
@@ -578,21 +582,15 @@ export default function editInvoice() {
           value="discard"
           className="discard"
           onClick={() => setDiscardDialogue(true)}>
-          Discard
+          Cancel
         </button>
-        <button
-          type="submit"
-          name="submissionAction"
-          value="saveAsDraft"
-          className="save save-draft">
-          Save as Draft
-        </button>
+
         <button
           type="submit"
           name="submissionAction"
           value="saveAndSend"
           className="save save-send">
-          Save & Send
+          Save Changes
         </button>
       </div>
     </Form>

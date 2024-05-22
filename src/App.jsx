@@ -120,11 +120,7 @@ function App() {
             ) : (
               <Route path="/" element={<Navigate to="/" />} />
             )}
-            {isMobile ? (
-              <Route path="/:id/edit-invoice" element={<EditInvoice />} />
-            ) : (
-              <Route path="/" element={<Navigate to="/" />} />
-            )}
+            <Route path="/:id/edit-invoice" element={<EditInvoice />} />
             <Route path="/" element={<Navigate to="/" />} />{" "}
             {/* fallback route */}
           </Routes>

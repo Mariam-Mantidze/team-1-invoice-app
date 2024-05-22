@@ -3,6 +3,7 @@ import NewInvoice from "../pages/forms/NewInvoice";
 import styled from "styled-components";
 import { useContext, useEffect } from "react";
 import { invoiceContext } from "../App";
+import EditInvoice from "../pages/forms/EditInvoice";
 
 export default function Header(props) {
   const handleDarkMode = () => {
