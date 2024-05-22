@@ -29,7 +29,10 @@ function Main(props) {
           return (
             <section
               key={e.id}
-              onClick={() => content.navigate(`/${e.id}`)}
+              onClick={() => {
+                content.navigate(`/${e.id}`);
+                content.setNewInv(false);
+              }}
               className="w-[327px] md:w-[672px] lg:w-[730px] flex flex-col md:flex-row md:justify-between md:items-center gap-6 md:gap-0 bg-white dark:bg-[#1e2139] rounded-[8px] shadow-invoice dark:shadow-darkInvoice pt-[25px] px-6 pb-[22px] md:py-4 lg:pl-8 hover:border hover:border-solid hover:border-[#7c5dfa] hover:cursor-pointer"
             >
               <div className="flex justify-between items-center md:gap-[40px] lg:gap-[48px]">
@@ -63,9 +66,9 @@ function Main(props) {
                 </div>
                 <div
                   className={`${
-                    e.status == "paid"
+                    e.status.name == "Paid"
                       ? "bg-green"
-                      : e.status == "pending"
+                      : e.status.name == "Pending"
                       ? "bg-orange"
                       : "bg-black dark:bg-grey"
                   } w-[104px] h-10 flex justify-center items-center gap-2 rounded-[8px] opacity-transparent pt-[14px] pb-[11px]`}
