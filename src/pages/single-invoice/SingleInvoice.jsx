@@ -25,25 +25,62 @@ export default function SingleInvoice() {
   const [showDelete, setShowDelete] = useState(false);
 
   const handleStatusColor = () => {
-    if (invoice.status.name === "pending") {
+    if (invoice.status.name === "Pending") {
       setStatusColor("#FF8F00");
-    } else if (invoice.status.name === "paid") {
+    } else if (invoice.status.name === "Paid") {
       setStatusColor("#33D69F");
     } else {
       return;
     }
   };
 
-  const markAsPaid = () => {
-    const updatedInvoice = { ...invoice, status: "paid" };
-    const updatedInvoiceData = invoiceData.map((inv) =>
-      inv.id === id ? updatedInvoice : inv
-    );
-    setInvoiceData(updatedInvoiceData);
-    handleStatusColor();
+  const markAsPaid = async () => {
+    const updatedInvoice = {
+      ...invoice,
+      status: { ...invoice.status, name: "Paid" },
+    };
+
+    try {
+      const response = await fetch(
+        `https://invoice-api-team-1.onrender.com/api/invoice/mark_as_paid/${invoice.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ status: { name: "Paid" } }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to update invoice: ${response.statusText}`);
+      }
+
+      const updatedInvoiceData = invoiceData.map((inv) =>
+        inv.id === invoice.id ? updatedInvoice : inv
+      );
+      setInvoiceData(updatedInvoiceData);
+      handleStatusColor();
+    } catch (error) {
+      console.error("Error updating invoice status:", error);
+    }
   };
 
-  const deleteInvoice = () => {
+  const deleteInvoice = async () => {
+    try {
+      const response = await fetch(
+        `https://invoice-api-team-1.onrender.com/api/invoice/${invoice.id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error("Error updating invoice status:", error);
+    }
     const updatedInvoiceData = invoiceData.filter((inv) => inv.id !== id);
     setInvoiceData(updatedInvoiceData);
   };
@@ -102,7 +139,7 @@ export default function SingleInvoice() {
                   onClick={markAsPaid}
                   className="rounded-full bg-[#7C5DFA] py-4 px-6 text-[#FFF] text-sm font-bold leading-tight tracking-tight hover:bg-[#9277FF]"
                 >
-                  {invoice.status.name !== "paid"
+                  {invoice.status.name !== "Paid"
                     ? "Mark As Paid"
                     : "Already Paid"}
                 </button>
@@ -215,7 +252,7 @@ export default function SingleInvoice() {
             onClick={markAsPaid}
             className="rounded-full bg-[#7C5DFA] py-4 px-6 text-[#FFF] text-sm font-bold leading-tight tracking-tight hover:bg-[#9277FF]"
           >
-            {invoice.status.name !== "paid" ? "Mark As Paid" : "Already Paid"}
+            {invoice.status.name !== "Paid" ? "Mark As Paid" : "Already Paid"}
           </button>
         </div>
       </div>

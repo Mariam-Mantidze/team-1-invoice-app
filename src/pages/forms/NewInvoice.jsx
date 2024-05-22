@@ -86,7 +86,7 @@ export default function NewInvoice() {
     .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
 
   // function to submit the entire form
-  const onSubmit = (data, event) => {
+  const onSubmit = async (data, event) => {
     event.preventDefault(); // prevent default form submission
 
     // find which button was clicked
@@ -125,11 +125,51 @@ export default function NewInvoice() {
       items: itemsWithTotals,
       id: generateCustomID(),
       total: computedTotal,
-      status: status,
+      status: { id: 2, name: status },
       paymentTerms: numberOfDays,
     };
 
     setInvoiceData([...invoiceData, finalData]);
+
+    if (finalData.status === "draft") {
+      try {
+        const response = await fetch(
+          `https://invoice-api-team-1.onrender.com/api/invoice/draft/`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(finalData),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Failed to add invoice: ${response.statusText}`);
+        }
+      } catch (error) {
+        console.error("Error adding invoice:", error);
+      }
+    } else {
+      try {
+        const response = await fetch(
+          `https://invoice-api-team-1.onrender.com/api/invoice/`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(finalData),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Failed to add invoice: ${response.statusText}`);
+        }
+      } catch (error) {
+        console.error("Error adding invoice:", error);
+      }
+    }
 
     // console.log(invoiceData);
 
