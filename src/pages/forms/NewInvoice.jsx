@@ -124,7 +124,7 @@ export default function NewInvoice() {
       items: itemsWithTotals,
       id: generateCustomID(),
       total: computedTotal,
-      status: status,
+      status: { id: 2, name: status },
       paymentTerms: numberOfDays,
     };
 
@@ -133,7 +133,7 @@ export default function NewInvoice() {
     if (finalData.status === "draft") {
       try {
         const response = await fetch(
-          `https://invoice-api-team-1.onrender.com/api/invoice/draft`,
+          `https://invoice-api-team-1.onrender.com/api/invoice/draft/`,
           {
             method: "POST",
             headers: {
