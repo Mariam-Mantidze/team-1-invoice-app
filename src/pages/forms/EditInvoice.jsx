@@ -604,6 +604,11 @@ const Form = styled.form`
   padding-top: 24px;
   background-color: ${(props) => props.theme.formsBackground};
 
+  @media (min-width: 678px) {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
   & > h1 {
     color: ${(props) => props.theme.textColor};
     font-size: 24px;
