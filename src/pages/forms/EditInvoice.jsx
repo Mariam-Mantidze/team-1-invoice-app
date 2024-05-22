@@ -98,6 +98,11 @@ export default function editInvoice() {
   // function to delete item
   const handleDeleteItemClick = (id) => {
     const updatedItems = items.filter((item) => item.id !== id);
+    const updatedValues = itemsValues.filter((item) => item.id === id);
+
+    reset({
+      items: updatedValues,
+    });
 
     setItems(updatedItems);
   };
