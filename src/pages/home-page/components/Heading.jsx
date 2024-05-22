@@ -58,7 +58,8 @@ function Heading(props) {
   return (
     <div>
       <header
-        className={` w-[327px] md:w-[672px] lg:w-[730px] flex justify-between items-center mt-8 md:mt-[62px] lg:mt-[68px]`}>
+        className={` w-[327px] md:w-[672px] lg:w-[730px] flex justify-between items-center mt-8 md:mt-[62px] lg:mt-[68px]`}
+      >
         <div>
           <h1 className="text-2xl md:text-4xl text-[#0c0e16] dark:text-[#fff] font-[700] tracking-[-0.75px] md:tracking-[-1.13px]">
             Invoices
@@ -77,7 +78,8 @@ function Heading(props) {
           <div className="flex items-center gap-3 md:gap-[14px] relative">
             <span
               onClick={activateFilter}
-              className="text-[15px] text-[#0c0e16] dark:text-[#fff] font-[700] tracking-[-0.25px] leading-[1] hover:cursor-pointer">
+              className="text-[15px] text-[#0c0e16] dark:text-[#fff] font-[700] tracking-[-0.25px] leading-[1] hover:cursor-pointer"
+            >
               {context.isTablet || context.isDesktop
                 ? "Filter by status"
                 : "Filter"}
@@ -99,7 +101,8 @@ function Heading(props) {
                   />
                   <label
                     htmlFor="draft"
-                    className="text-[13px] md:text-[15px] text-[#1e2139] dark:text-[#fff] hover:text-[#0c0e16] hover:cursor-pointer font-[700] tracking-[-0.25px] leading-[1]">
+                    className="text-[13px] md:text-[15px] text-[#1e2139] dark:text-[#fff] hover:text-[#0c0e16] hover:cursor-pointer font-[700] tracking-[-0.25px] leading-[1]"
+                  >
                     Draft
                   </label>
                 </div>
@@ -113,7 +116,8 @@ function Heading(props) {
                   />
                   <label
                     htmlFor="pending"
-                    className="text-[13px] md:text-[15px] text-[#1e2139] dark:text-[#fff] hover:text-[#0c0e16] hover:cursor-pointer font-[700] tracking-[-0.25px] leading-[1]">
+                    className="text-[13px] md:text-[15px] text-[#1e2139] dark:text-[#fff] hover:text-[#0c0e16] hover:cursor-pointer font-[700] tracking-[-0.25px] leading-[1]"
+                  >
                     Pending
                   </label>
                 </div>
@@ -127,7 +131,8 @@ function Heading(props) {
                   />
                   <label
                     htmlFor="paid"
-                    className="text-[13px] md:text-[15px] text-[#1e2139] dark:text-[#fff] hover:text-[#0c0e16] hover:cursor-pointer font-[700] tracking-[-0.25px] leading-[1]">
+                    className="text-[13px] md:text-[15px] text-[#1e2139] dark:text-[#fff] hover:text-[#0c0e16] hover:cursor-pointer font-[700] tracking-[-0.25px] leading-[1]"
+                  >
                     Paid
                   </label>
                 </div>
@@ -142,7 +147,8 @@ function Heading(props) {
                 ? context.navigate(`/new-invoice`)
                 : handleOpenOverlay(true);
             }}
-            className="w-[90px] md:w-[150px] h-[44px] md:h-[48px] rounded-[24px] bg-[#7c5dfa] hover:bg-[#9277ff] hover:cursor-pointer flex items-center justify-center gap-2 md:gap-4 pr-3 md:pr-2">
+            className="w-[90px] md:w-[150px] h-[44px] md:h-[48px] rounded-[24px] bg-[#7c5dfa] hover:bg-[#9277ff] hover:cursor-pointer flex items-center justify-center gap-2 md:gap-4 pr-3 md:pr-2"
+          >
             <div className="w-8 h-8 rounded-full bg-[#fff] flex items-center justify-center">
               <img src="/assets/icon-plus.svg" alt="icon_plus" />
             </div>
@@ -152,11 +158,11 @@ function Heading(props) {
           </button>
         </div>
       </header>
-      {isOverlayOpen && (
+      {/* {isOverlayOpen && (
         <Overlay>
           <NewInvoice />
         </Overlay>
-      )}
+      )} */}
     </div>
   );
 }
