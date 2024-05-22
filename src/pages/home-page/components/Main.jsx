@@ -31,7 +31,6 @@ function Main(props) {
               key={e.id}
               onClick={() => {
                 content.navigate(`/${e.id}`);
-                content.setNewInv(false);
               }}
               className="w-[327px] md:w-[672px] lg:w-[730px] flex flex-col md:flex-row md:justify-between md:items-center gap-6 md:gap-0 bg-white dark:bg-[#1e2139] rounded-[8px] shadow-invoice dark:shadow-darkInvoice pt-[25px] px-6 pb-[22px] md:py-4 lg:pl-8 hover:border hover:border-solid hover:border-[#7c5dfa] hover:cursor-pointer"
             >

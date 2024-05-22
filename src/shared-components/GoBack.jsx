@@ -1,15 +1,9 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { invoiceContext } from "../App";
 
 export default function GoBack() {
-  const context = useContext(invoiceContext);
-  const handleNew = () => {
-    context.setNewInv(false);
-  };
   return (
-    <Link onClick={handleNew} to={"/"}>
+    <Link to={"/"}>
       <GoBackDiv className="go-back">
         <svg width="7" height="10" xmlns="http://www.w3.org/2000/svg">
           <path

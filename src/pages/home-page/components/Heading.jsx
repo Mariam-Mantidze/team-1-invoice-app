@@ -144,9 +144,9 @@ function Heading(props) {
           </div>
           <button
             onClick={() =>
-              context.isMobile || context.isTablet
+              context.isMobile
                 ? context.navigate(`/new-invoice`)
-                : ""
+                : context.setIsOverlayOpen(true)
             }
             className="w-[90px] md:w-[150px] h-[44px] md:h-[48px] rounded-[24px] bg-[#7c5dfa] hover:bg-[#9277ff] hover:cursor-pointer flex items-center justify-center gap-2 md:gap-4 pr-3 md:pr-2"
           >
