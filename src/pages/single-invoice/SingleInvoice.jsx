@@ -42,13 +42,13 @@ export default function SingleInvoice() {
 
     try {
       const response = await fetch(
-        `https://invoice-api-team-1.onrender.com/api/invoice/${invoice.id}`,
+        `https://invoice-api-team-1.onrender.com/api/invoice/mark_as_paid/${invoice.id}`,
         {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ status: "Paid" }),
+          body: JSON.stringify({ status: { name: "Paid" } }),
         }
       );
 

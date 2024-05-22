@@ -130,23 +130,44 @@ export default function NewInvoice() {
 
     setInvoiceData([...invoiceData, finalData]);
 
-    try {
-      const response = await fetch(
-        `https://invoice-api-team-1.onrender.com/api/invoice/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(finalData),
-        }
-      );
+    if (finalData.status === "draft") {
+      try {
+        const response = await fetch(
+          `https://invoice-api-team-1.onrender.com/api/invoice/draft`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(finalData),
+          }
+        );
 
-      if (!response.ok) {
-        throw new Error(`Failed to add invoice: ${response.statusText}`);
+        if (!response.ok) {
+          throw new Error(`Failed to add invoice: ${response.statusText}`);
+        }
+      } catch (error) {
+        console.error("Error adding invoice:", error);
       }
-    } catch (error) {
-      console.error("Error adding invoice:", error);
+    } else {
+      try {
+        const response = await fetch(
+          `https://invoice-api-team-1.onrender.com/api/invoice/`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(finalData),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Failed to add invoice: ${response.statusText}`);
+        }
+      } catch (error) {
+        console.error("Error adding invoice:", error);
+      }
     }
 
     // console.log(invoiceData);
