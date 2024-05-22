@@ -48,7 +48,7 @@ export default function NewInvoice() {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      items: [{ name: "", quantity: "", price: "", total: 0 }],
+      items: [{ name: "", quantity: "", price: "", total: 0, id: "" }],
     },
   });
 
@@ -102,6 +102,7 @@ export default function NewInvoice() {
       total: ((item.quantity || 0) * (item.price || 0)).toFixed(2),
       price: (+item.price || 0).toFixed(2),
       quantity: (+item.quantity || 0).toFixed(2),
+      id: item.id,
     }));
 
     // get all items sum / total
@@ -429,7 +430,6 @@ export default function NewInvoice() {
 
               return (
                 <div key={item.id} className="item-active">
-                  <div className="active-container"></div>
                   <div className="label-box">
                     <label
                       htmlFor={`name-${item.id}`}
