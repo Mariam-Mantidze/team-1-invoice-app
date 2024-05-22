@@ -74,18 +74,18 @@ function Main(props) {
                 >
                   <div
                     className={`${
-                      e.status == "paid"
+                      e.status.name == "Paid"
                         ? "bg-[#33d69f]"
-                        : e.status == "pending"
+                        : e.status.name == "Pending"
                         ? "bg-[#ff8f00]"
                         : "bg-[#373b53] dark:bg-[#dfe3fa]"
                     } w-2 h-2 rounded-full`}
                   ></div>
                   <span
                     className={`${
-                      e.status == "paid"
+                      e.status.name == "Paid"
                         ? "text-[#33d69f]"
-                        : e.status == "pending"
+                        : e.status.name == "Pending"
                         ? "text-[#ff8f00]"
                         : "text-[#373b53] dark:text-[#dfe3fa]"
                     } text-[13px] font-[700] tracking-[-0.1px] leading-[1.15]`}

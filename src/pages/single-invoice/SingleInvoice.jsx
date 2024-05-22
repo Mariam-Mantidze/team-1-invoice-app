@@ -105,6 +105,8 @@ export default function SingleInvoice() {
                     className="text-base font-semibold leading-4 tracking-tight"
                     style={{ color: statusColor }}
                   >
+                    {invoice.status.name}
+                    {{ color: statusColor }}
                     {invoice.status}
                   </p>
                 </div>
@@ -121,7 +123,14 @@ export default function SingleInvoice() {
                   onClick={markAsPaid}
                   className="rounded-full bg-[#7C5DFA] py-4 px-6 text-[#FFF] text-sm font-bold leading-tight tracking-tight hover:bg-[#9277FF]"
                 >
+                  {invoice.status.name !== "paid"
+                    ? "Mark As Paid"
+                    : "Already Paid"}
+                  className="rounded-full bg-[#7C5DFA] py-4 px-6 text-[#FFF]
+                  text-sm font-bold leading-tight tracking-tight
+                  hover:bg-[#9277FF]"
                   {invoice.status !== "paid" ? "Mark As Paid" : "Already Paid"}
+                  Temporary merge branch 2
                 </button>
               </div>
             </div>
@@ -232,6 +241,9 @@ export default function SingleInvoice() {
             onClick={markAsPaid}
             className="rounded-full bg-[#7C5DFA] py-4 px-6 text-[#FFF] text-sm font-bold leading-tight tracking-tight hover:bg-[#9277FF]"
           >
+            {invoice.status.name !== "paid" ? "Mark As Paid" : "Already Paid"}
+            className="rounded-full bg-[#7C5DFA] py-4 px-6 text-[#FFF] text-sm
+            font-bold leading-tight tracking-tight hover:bg-[#9277FF]"
             {invoice.status !== "paid" ? "Mark As Paid" : "Already Paid"}
           </button>
         </div>

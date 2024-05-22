@@ -51,10 +51,13 @@ function Heading(props) {
     );
     //console.log(activeStatuses);
 
-    updatedData = context.invoiceData.filter((element) =>
-      activeStatuses.includes(element.status.name.toLowerCase())
-    );
-    console.log(updatedData);
+    updatedData = context.invoiceData.filter((element) => {
+      const statusname = Object.entries(element.status);
+      const lower = statusname[1][1].toLowerCase();
+
+      return activeStatuses.includes(lower);
+    });
+
     props.setFilteredData(updatedData);
     localStorage.setItem("checkedBoxes", JSON.stringify(checkedBoxes));
   }, [checkedBoxes]);
