@@ -35,6 +35,9 @@ function App() {
   // set stored data in useState
   const [invoiceData, setInvoiceData] = useState(storedData || []);
 
+  // state for managing form overlay
+  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
+
   // useState for setting themes
   const [darkMode, setDarkMode] = useState(() => {
     const storedMode = JSON.parse(localStorage.getItem("darkMode"));
@@ -59,6 +62,31 @@ function App() {
   // navigate
   const navigate = useNavigate();
 
+  const handleOpenOverlay = () => {
+    setIsOverlayOpen(true);
+    if (isMobile) {
+      navigate("/new-invoice");
+    }
+  };
+
+  const handleCloseOverlay = () => {
+    setIsOverlayOpen(false);
+    if (isMobile) {
+      navigate("/");
+    }
+  };
+
+  // monitoring changes in isMobile and isOverlay states
+  useEffect(() => {
+    if (isOverlayOpen) {
+      if (isMobile) {
+        navigate("/new-invoice");
+      } else {
+        navigate("/");
+      }
+    }
+  }, [isMobile, isOverlayOpen, navigate]);
+
   return (
     <invoiceContext.Provider
       value={{
@@ -69,6 +97,10 @@ function App() {
         isTablet,
         isDesktop,
         darkMode,
+        setIsOverlayOpen,
+        isOverlayOpen,
+        handleCloseOverlay,
+        handleOpenOverlay,
       }}
     >
       <GlobalStyles />
@@ -80,13 +112,22 @@ function App() {
         >
           <Header darkMode={darkMode} setDarkMode={setDarkMode} />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route
+              path="/"
+              element={<Home onOpenOverlay={handleOpenOverlay} />}
+            />
             <Route path="/:id" element={<SingleInvoice />} />
-            <Route path="/new-invoice" element={<NewInvoice />} />
+            {isMobile ? (
+              <Route path="/new-invoice" element={<NewInvoice />} />
+            ) : (
+              <Route path="/new-invoice" element={<Navigate to="/" />} />
+            )}
             <Route
               path="/invoices/:id/edit-invoice"
               element={<EditInvoice />}
             />
+            <Route path="/" element={<Navigate to="/" />} />{" "}
+            {/* fallback route */}
           </Routes>
         </div>
       </ThemeProvider>

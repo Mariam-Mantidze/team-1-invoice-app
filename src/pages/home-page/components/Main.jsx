@@ -21,6 +21,8 @@ function Main(props) {
     dateRef.current = dates;
   }, [content.invoiceData]);
 
+  console.log(props.filteredData[0].status);
+
   //   const fixedAmount = content.invoiceData.
   return (
     <main className={` flex flex-col items-center gap-4 mb-10`}>
