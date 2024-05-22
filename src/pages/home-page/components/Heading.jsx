@@ -4,6 +4,8 @@ import { invoiceContext } from "../../../App";
 function Heading(props) {
   const context = useContext(invoiceContext);
 
+  const { isMobile, handleOpenOverlay } = useContext(invoiceContext);
+
   const activateFilter = () => {
     props.setActiveFilter(!props.activeFilter);
   };
@@ -141,20 +143,11 @@ function Heading(props) {
             )}
           </div>
           <button
-            onClick={() => {
-              if (context.isMobile || context.isTablet) {
-                context.navigate(`/new-invoice`);
-                context.setNewInv(!context.newInv);
-              } else {
-                if (context.newInv) {
-                  context.navigate(`/`);
-                  context.setNewInv(!context.newInv);
-                } else {
-                  context.navigate(`/new-invoice`);
-                  context.setNewInv(!context.newInv);
-                }
-              }
-            }}
+            onClick={() =>
+              context.isMobile || context.isTablet
+                ? context.navigate(`/new-invoice`)
+                : ""
+            }
             className="w-[90px] md:w-[150px] h-[44px] md:h-[48px] rounded-[24px] bg-[#7c5dfa] hover:bg-[#9277ff] hover:cursor-pointer flex items-center justify-center gap-2 md:gap-4 pr-3 md:pr-2"
           >
             <div className="w-8 h-8 rounded-full bg-[#fff] flex items-center justify-center">
