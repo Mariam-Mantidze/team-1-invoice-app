@@ -15,8 +15,14 @@ export default function NewInvoice() {
   const [discardDialogue, setDiscardDialogue] = useState(false);
   const [items, setItems] = useState([]);
 
-  const { invoiceData, setInvoiceData, navigate, isMobile } =
-    useContext(invoiceContext);
+  const {
+    invoiceData,
+    setInvoiceData,
+    navigate,
+    isMobile,
+    isOverlayOpen,
+    handleCloseOverlay,
+  } = useContext(invoiceContext);
 
   // function to generate a custom ID using UUID
   function generateCustomID() {
@@ -131,6 +137,7 @@ export default function NewInvoice() {
 
     setTimeout(() => {
       setModalIsOpen(false);
+      handleCloseOverlay();
       navigate("/");
     }, 3000);
   };

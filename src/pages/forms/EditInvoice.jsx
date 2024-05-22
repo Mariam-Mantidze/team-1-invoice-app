@@ -8,6 +8,8 @@ import uuid from "react-uuid";
 import SuccessModal from "./components/SuccessModal";
 import DiscardModal from "./components/DiscardModal";
 import { schema } from "./Schema";
+import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 export default function editInvoice() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -17,19 +19,8 @@ export default function editInvoice() {
   const { invoiceData, setInvoiceData, navigate, isMobile } =
     useContext(invoiceContext);
 
-  // function to generate a custom ID using UUID
-  function generateCustomID() {
-    const randomId = uuid();
-    // extract the first two characters as letters
-    const letters = randomId.substring(0, 2).toUpperCase();
-    // extract the first four numbers from the uuid
-    const digits = randomId.replace(/\D/g, "").substring(0, 4);
-
-    // combine letters and digits to form the custom ID
-    const customID = `${letters}${digits}`;
-
-    return customID;
-  }
+  const { id } = useParams();
+  console.log("EditInvoice ID:", id);
 
   const {
     register,
@@ -47,9 +38,6 @@ export default function editInvoice() {
 
   // watch entire items array
   const itemsValues = watch("items");
-
-  // console.log(itemsValues);
-  // console.log(errors);
 
   // function to add items
   const handleAddItemClick = (e) => {
@@ -115,7 +103,7 @@ export default function editInvoice() {
       ...data,
       createdAt: formattedDate,
       items: itemsWithTotals,
-      id: generateCustomID(),
+      id: generateCustomID(), // change
       total: computedTotal,
       status: status,
       paymentTerms: numberOfDays,

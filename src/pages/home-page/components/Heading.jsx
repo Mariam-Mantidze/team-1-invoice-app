@@ -1,13 +1,10 @@
 import { useContext, useState, useEffect } from "react";
 import { invoiceContext } from "../../../App";
-import NewInvoice from "../../forms/NewInvoice";
-import styled from "styled-components";
 
 function Heading(props) {
   const context = useContext(invoiceContext);
 
-  const { isMobile, setIsOverlayOpen, isOverlayOpen, handleOpenOverlay } =
-    useContext(invoiceContext);
+  const { isMobile, handleOpenOverlay } = useContext(invoiceContext);
 
   const activateFilter = () => {
     props.setActiveFilter(!props.activeFilter);
@@ -152,31 +149,8 @@ function Heading(props) {
           </button>
         </div>
       </header>
-      {isOverlayOpen && (
-        <Overlay>
-          <NewInvoice />
-        </Overlay>
-      )}
     </div>
   );
 }
-
-const Overlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: flex-start;
-  z-index: 1000;
-`;
-
-const OverlayContent = styled.div`
-  /* padding: 20px; */
-  /* border-radius: 8px; */
-  /* width: 80%; */
-  /* max-width: 600px; */
-`;
 
 export default Heading;

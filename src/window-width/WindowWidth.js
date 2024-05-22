@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const mobileBreakpoint = 768;
-const tabletBreakpoint = 1440;
+const tabletBreakpoint = 1024;
 
 const useWindowSize = () => {
   const [windowSize, setWindowSize] = useState({
