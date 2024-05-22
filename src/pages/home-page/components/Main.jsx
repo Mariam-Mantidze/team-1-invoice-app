@@ -63,9 +63,9 @@ function Main(props) {
                 </div>
                 <div
                   className={`${
-                    e.status == "paid"
+                    e.status.name == "Paid"
                       ? "bg-green"
-                      : e.status == "pending"
+                      : e.status.name == "Pending"
                       ? "bg-orange"
                       : "bg-black dark:bg-grey"
                   } w-[104px] h-10 flex justify-center items-center gap-2 rounded-[8px] opacity-transparent pt-[14px] pb-[11px]`}
