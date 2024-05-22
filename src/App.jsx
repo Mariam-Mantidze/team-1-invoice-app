@@ -27,7 +27,6 @@ function App() {
         "https://invoice-api-team-1.onrender.com/api/invoice/"
       );
       const data = await response.json();
-      console.log(data);
       return data;
     } catch (error) {
       console.error("Error fetching data:", error);

@@ -30,13 +30,36 @@ export default function SingleInvoice() {
     }
   };
 
-  const markAsPaid = () => {
-    const updatedInvoice = { ...invoice, status: "paid" };
-    const updatedInvoiceData = invoiceData.map((inv) =>
-      inv.id === id ? updatedInvoice : inv
-    );
-    setInvoiceData(updatedInvoiceData);
-    handleStatusColor();
+  const markAsPaid = async () => {
+    const updatedInvoice = {
+      ...invoice,
+      status: { ...invoice.status, name: "paid" },
+    };
+
+    try {
+      const response = await fetch(
+        `https://invoice-api-team-1.onrender.com/api/invoice/${invoice.id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ status: "paid" }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      const updatedInvoiceData = invoiceData.map((inv) =>
+        inv.id === invoice.id ? updatedInvoice : inv
+      );
+      setInvoiceData(updatedInvoiceData);
+      handleStatusColor();
+    } catch (error) {
+      console.error("Error updating invoice status:", error);
+    }
   };
 
   const deleteInvoice = () => {
