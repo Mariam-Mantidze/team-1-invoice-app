@@ -9,6 +9,7 @@ export default function DiscardModal({ setDiscardDialogue }) {
     {
       isMobile ? navigate("/") : handleCloseOverlay();
     }
+    // reset();
   };
 
   return (
