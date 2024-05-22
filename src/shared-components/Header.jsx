@@ -20,7 +20,8 @@ export default function Header(props) {
     setIsHovered(false);
   };
 
-  const { isOverlayOpen } = useContext(invoiceContext);
+  const { isOverlayOpen, isMobile, isTablet, isDesktop } =
+    useContext(invoiceContext);
   return (
     <div
       className={`h-[72px] md:h-20 lg:h-auto lg:w-[103px] bg-[#373b53] dark:bg-[#1e2139] flex lg:flex-col items-center justify-between pr-6 md:pr-[32px] lg:pr-0 lg:pb-6 lg:rounded-tr-[20px] lg:rounded-br-[20px]`}>
@@ -72,7 +73,12 @@ export default function Header(props) {
         />
       </div>
       {isOverlayOpen && (
-        <Overlay>
+        <Overlay
+          style={{
+            left: isDesktop && "103.5px",
+            top: isTablet ? "80px" : isMobile && "73.5px",
+            // top: isMobile && "73.5px",
+          }}>
           <NewInvoice />
         </Overlay>
       )}
@@ -83,7 +89,7 @@ export default function Header(props) {
 const Overlay = styled.div`
   position: absolute;
   top: 0;
-  left: 0;
+  /* left: 103px; */
   width: 100%;
   height: fit-content;
   background: rgba(0, 0, 0, 0.5);
