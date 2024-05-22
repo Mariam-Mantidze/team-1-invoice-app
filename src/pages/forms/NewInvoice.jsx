@@ -80,7 +80,7 @@ export default function NewInvoice() {
     .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
 
   // function to submit the entire form
-  const onSubmit = (data, event) => {
+  const onSubmit = async (data, event) => {
     event.preventDefault(); // prevent default form submission
 
     // find which button was clicked
@@ -124,6 +124,25 @@ export default function NewInvoice() {
 
     setInvoiceData([...invoiceData, finalData]);
 
+    try {
+      const response = await fetch(
+        `https://invoice-api-team-1.onrender.com/api/invoice/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(finalData),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to add invoice: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error("Error adding invoice:", error);
+    }
+
     // console.log(invoiceData);
 
     // open the success modal
@@ -131,6 +150,7 @@ export default function NewInvoice() {
 
     setTimeout(() => {
       setModalIsOpen(false);
+      handleCLoseOverlay();
       navigate("/");
     }, 3000);
   };

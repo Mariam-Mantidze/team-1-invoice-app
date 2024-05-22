@@ -21,9 +21,9 @@ export default function SingleInvoice() {
   const [showDelete, setShowDelete] = useState(false);
 
   const handleStatusColor = () => {
-    if (invoice.status.name === "pending") {
+    if (invoice.status.name === "Pending") {
       setStatusColor("#FF8F00");
-    } else if (invoice.status.name === "paid") {
+    } else if (invoice.status.name === "Paid") {
       setStatusColor("#33D69F");
     } else {
       return;
@@ -33,7 +33,7 @@ export default function SingleInvoice() {
   const markAsPaid = async () => {
     const updatedInvoice = {
       ...invoice,
-      status: { ...invoice.status, name: "paid" },
+      status: { ...invoice.status, name: "Paid" },
     };
 
     try {
@@ -44,12 +44,12 @@ export default function SingleInvoice() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ status: "paid" }),
+          body: JSON.stringify({ status: "Paid" }),
         }
       );
 
       if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
+        throw new Error(`Failed to update invoice: ${response.statusText}`);
       }
 
       const updatedInvoiceData = invoiceData.map((inv) =>
@@ -62,7 +62,21 @@ export default function SingleInvoice() {
     }
   };
 
-  const deleteInvoice = () => {
+  const deleteInvoice = async () => {
+    try {
+      const response = await fetch(
+        `https://invoice-api-team-1.onrender.com/api/invoice/${invoice.id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error("Error updating invoice status:", error);
+    }
     const updatedInvoiceData = invoiceData.filter((inv) => inv.id !== id);
     setInvoiceData(updatedInvoiceData);
   };
@@ -106,8 +120,6 @@ export default function SingleInvoice() {
                     style={{ color: statusColor }}
                   >
                     {invoice.status.name}
-                    {{ color: statusColor }}
-                    {invoice.status}
                   </p>
                 </div>
               </div>
@@ -123,14 +135,9 @@ export default function SingleInvoice() {
                   onClick={markAsPaid}
                   className="rounded-full bg-[#7C5DFA] py-4 px-6 text-[#FFF] text-sm font-bold leading-tight tracking-tight hover:bg-[#9277FF]"
                 >
-                  {invoice.status.name !== "paid"
+                  {invoice.status.name !== "Paid"
                     ? "Mark As Paid"
                     : "Already Paid"}
-                  className="rounded-full bg-[#7C5DFA] py-4 px-6 text-[#FFF]
-                  text-sm font-bold leading-tight tracking-tight
-                  hover:bg-[#9277FF]"
-                  {invoice.status !== "paid" ? "Mark As Paid" : "Already Paid"}
-                  Temporary merge branch 2
                 </button>
               </div>
             </div>
@@ -241,10 +248,7 @@ export default function SingleInvoice() {
             onClick={markAsPaid}
             className="rounded-full bg-[#7C5DFA] py-4 px-6 text-[#FFF] text-sm font-bold leading-tight tracking-tight hover:bg-[#9277FF]"
           >
-            {invoice.status.name !== "paid" ? "Mark As Paid" : "Already Paid"}
-            className="rounded-full bg-[#7C5DFA] py-4 px-6 text-[#FFF] text-sm
-            font-bold leading-tight tracking-tight hover:bg-[#9277FF]"
-            {invoice.status !== "paid" ? "Mark As Paid" : "Already Paid"}
+            {invoice.status.name !== "Paid" ? "Mark As Paid" : "Already Paid"}
           </button>
         </div>
       </div>

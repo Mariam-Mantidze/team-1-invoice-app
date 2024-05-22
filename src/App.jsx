@@ -35,7 +35,6 @@ function App() {
 
   // set stored data in useState
   const [invoiceData, setInvoiceData] = useState(storedData || []);
-  console.log(invoiceData);
   // state for managing form overlay
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
 

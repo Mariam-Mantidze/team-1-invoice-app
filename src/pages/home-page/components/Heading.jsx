@@ -5,8 +5,6 @@ import styled from "styled-components";
 
 function Heading(props) {
   const context = useContext(invoiceContext);
-  //console.log(context.invoiceData);
-  //console.log(context.invoiceData[0].status.name.toLowerCase());
 
   const { isMobile, setIsOverlayOpen, isOverlayOpen, handleOpenOverlay } =
     useContext(invoiceContext);
@@ -49,7 +47,6 @@ function Heading(props) {
     const activeStatuses = Object.keys(checkedBoxes).filter(
       (key) => checkedBoxes[key] === true
     );
-    //console.log(activeStatuses);
 
     updatedData = context.invoiceData.filter((element) => {
       const statusname = Object.entries(element.status);
