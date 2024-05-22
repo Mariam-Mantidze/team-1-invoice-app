@@ -59,6 +59,7 @@ function App() {
 
   // detect screen size for conditional rendering
   const { isMobile, isTablet, isDesktop } = useScreenType();
+  // const [isEditOpen, setIsEditOpen] = useState(false);
 
   // navigate
   const navigate = useNavigate();
@@ -102,15 +103,15 @@ function App() {
         isOverlayOpen,
         handleCloseOverlay,
         handleOpenOverlay,
-      }}
-    >
+        // isEditOpen,
+        // setIsEditOpen,
+      }}>
       <GlobalStyles />
       <ThemeProvider theme={darkMode == false ? lightTheme : darkTheme}>
         <div
           className={`${
             darkMode ? "dark bg-[#141625] " : "bg-[#f8f8fb]"
-          } min-h-screen lg:flex lg:justify-between`}
-        >
+          } min-h-screen lg:flex lg:justify-between`}>
           <Header darkMode={darkMode} setDarkMode={setDarkMode} />
           <Routes>
             <Route path="/" element={<Home />} />
