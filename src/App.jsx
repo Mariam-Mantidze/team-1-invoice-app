@@ -17,10 +17,14 @@ export const invoiceContext = createContext({});
 
 function App() {
   // get data for storing in local storage
-  const storedData = JSON.parse(localStorage.getItem("invoiceData"));
+
+  const storedData = JSON.parse(localStorage.getItem("data"));
 
   // set stored data in useState
   const [invoiceData, setInvoiceData] = useState(storedData || data);
+
+  // state for managing form overlay
+  const [isOverlayOpen, setIsOverlayOpen] = useState(false);
 
   // useState for setting themes
   const [darkMode, setDarkMode] = useState(() => {
@@ -40,6 +44,31 @@ function App() {
   // navigate
   const navigate = useNavigate();
 
+  const handleOpenOverlay = () => {
+    setIsOverlayOpen(true);
+    if (isMobile) {
+      navigate("/new-invoice");
+    }
+  };
+
+  const handleCloseOverlay = () => {
+    setIsOverlayOpen(false);
+    if (isMobile) {
+      navigate("/");
+    }
+  };
+
+  // monitoring changes in isMobile and isOverlay states
+  useEffect(() => {
+    if (isOverlayOpen) {
+      if (isMobile) {
+        navigate("/new-invoice");
+      } else {
+        navigate("/");
+      }
+    }
+  }, [isMobile, isOverlayOpen, navigate]);
+
   return (
     <invoiceContext.Provider
       value={{
@@ -50,24 +79,35 @@ function App() {
         isTablet,
         isDesktop,
         darkMode,
-      }}
-    >
+        setIsOverlayOpen,
+        isOverlayOpen,
+        handleCloseOverlay,
+        handleOpenOverlay,
+      }}>
       <GlobalStyles />
       <ThemeProvider theme={darkMode == false ? lightTheme : darkTheme}>
         <div
           className={`${
             darkMode ? "dark bg-[#141625] " : "bg-[#f8f8fb]"
-          } min-h-screen lg:flex lg:justify-between`}
-        >
+          } min-h-screen lg:flex lg:justify-between`}>
           <Header darkMode={darkMode} setDarkMode={setDarkMode} />
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route
+              path="/"
+              element={<Home onOpenOverlay={handleOpenOverlay} />}
+            />
             <Route path="/:id" element={<SingleInvoice />} />
-            <Route path="/new-invoice" element={<NewInvoice />} />
+            {isMobile ? (
+              <Route path="/new-invoice" element={<NewInvoice />} />
+            ) : (
+              <Route path="/new-invoice" element={<Navigate to="/" />} />
+            )}
             <Route
               path="/invoices/:id/edit-invoice"
               element={<EditInvoice />}
             />
+            <Route path="/" element={<Navigate to="/" />} />{" "}
+            {/* fallback route */}
           </Routes>
         </div>
       </ThemeProvider>
