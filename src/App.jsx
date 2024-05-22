@@ -104,13 +104,12 @@ function App() {
         handleOpenOverlay,
       }}
     >
-      <GlobalStyles />
+   <GlobalStyles />
       <ThemeProvider theme={darkMode == false ? lightTheme : darkTheme}>
         <div
           className={`${
             darkMode ? "dark bg-[#141625] " : "bg-[#f8f8fb]"
-          } min-h-screen lg:flex lg:justify-between`}
-        >
+          } min-h-screen lg:flex lg:justify-between`}>
           <Header darkMode={darkMode} setDarkMode={setDarkMode} />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -118,9 +117,13 @@ function App() {
             {isMobile ? (
               <Route path="/new-invoice" element={<NewInvoice />} />
             ) : (
-              <Route path="/new-invoice" element={<Home />} />
+              <Route path="/" element={<Navigate to="/" />} />
             )}
-            <Route path="/:id/edit-invoice" element={<EditInvoice />} />
+            {isMobile ? (
+              <Route path="/:id/edit-invoice" element={<EditInvoice />} />
+            ) : (
+              <Route path="/" element={<Navigate to="/" />} />
+            )}
             <Route path="/" element={<Navigate to="/" />} />{" "}
             {/* fallback route */}
           </Routes>

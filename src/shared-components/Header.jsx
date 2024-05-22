@@ -80,9 +80,7 @@ export default function Header(props) {
           style={{
             left: isDesktop && "103.5px",
             top: isTablet ? "80px" : isMobile && "73.5px",
-            // top: isMobile && "73.5px",
-          }}
-        >
+          }}>
           <NewInvoice />
         </Overlay>
       )}
