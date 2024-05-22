@@ -37,7 +37,7 @@ async function getData() {
 
 To add a new invoice, we send a POST request to the backend. The status of the invoice determines the endpoint used:
 
-````
+```
 if (finalData.status === "draft") {
   try {
     const response = await fetch(`https://invoice-api-team-1.onrender.com/api/invoice/draft/`, {
@@ -48,6 +48,7 @@ if (finalData.status === "draft") {
       body: JSON.stringify(finalData),
     });
     ```
+
     ```
 try {
 const response = await fetch(`https://invoice-api-team-1.onrender.com/api/invoice/`, {
@@ -60,7 +61,7 @@ body: JSON.stringify(finalData),
 }
 }
 }
-````
+```
 
 ## Working with Complex Forms
 
