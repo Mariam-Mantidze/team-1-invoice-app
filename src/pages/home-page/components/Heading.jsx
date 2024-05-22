@@ -1,7 +1,5 @@
 import { useContext, useState, useEffect } from "react";
 import { invoiceContext } from "../../../App";
-import NewInvoice from "../../forms/NewInvoice";
-import styled from "styled-components";
 
 function Heading(props) {
   const context = useContext(invoiceContext);
@@ -144,9 +142,18 @@ function Heading(props) {
           </div>
           <button
             onClick={() => {
-              context.isMobile || context.isTablet
-                ? context.navigate(`/new-invoice`)
-                : "";
+              if (context.isMobile || context.isTablet) {
+                context.navigate(`/new-invoice`);
+                context.setNewInv(!context.newInv);
+              } else {
+                if (context.newInv) {
+                  context.navigate(`/`);
+                  context.setNewInv(!context.newInv);
+                } else {
+                  context.navigate(`/new-invoice`);
+                  context.setNewInv(!context.newInv);
+                }
+              }
             }}
             className="w-[90px] md:w-[150px] h-[44px] md:h-[48px] rounded-[24px] bg-[#7c5dfa] hover:bg-[#9277ff] hover:cursor-pointer flex items-center justify-center gap-2 md:gap-4 pr-3 md:pr-2"
           >
@@ -159,31 +166,8 @@ function Heading(props) {
           </button>
         </div>
       </header>
-      {/* {isOverlayOpen && (
-        <Overlay>
-          <NewInvoice />
-        </Overlay>
-      )} */}
     </div>
   );
 }
-
-// const Overlay = styled.div`
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   width: 100%;
-//   background: rgba(0, 0, 0, 0.5);
-//   display: flex;
-//   align-items: flex-start;
-//   z-index: 1000;
-// `;
-
-// const OverlayContent = styled.div`
-//   /* padding: 20px; */
-//   /* border-radius: 8px; */
-//   /* width: 80%; */
-//   /* max-width: 600px; */
-// `;
 
 export default Heading;

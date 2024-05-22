@@ -17,7 +17,7 @@ export default function Header(props) {
     setIsHovered(false);
   };
   return (
-    <div className="lg:flex lg:relative">
+    <div className="md:flex md:flex-col md:relative lg:min-h-full">
       <div
         className={`h-[72px] md:h-20 lg:min-h-full lg:w-[103px] bg-[#373b53] dark:bg-[#1e2139] flex lg:flex-col items-center justify-between pr-6 md:pr-[32px] lg:pr-0 lg:pb-6 lg:rounded-tr-[20px] lg:rounded-br-[20px]`}
       >
@@ -71,9 +71,13 @@ export default function Header(props) {
           />
         </div>
       </div>
-      <div className="hidden lg:flex lg:absolute lg:right-0 lg:transform lg:translate-x-full">
-        <NewInvoice />
-      </div>
+      {props.newInv ? (
+        <div className="hidden md:flex md:absolute md:left-0 md:bottom-0 md:transform md:translate-y-full lg:left-auto lg:bottom-auto lg:right-0 lg:translate-x-full lg:translate-y-0">
+          <NewInvoice />
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

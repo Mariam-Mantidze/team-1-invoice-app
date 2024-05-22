@@ -88,6 +88,8 @@ function App() {
     }
   }, [isMobile, isOverlayOpen, navigate]);
 
+  const [newInv, setNewInv] = useState(false);
+
   return (
     <invoiceContext.Provider
       value={{
@@ -98,6 +100,8 @@ function App() {
         isTablet,
         isDesktop,
         darkMode,
+        newInv,
+        setNewInv,
         setIsOverlayOpen,
         isOverlayOpen,
         handleCloseOverlay,
@@ -111,14 +115,15 @@ function App() {
             darkMode ? "dark bg-[#141625] " : "bg-[#f8f8fb]"
           } min-h-screen lg:flex lg:justify-between`}
         >
-          <Header darkMode={darkMode} setDarkMode={setDarkMode} />
+          <Header
+            darkMode={darkMode}
+            setDarkMode={setDarkMode}
+            newInv={newInv}
+          />
           <Routes>
-            <Route
-              path="/"
-              element={<Home onOpenOverlay={handleOpenOverlay} />}
-            />
+            <Route path="/" element={<Home />} />
             <Route path="/:id" element={<SingleInvoice />} />
-            {isMobile || isTablet ? (
+            {isMobile ? (
               <Route path="/new-invoice" element={<NewInvoice />} />
             ) : (
               <Route path="/new-invoice" element={<Home />} />
