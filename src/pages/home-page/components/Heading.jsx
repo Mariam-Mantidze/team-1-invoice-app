@@ -48,9 +48,13 @@ function Heading(props) {
       (key) => checkedBoxes[key] === true
     );
 
-    updatedData = context.invoiceData.filter((element) =>
-      activeStatuses.includes(element.status)
-    );
+    updatedData = context.invoiceData.filter((element) => {
+      const statusname = Object.entries(element.status);
+      const lower = statusname[1][1].toLowerCase();
+
+      return activeStatuses.includes(lower);
+    });
+
     props.setFilteredData(updatedData);
     localStorage.setItem("checkedBoxes", JSON.stringify(checkedBoxes));
   }, [checkedBoxes]);
