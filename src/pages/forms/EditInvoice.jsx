@@ -16,8 +16,13 @@ export default function editInvoice() {
   const [discardDialogue, setDiscardDialogue] = useState(false);
   const [items, setItems] = useState([]);
 
-  const { invoiceData, setInvoiceData, navigate, isMobile } =
-    useContext(invoiceContext);
+  const {
+    invoiceData,
+    setInvoiceData,
+    navigate,
+    isMobile,
+    handleCloseOverlay,
+  } = useContext(invoiceContext);
 
   const { id } = useParams();
 
@@ -107,8 +112,6 @@ export default function editInvoice() {
     setItems(updatedItems);
   };
 
-  console.log(items);
-
   // find createdDate
   const date = new Date();
   const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1)
@@ -167,6 +170,7 @@ export default function editInvoice() {
 
     setTimeout(() => {
       setModalIsOpen(false);
+      handleCloseOverlay();
       navigate("/");
     }, 3000);
   };

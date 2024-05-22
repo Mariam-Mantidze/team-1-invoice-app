@@ -97,9 +97,13 @@ function App() {
             {isMobile ? (
               <Route path="/new-invoice" element={<NewInvoice />} />
             ) : (
-              <Route path="/new-invoice" element={<Navigate to="/" />} />
+              <Route path="/" element={<Navigate to="/" />} />
             )}
-            <Route path="/:id/edit-invoice" element={<EditInvoice />} />
+            {isMobile ? (
+              <Route path="/:id/edit-invoice" element={<EditInvoice />} />
+            ) : (
+              <Route path="/" element={<Navigate to="/" />} />
+            )}
             <Route path="/" element={<Navigate to="/" />} />{" "}
             {/* fallback route */}
           </Routes>
