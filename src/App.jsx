@@ -35,7 +35,7 @@ function App() {
 
   // set stored data in useState
   const [invoiceData, setInvoiceData] = useState(storedData || []);
-  console.log(invoiceData);
+
   // state for managing form overlay
   const [isOverlayOpen, setIsOverlayOpen] = useState(false);
 
@@ -118,10 +118,10 @@ function App() {
               element={<Home onOpenOverlay={handleOpenOverlay} />}
             />
             <Route path="/:id" element={<SingleInvoice />} />
-            {isMobile ? (
+            {isMobile || isTablet ? (
               <Route path="/new-invoice" element={<NewInvoice />} />
             ) : (
-              <Route path="/new-invoice" element={<Navigate to="/" />} />
+              <Route path="/new-invoice" element={<Home />} />
             )}
             <Route
               path="/invoices/:id/edit-invoice"

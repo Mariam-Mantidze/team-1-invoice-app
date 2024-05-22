@@ -71,7 +71,7 @@ export default function Header(props) {
           />
         </div>
       </div>
-      <div className="hidden lg:flex lg:absolute right-0 lg:transform lg:translate-x">
+      <div className="hidden lg:flex lg:absolute lg:right-0 lg:transform lg:translate-x-full">
         <NewInvoice />
       </div>
     </div>

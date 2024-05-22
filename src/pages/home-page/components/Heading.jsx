@@ -6,9 +6,6 @@ import styled from "styled-components";
 function Heading(props) {
   const context = useContext(invoiceContext);
 
-  const { isMobile, setIsOverlayOpen, isOverlayOpen, handleOpenOverlay } =
-    useContext(invoiceContext);
-
   const activateFilter = () => {
     props.setActiveFilter(!props.activeFilter);
   };
@@ -147,9 +144,9 @@ function Heading(props) {
           </div>
           <button
             onClick={() => {
-              isMobile
+              context.isMobile || context.isTablet
                 ? context.navigate(`/new-invoice`)
-                : handleOpenOverlay(true);
+                : "";
             }}
             className="w-[90px] md:w-[150px] h-[44px] md:h-[48px] rounded-[24px] bg-[#7c5dfa] hover:bg-[#9277ff] hover:cursor-pointer flex items-center justify-center gap-2 md:gap-4 pr-3 md:pr-2"
           >
@@ -171,22 +168,22 @@ function Heading(props) {
   );
 }
 
-const Overlay = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: flex-start;
-  z-index: 1000;
-`;
+// const Overlay = styled.div`
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   background: rgba(0, 0, 0, 0.5);
+//   display: flex;
+//   align-items: flex-start;
+//   z-index: 1000;
+// `;
 
-const OverlayContent = styled.div`
-  /* padding: 20px; */
-  /* border-radius: 8px; */
-  /* width: 80%; */
-  /* max-width: 600px; */
-`;
+// const OverlayContent = styled.div`
+//   /* padding: 20px; */
+//   /* border-radius: 8px; */
+//   /* width: 80%; */
+//   /* max-width: 600px; */
+// `;
 
 export default Heading;
