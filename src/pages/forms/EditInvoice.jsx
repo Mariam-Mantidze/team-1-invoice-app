@@ -20,7 +20,16 @@ export default function editInvoice() {
     useContext(invoiceContext);
 
   const { id } = useParams();
-  console.log("EditInvoice ID:", id);
+
+  // find current invoice id
+  const currInvoiceId = id;
+
+  // find current invoice
+  const currentInvoice = invoiceData.find(
+    (invoice) => invoice.id === currInvoiceId
+  );
+
+  console.log(currentInvoice);
 
   const {
     register,
@@ -32,7 +41,28 @@ export default function editInvoice() {
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      items: [{ name: "", quantity: "", price: "", total: 0 }],
+      clientAddress: {
+        city: currentInvoice.clientAddress.city,
+        country: currentInvoice.clientAddress.country,
+        postCode: currentInvoice.clientAddress.postCode,
+        street: currentInvoice.clientAddress.street,
+      },
+      clientEmail: currentInvoice.clientEmail,
+      clientName: currentInvoice.clientName,
+      createdAt: currentInvoice.createdAt,
+      description: currentInvoice.description,
+      id: currentInvoice.id,
+
+      items: [...currentInvoice.items],
+      paymentDue: currentInvoice.paymentDue,
+      senderAddress: {
+        city: currentInvoice.senderAddress.city,
+        country: currentInvoice.senderAddress.country,
+        postCode: currentInvoice.senderAddress.postCode,
+        street: currentInvoice.senderAddress.street,
+      },
+      status: currentInvoice.status,
+      total: currentInvoice.total,
     },
   });
 

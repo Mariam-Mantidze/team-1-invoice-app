@@ -20,8 +20,7 @@ export default function Header(props) {
     setIsHovered(false);
   };
 
-  const { isMobile, setIsOverlayOpen, isOverlayOpen, handleOpenOverlay } =
-    useContext(invoiceContext);
+  const { isOverlayOpen } = useContext(invoiceContext);
   return (
     <div
       className={`h-[72px] md:h-20 lg:h-auto lg:w-[103px] bg-[#373b53] dark:bg-[#1e2139] flex lg:flex-col items-center justify-between pr-6 md:pr-[32px] lg:pr-0 lg:pb-6 lg:rounded-tr-[20px] lg:rounded-br-[20px]`}>

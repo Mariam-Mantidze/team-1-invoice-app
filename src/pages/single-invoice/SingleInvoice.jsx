@@ -198,7 +198,7 @@ export default function SingleInvoice() {
         </div>
 
         <div className="flex p-6 justify-between bg-[#FFF] md:hidden dark:bg-[#1e2139]">
-          <Link to={"/:id/edit-invoice"}>
+          <Link to={`/${invoice.id}/edit-invoice`}>
             <button className="rounded-full bg-[#F9FAFE] py-4 px-6 text-indigo-300 text-sm font-bold leading-tight tracking-tight hover:bg-[#DFE3FA] dark:bg-[#252945] dark:text-[#FFF]">
               Edit
             </button>
