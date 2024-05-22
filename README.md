@@ -47,9 +47,7 @@ if (finalData.status === "draft") {
       },
       body: JSON.stringify(finalData),
     });
-    ```
-
-    ```
+   
 try {
 const response = await fetch(`https://invoice-api-team-1.onrender.com/api/invoice/`, {
 method: "POST",
