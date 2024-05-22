@@ -113,20 +113,14 @@ function App() {
         >
           <Header darkMode={darkMode} setDarkMode={setDarkMode} />
           <Routes>
-            <Route
-              path="/"
-              element={<Home onOpenOverlay={handleOpenOverlay} />}
-            />
+            <Route path="/" element={<Home />} />
             <Route path="/:id" element={<SingleInvoice />} />
             {isMobile ? (
               <Route path="/new-invoice" element={<NewInvoice />} />
             ) : (
               <Route path="/new-invoice" element={<Navigate to="/" />} />
             )}
-            <Route
-              path="/invoices/:id/edit-invoice"
-              element={<EditInvoice />}
-            />
+            <Route path="/:id/edit-invoice" element={<EditInvoice />} />
             <Route path="/" element={<Navigate to="/" />} />{" "}
             {/* fallback route */}
           </Routes>
