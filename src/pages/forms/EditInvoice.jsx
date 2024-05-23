@@ -124,7 +124,7 @@ export default function editInvoice() {
       const response = await fetch(
         `https://invoice-api-team-1.onrender.com/api/invoice/${finalData.id}`,
         {
-          method: "PUT", //
+          method: "PATCH", //
           headers: {
             "Content-Type": "application/json",
           },
