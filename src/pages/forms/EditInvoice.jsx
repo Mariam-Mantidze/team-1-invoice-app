@@ -118,16 +118,31 @@ export default function editInvoice() {
     .toString()
     .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
 
+  // function to send edited data on server
+  const editInvoice = async (finalData) => {
+    try {
+      const response = await fetch(
+        `https://invoice-api-team-1.onrender.com/api/invoice/${finalData.id}`,
+        {
+          method: "PATCH", //
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(finalData),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Failed to edit invoice: ${response.statusText}`);
+      }
+    } catch (error) {
+      console.error("Error editing invoice:", error);
+    }
+  };
+
   // function to submit the entire form
-  const onSubmit = (data, event) => {
+  const onSubmit = async (data, event) => {
     event.preventDefault(); // prevent default form submission
-
-    // // find which button was clicked
-    // const submitter = event.nativeEvent.submitter;
-    // const submissionAction = submitter ? submitter.value : null;
-
-    // // getting status based on which item was clicked
-    // const status = submissionAction === "saveAndSend" ? "pending" : "draft";
 
     //calculating each item totals and setting it
     const itemsWithTotals = itemsValues.map((item) => ({
@@ -166,10 +181,8 @@ export default function editInvoice() {
     );
 
     setInvoiceData(updatedInvoiceData);
+    await editInvoice(finalData);
 
-    // console.log(invoiceData);
-
-    // open the success modal
     setModalIsOpen(true);
 
     setTimeout(() => {

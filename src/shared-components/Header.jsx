@@ -81,32 +81,47 @@ export default function Header(props) {
       </div>
       {isOverlayOpen && (
         <Overlay
+          isDesktop={isDesktop}
+          isTablet={isTablet}
+          isMobile={isMobile}
           style={{
             left: isDesktop && "103.5px",
             top: isTablet ? "80px" : isMobile && "73.5px",
           }}>
-          <NewInvoice />
+          <OverlayContent>
+            <NewInvoice />
+          </OverlayContent>
         </Overlay>
       )}
     </div>
   );
 }
 
+// const Overlay = styled.div`
+//   position: absolute;
+//   top: 0;
+//   /* left: 103px; */
+//   width: 100%;
+//   height: fit-content;
+//   background: rgba(0, 0, 0, 0.5);
+//   display: flex;
+//   align-items: flex-start;
+//   z-index: 1000;
+// `;
+
 const Overlay = styled.div`
-  position: absolute;
-  top: 0;
-  /* left: 103px; */
-  width: 100%;
-  height: fit-content;
+  position: fixed;
+  top: ${(props) =>
+    props.isTablet ? "80px" : props.isMobile ? "73.5px" : "0"};
+  left: ${(props) => (props.isDesktop ? "103.5px" : "0")};
+  right: 0;
+  bottom: 0;
   background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: flex-start;
-  z-index: 1000;
+  z-index: 2;
 `;
 
 const OverlayContent = styled.div`
-  /* padding: 20px; */
-  /* border-radius: 8px; */
-  /* width: 80%; */
-  /* max-width: 600px; */
+  max-width: 500px;
+  overflow-y: auto;
+  max-height: 100vh;
 `;

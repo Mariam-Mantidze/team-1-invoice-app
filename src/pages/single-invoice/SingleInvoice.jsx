@@ -17,6 +17,7 @@ export default function SingleInvoice() {
 
   // find single invoice with corresponding id
   const invoice = invoiceData.find((invoice) => invoice.id === id);
+  console.log(invoice);
 
   // console.log("Invoice ID:", invoice.id); // Log the invoice ID
   // const editLink = `/${invoice.id}/edit-invoice`;
@@ -127,9 +128,7 @@ export default function SingleInvoice() {
 
               <div className="hidden p-6 justify-between bg-[#FFF] md:flex md:gap-6 dark:bg-[#1E2139] rounded-md">
                 <Link to={`/${invoice.id}/edit-invoice`}>
-                  <button
-                    onClick={() => setIsEditOpen(true)}
-                    className="rounded-full bg-[#F9FAFE] py-4 px-6 text-[#7E88C3] text-sm font-bold leading-tight tracking-tight hover:bg-[#DFE3FA] dark:bg-[#252945] dark:text-[#FFF]">
+                  <button className="rounded-full bg-[#F9FAFE] py-4 px-6 text-[#7E88C3] text-sm font-bold leading-tight tracking-tight hover:bg-[#DFE3FA] dark:bg-[#252945] dark:text-[#FFF]">
                     Edit
                   </button>
                 </Link>

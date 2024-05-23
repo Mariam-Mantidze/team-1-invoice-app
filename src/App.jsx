@@ -66,28 +66,28 @@ function App() {
 
   const handleOpenOverlay = () => {
     setIsOverlayOpen(true);
-    if (isMobile) {
-      navigate("/new-invoice");
-    }
+    // if (isMobile) {
+    //   navigate("/new-invoice");
+    // }
   };
 
   const handleCloseOverlay = () => {
     setIsOverlayOpen(false);
-    if (isMobile) {
-      navigate("/");
-    }
+    // if (isMobile) {
+    //   navigate("/");
+    // }
   };
 
   // monitoring changes in isMobile and isOverlay states
-  useEffect(() => {
-    if (isOverlayOpen) {
-      if (isMobile) {
-        navigate("/new-invoice");
-      } else {
-        navigate("/");
-      }
-    }
-  }, [isMobile, isOverlayOpen, navigate]);
+  // useEffect(() => {
+  //   if (isOverlayOpen) {
+  //     if (isMobile) {
+  //       navigate("/new-invoice");
+  //     } else {
+  //       navigate("/");
+  //     }
+  //   }
+  // }, [isMobile, isOverlayOpen, navigate]);
 
   return (
     <invoiceContext.Provider
@@ -116,11 +116,11 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/:id" element={<SingleInvoice />} />
-            {isMobile ? (
+            {/* {isMobile ? (
               <Route path="/new-invoice" element={<NewInvoice />} />
             ) : (
               <Route path="/" element={<Navigate to="/" />} />
-            )}
+            )} */}
             <Route path="/:id/edit-invoice" element={<EditInvoice />} />
             <Route path="/" element={<Navigate to="/" />} />{" "}
             {/* fallback route */}
