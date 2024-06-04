@@ -8,7 +8,7 @@ import uuid from "react-uuid";
 import SuccessModal from "./components/SuccessModal";
 import DiscardModal from "./components/DiscardModal";
 import { schema } from "./Schema";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
 export default function editInvoice() {
@@ -49,7 +49,6 @@ export default function editInvoice() {
     handleSubmit,
     watch,
     reset,
-    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -172,7 +171,7 @@ export default function editInvoice() {
       items: itemsWithTotals,
       // id: generateCustomID(), // change
       total: computedTotal,
-      // status: status,
+      status,
       paymentTerms: numberOfDays,
     };
 
