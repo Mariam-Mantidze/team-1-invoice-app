@@ -125,13 +125,12 @@ export default function NewInvoice() {
       items: itemsWithTotals,
       id: generateCustomID(),
       total: computedTotal,
-      status: { id: 2, name: status },
+      status: { id: uuid(), name: status },
       paymentTerms: numberOfDays,
     };
 
-    setInvoiceData([...invoiceData, finalData]);
-
-    if (finalData.status === "draft") {
+    if (finalData.status.name === "draft") {
+      console.log(finalData.status.name);
       try {
         const response = await fetch(
           `https://invoice-api-team-1.onrender.com/api/invoice/draft/`,
@@ -147,6 +146,7 @@ export default function NewInvoice() {
         if (!response.ok) {
           throw new Error(`Failed to add invoice: ${response.statusText}`);
         }
+        setInvoiceData([...invoiceData, finalData]);
       } catch (error) {
         console.error("Error adding invoice:", error);
       }
@@ -194,8 +194,7 @@ export default function NewInvoice() {
         <div className="label-box">
           <label
             className={errors.senderAddress?.street ? "error-label" : ""}
-            htmlFor="sender-street"
-          >
+            htmlFor="sender-street">
             Street Address
             <input
               className={errors.senderAddress?.street ? "error-input" : ""}
@@ -216,8 +215,7 @@ export default function NewInvoice() {
             <div className="label-box">
               <label
                 className={errors.senderAddress?.city ? "error-label" : ""}
-                htmlFor="sender-city"
-              >
+                htmlFor="sender-city">
                 City
                 <input
                   className={errors.senderAddress?.city ? "error-input" : ""}
@@ -236,8 +234,7 @@ export default function NewInvoice() {
             <div className="label-box">
               <label
                 className={errors.senderAddress?.postCode ? "error-label" : ""}
-                htmlFor="sender-post-code"
-              >
+                htmlFor="sender-post-code">
                 Post Code
                 <input
                   className={
@@ -259,8 +256,7 @@ export default function NewInvoice() {
           <div className="label-box">
             <label
               className={errors.senderAddress?.country ? "error-label" : ""}
-              htmlFor="sender-country"
-            >
+              htmlFor="sender-country">
               Country
               <input
                 className={errors.senderAddress?.country ? "error-input" : ""}
@@ -284,8 +280,7 @@ export default function NewInvoice() {
         <div className="label-box">
           <label
             className={errors.clientName ? "error-label" : ""}
-            htmlFor="client-name"
-          >
+            htmlFor="client-name">
             Client's Name
             <input
               className={errors.clientName ? "error-input" : ""}
@@ -302,8 +297,7 @@ export default function NewInvoice() {
         <div className="label-box">
           <label
             className={errors.clientEmail ? "error-label" : ""}
-            htmlFor="client-email"
-          >
+            htmlFor="client-email">
             Client's Email
             <input
               className={errors.clientEmail ? "error-input" : ""}
@@ -322,8 +316,7 @@ export default function NewInvoice() {
         <div className="label-box">
           <label
             className={errors.clientAddress?.street ? "error-label" : ""}
-            htmlFor="client-street"
-          >
+            htmlFor="client-street">
             Street Address
             <input
               className={errors.clientAddress?.street ? "error-input" : ""}
@@ -344,8 +337,7 @@ export default function NewInvoice() {
             <div className="label-box">
               <label
                 className={errors.clientAddress?.city ? "error-label" : ""}
-                htmlFor="client-city"
-              >
+                htmlFor="client-city">
                 City
                 <input
                   className={errors.clientAddress?.city ? "error-input" : ""}
@@ -364,8 +356,7 @@ export default function NewInvoice() {
             <div className="label-box">
               <label
                 className={errors.clientAddress?.postCode ? "error-label" : ""}
-                htmlFor="client-post-code"
-              >
+                htmlFor="client-post-code">
                 Post Code
                 <input
                   className={
@@ -387,8 +378,7 @@ export default function NewInvoice() {
           <div className="label-box">
             <label
               className={errors.clientAddress?.country ? "error-label" : ""}
-              htmlFor="client-country"
-            >
+              htmlFor="client-country">
               Country
               <input
                 className={errors.clientAddress?.country ? "error-input" : ""}
@@ -411,8 +401,7 @@ export default function NewInvoice() {
           <div className="label-box">
             <label
               className={errors.paymentDue ? "error-label" : ""}
-              htmlFor="invoice-date"
-            >
+              htmlFor="invoice-date">
               Invoice Date
               <input
                 className={errors.paymentDue ? "error-input" : ""}
@@ -431,8 +420,7 @@ export default function NewInvoice() {
           <div className="label-box">
             <label
               className={errors.paymentTerms ? "error-label" : ""}
-              htmlFor="payment-terms"
-            >
+              htmlFor="payment-terms">
               Payment Terms
               <select id="payment-terms" {...register("paymentTerms")}>
                 <option value="net 30 days">Net 30 Days</option>
@@ -452,8 +440,7 @@ export default function NewInvoice() {
         <div className="label-box">
           <label
             className={errors.description ? "error-label" : ""}
-            htmlFor="project-description"
-          >
+            htmlFor="project-description">
             Project Description
             <input
               className={errors.description ? "error-input" : ""}
@@ -488,8 +475,7 @@ export default function NewInvoice() {
                       htmlFor={`name-${item.id}`}
                       className={
                         errors.items?.[index].name ? "error-label" : ""
-                      }
-                    >
+                      }>
                       Item Name
                       <input
                         className={
@@ -510,8 +496,7 @@ export default function NewInvoice() {
                           className={
                             errors.items?.[index].quantity ? "error-label" : ""
                           }
-                          htmlFor={`qty-${item.id}`}
-                        >
+                          htmlFor={`qty-${item.id}`}>
                           Qty.
                           <input
                             className={
@@ -530,8 +515,7 @@ export default function NewInvoice() {
                           className={
                             errors.items?.[index].price ? "error-label" : ""
                           }
-                          htmlFor={`price-${item.id}`}
-                        >
+                          htmlFor={`price-${item.id}`}>
                           Price
                           <input
                             className={
@@ -580,8 +564,7 @@ export default function NewInvoice() {
           name="action"
           value="addItem"
           style={{ marginTop: items.length > 0 ? "65px" : "22px" }}
-          onClick={handleAddItemClick}
-        >
+          onClick={handleAddItemClick}>
           + Add New Item
         </button>
       </div>
@@ -601,24 +584,21 @@ export default function NewInvoice() {
           name="submissionAction"
           value="discard"
           className="discard"
-          onClick={() => setDiscardDialogue(true)}
-        >
+          onClick={() => setDiscardDialogue(true)}>
           Discard
         </button>
         <button
           type="submit"
           name="submissionAction"
           value="saveAsDraft"
-          className="save save-draft"
-        >
+          className="save save-draft">
           Save as Draft
         </button>
         <button
           type="submit"
           name="submissionAction"
           value="saveAndSend"
-          className="save save-send"
-        >
+          className="save save-send">
           Save & Send
         </button>
       </div>

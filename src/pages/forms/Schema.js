@@ -56,7 +56,7 @@ export const schema = yup.object({
       name: yup
         .string()
         .required("Can't be empty")
-        .max(15, "max limit reached")
+        .max(30, "max limit reached")
         .min(3, "min 3 characters"),
       quantity: yup
         .number()
