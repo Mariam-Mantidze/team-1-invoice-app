@@ -102,6 +102,7 @@ export default function editInvoice() {
   // function to delete item
   const handleDeleteItemClick = (id) => {
     const updatedItems = items.filter((item) => item.id !== id);
+
     const updatedValues = itemsValues.filter((item) => item.id === id);
 
     reset({
@@ -169,9 +170,8 @@ export default function editInvoice() {
       ...data,
       createdAt: formattedDate,
       items: itemsWithTotals,
-      // id: generateCustomID(), // change
       total: computedTotal,
-      status,
+      status: { status },
       paymentTerms: numberOfDays,
     };
 
