@@ -47,6 +47,7 @@ function Heading(props) {
 
     updatedData = context.invoiceData.filter((element) => {
       const statusname = Object.entries(element.status);
+      // console.log(statusname);
       const lower = statusname[1][1].toLowerCase();
 
       return activeStatuses.includes(lower);

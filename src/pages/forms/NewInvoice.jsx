@@ -20,7 +20,6 @@ export default function NewInvoice() {
     setInvoiceData,
     navigate,
     isMobile,
-    isOverlayOpen,
     handleCloseOverlay,
   } = useContext(invoiceContext);
 
@@ -42,8 +41,6 @@ export default function NewInvoice() {
     register,
     handleSubmit,
     watch,
-    reset,
-    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -125,12 +122,12 @@ export default function NewInvoice() {
       items: itemsWithTotals,
       id: generateCustomID(),
       total: computedTotal,
-      status: { id: uuid(), name: status },
+      status: { status },
       paymentTerms: numberOfDays,
     };
 
     if (finalData.status.name === "draft") {
-      console.log(finalData.status.name);
+      // console.log(finalData.status.name);
       try {
         const response = await fetch(
           `https://invoice-api-team-1.onrender.com/api/invoice/draft/`,
