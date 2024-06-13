@@ -26,8 +26,7 @@ export default function Home() {
   const filteredData = invoiceData.filter((element) => {
     // console.log(element.status.name);
 
-    const lower =
-      element.status.name?.toLowerCase() || element.status.status.toLowerCase();
+    const lower = element.status.name?.toLowerCase() || element.status.status;
 
     return activeStatuses.includes(lower);
   });
