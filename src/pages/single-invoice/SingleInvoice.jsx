@@ -17,7 +17,6 @@ export default function SingleInvoice() {
 
   // find single invoice with corresponding id
   const invoice = invoiceData.find((invoice) => invoice.id === id);
-  console.log(invoice);
 
   // console.log("Invoice ID:", invoice.id); // Log the invoice ID
   // const editLink = `/${invoice.id}/edit-invoice`;
