@@ -8,7 +8,6 @@ import uuid from "react-uuid";
 import SuccessModal from "./components/SuccessModal";
 import DiscardModal from "./components/DiscardModal";
 import { schema } from "./Schema";
-import ReactInputMask from "react-input-mask";
 
 export default function NewInvoice() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -122,12 +121,11 @@ export default function NewInvoice() {
       items: itemsWithTotals,
       id: generateCustomID(),
       total: computedTotal,
-      status: { status },
+      status: { name: status, id: uuid() },
       paymentTerms: numberOfDays,
     };
 
     if (finalData.status.name === "draft") {
-      // console.log(finalData.status.name);
       try {
         const response = await fetch(
           `https://invoice-api-team-1.onrender.com/api/invoice/draft/`,
